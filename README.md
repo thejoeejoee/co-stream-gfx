@@ -1,4 +1,4 @@
-# ČO GFX
+# ČO stream GFX
 
 Livestream graphics for Český orienťák.
 
