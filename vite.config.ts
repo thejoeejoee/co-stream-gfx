@@ -9,6 +9,7 @@ import tailwindAutoReference from 'vite-plugin-vue-tailwind-auto-reference';
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: process.env["VITE_BASEPATH"] || '/',
   plugins: [
     vue(),
     tailwindAutoReference('@/assets/main.css'),
