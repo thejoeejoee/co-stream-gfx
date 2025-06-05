@@ -7,7 +7,6 @@ import (
 	sloggin "github.com/samber/slog-gin"
 	"log"
 	"log/slog"
-	"time"
 )
 import "github.com/gin-contrib/cors"
 
@@ -25,14 +24,7 @@ func main() {
 	r.GET("/_sse", func(c *gin.Context) {
 		sse.ServeHTTP(c.Writer, c.Request)
 
-		go func() {
-			for range 5 {
-				msg := libsse.NewMessage("", "Hello, this is a message!", "")
-				sse.SendMessage("", msg)
-
-				<-time.After(1 * time.Second)
-			}
-		}()
+		// TODO: forward API to SSE
 	})
 
 	_ = r.Run(":8080")
