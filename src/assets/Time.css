@@ -1,0 +1,11 @@
+.Time {
+    box-shadow: inset 0 8px 0 var(--color-co-beige);
+    @apply
+        tabular-nums
+        p-4
+
+        bg-co-orange
+        text-co-beige
+        font-co
+        text-xl
+}

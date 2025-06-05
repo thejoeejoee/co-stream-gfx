@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+@theme {
+    --font-co: GTPlanar, sans-serif;
+
+    --spacing: 4px;
+
+    --text-md: 32px;
+    --text-md--line-height: 32px;
+
+    --text-lg: 48px;
+    --text-lg--line-height: 48px;
+
+    --text-xl: 64px;
+    --text-xl--line-height: 64px;
+
+    --color-co-orange: #fe5900;
+    --color-co-beige: #edece3;
+    --color-co-black: #272727;
+}

@@ -1,0 +1,34 @@
+@font-face {
+    font-family: GTPlanar;
+    font-style: normal;
+    font-weight: bold;
+    font-display: swap;
+    src: url("./fonts/GT-Planar-Bold.woff") format("woff"),
+        url("./fonts/GT-Planar-Bold.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: GTPlanar;
+    font-style: normal;
+    font-weight: normal;
+    font-display: swap;
+    src: url("./fonts/GT-Planar-Regular.woff") format("woff"),
+    url("./fonts/GT-Planar-Regular.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: GTPlanar;
+    font-style: italic;
+    font-weight: normal;
+    font-display: swap;
+    src: url("./fonts/GT-Planar-Italic-30-Regular.woff") format("woff"),
+    url("./fonts/GT-Planar-Italic-30-Regular.woff2") format("woff2");
+}
+@font-face {
+    font-family: GTPlanar;
+    font-style: italic;
+    font-weight: 600;
+    font-display: swap;
+    src: url("./fonts/GT-Planar-Italic-30-Bold.woff") format("woff"),
+    url("./fonts/GT-Planar-Italic-30-Bold.woff2") format("woff2");
+}

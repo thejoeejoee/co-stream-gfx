@@ -1,0 +1,12 @@
+.Text {
+    box-shadow: inset 16px 0 0 var(--color-co-orange);
+    @apply
+        p-6
+        pl-8
+
+        bg-co-beige
+        /*text-co-beige*/
+        font-co
+        text-lg
+        uppercase
+}
