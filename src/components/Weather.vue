@@ -10,6 +10,7 @@
     [&_div]:justify-between
     [&_div]:items-center
     [&_div]:py-3
+    divide-gray-200 divide-y-1
    ">
     <div class="bg-co-orange text-co-beige text-xl h-24 italic font-semibold px-8">
       {{ data.place }}
