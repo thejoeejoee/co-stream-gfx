@@ -1,1 +1,22 @@
-{"vmix_url": "localhost:8080", "class": "DH21", "data": [{"key": "PO\u010cET KONTROL", "value": "20-21 kontrol"}, {"key": "D\u00c9LKA", "value": "3,3-3,7 km"}, {"key": "P\u0158EV\u00dd\u0160EN\u00cd", "value": "65 - 85 m"}, {"key": "ODHAD. \u010cAS V\u00cdT\u011aZE", "value": ""}]}
+{
+  "vmix_url": "localhost:8080",
+  "class": "DH21",
+  "data": [
+    {
+      "key": "PO\u010cET KONTROL",
+      "value": "20-21 kontrol"
+    },
+    {
+      "key": "D\u00c9LKA",
+      "value": "3,3-3,7 km"
+    },
+    {
+      "key": "P\u0158EV\u00dd\u0160EN\u00cd",
+      "value": "65 - 85 m"
+    },
+    {
+      "key": "ODHAD. \u010cAS V\u00cdT\u011aZE",
+      "value": ""
+    }
+  ]
+}

@@ -5,6 +5,7 @@ import Time from "@/components/Time.vue";
 import Text from "@/components/Text.vue";
 import ResultsTable from "@/components/ResultsTable.vue";
 import RaceTitle from "@/components/RaceTitle.vue";
+import Parameters from "@/components/Parameters.vue";
 import Weather from "@/components/Weather.vue";
 import {IconSpeakerphone} from "@tabler/icons-vue";
 
@@ -29,6 +30,7 @@ class Flags {
   split: boolean = params.has("split") || showAll || false
   raceTitle: boolean = params.has("raceTitle") || showAll || false
   weather: boolean = params.has("weather") || showAll || false
+  parameters: boolean = params.has("parameters") || showAll || false
 }
 
 let flags = ref(new Flags())
@@ -51,6 +53,9 @@ onKeyStroke('5', (e) => {
 onKeyStroke('6', (e) => {
   flags.value.weather = !flags.value.weather
 })
+onKeyStroke('7', (e) => {
+  flags.value.parameters = !flags.value.parameters
+})
 </script>
 
 <template>
@@ -69,6 +74,9 @@ onKeyStroke('6', (e) => {
     </Transition>
     <Transition name="slide">
       <Weather class="absolute right-24 bottom-24" v-show="flags.weather"/>
+    </Transition>
+    <Transition name="slide">
+      <Parameters class="absolute right-24 bottom-24" v-show="flags.parameters"/>
     </Transition>
 
     <Transition name="slide">
@@ -102,6 +110,7 @@ onKeyStroke('6', (e) => {
     <button @click="flags.results = !flags.results">results</button>
     <button @click="flags.raceTitle = !flags.raceTitle">race title</button>
     <button @click="flags.weather = !flags.weather">weather</button>
+    <button @click="flags.parameters = !flags.parameters">parameters</button>
   </div>
 </template>
 
