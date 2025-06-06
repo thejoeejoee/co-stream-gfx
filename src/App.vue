@@ -4,6 +4,9 @@ import SplitTable from "@/components/SplitTable.vue";
 import Time from "@/components/Time.vue";
 import Text from "@/components/Text.vue";
 import ResultsTable from "@/components/ResultsTable.vue";
+import RaceTitle from "@/components/RaceTitle.vue";
+import Weather from "@/components/Weather.vue";
+import {IconSpeakerphone} from "@tabler/icons-vue";
 
 import {onKeyStroke} from '@vueuse/core'
 import {ref} from "vue";
@@ -14,14 +17,18 @@ eventSource.value?.addEventListener("message", (event) => {
   console.log("Message received:", event.data);
 })
 
+const params = new URLSearchParams(window.location.search)
 // check url param ?debug
-const isDebug = new URLSearchParams(window.location.search).has('debug')
+const isDebug = params.has('debug')
+const showAll = params.has('all')
 
 class Flags {
-  time: boolean = false
-  speaker: boolean = false
-  results: boolean = false
-  split: boolean = false
+  time: boolean = params.has("time") || showAll || false
+  speaker: boolean = params.has("speaker") || showAll || false
+  results: boolean = params.has("results") || showAll || false
+  split: boolean = params.has("split") || showAll || false
+  raceTitle: boolean = params.has("raceTitle") || showAll || false
+  weather: boolean = params.has("weather") || showAll || false
 }
 
 let flags = ref(new Flags())
@@ -38,26 +45,42 @@ onKeyStroke('3', (e) => {
 onKeyStroke('4', (e) => {
   flags.value.results = !flags.value.results
 })
+onKeyStroke('5', (e) => {
+  flags.value.raceTitle = !flags.value.raceTitle
+})
+onKeyStroke('6', (e) => {
+  flags.value.weather = !flags.value.weather
+})
 </script>
 
 <template>
   <main class="GfxScreen" :class="{ 'GfxScreen--debug': isDebug }">
     <Transition name="slide">
-      <SplitTable class="absolute left-[96px] bottom-[96px]" v-show="flags.split"/>
+      <SplitTable class="absolute left-24 bottom-24" v-show="flags.split"/>
     </Transition>
     <Transition name="slide">
-      <Time class="absolute right-[96px] bottom-[96px]" v-show="flags.time"/>
+      <Time class="absolute right-24 bottom-24" v-show="flags.time"/>
     </Transition>
     <Transition name="slide">
       <ResultsTable class="absolute top-48 left-64 right-64" v-show="flags.results"/>
+    </Transition>
+    <Transition name="slide">
+      <RaceTitle class="absolute bottom-24 left-64 right-64" v-show="flags.raceTitle"/>
+    </Transition>
+    <Transition name="slide">
+      <Weather class="absolute right-24 bottom-24" v-show="flags.weather"/>
     </Transition>
 
     <Transition name="slide">
       <Text
           v-show="flags.speaker"
-          class="absolute left-[96px] bottom-[96px]"
+          class="absolute left-24 bottom-24"
           text="Dan Wolf, David Procházka"
-      />
+      >
+        <template #icon>
+          <IconSpeakerphone size="64" stroke="2"/>
+        </template>
+      </Text>
     </Transition>
   </main>
 
@@ -77,8 +100,9 @@ onKeyStroke('4', (e) => {
     <button @click="flags.speaker = !flags.speaker">speaker</button>
     <button @click="flags.split = !flags.split">split</button>
     <button @click="flags.results = !flags.results">results</button>
+    <button @click="flags.raceTitle = !flags.raceTitle">race title</button>
+    <button @click="flags.weather = !flags.weather">weather</button>
   </div>
-
 </template>
 
 <style scoped lang="postcss">

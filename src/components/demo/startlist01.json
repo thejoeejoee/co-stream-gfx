@@ -1,0 +1,69 @@
+{
+  "vmix_url": "localhost:8080",
+  "flags_path": "C:\\Users\\chmel\\Documents\\orientacnisporty\\IOF_GRAFIKA\\vlajky_3_letters_JWOC\\",
+  "label": "Startovka",
+  "class": "DH18",
+  "page": 1,
+  "data": [
+    {
+      "bib_number": "201",
+      "name": "LPU 1",
+      "nationality": "CZE",
+      "club": "LPU"
+    },
+    {
+      "bib_number": "202",
+      "name": "PGP 1",
+      "nationality": "CZE",
+      "club": "PGP"
+    },
+    {
+      "bib_number": "203",
+      "name": "ZBM 1",
+      "nationality": "CZE",
+      "club": "ZBM"
+    },
+    {
+      "bib_number": "204",
+      "name": "TBM 1",
+      "nationality": "CZE",
+      "club": "TBM"
+    },
+    {
+      "bib_number": "205",
+      "name": "VLI 1",
+      "nationality": "CZE",
+      "club": "VLI"
+    },
+    {
+      "bib_number": "206",
+      "name": "DKP 1",
+      "nationality": "CZE",
+      "club": "DKP"
+    },
+    {
+      "bib_number": "207",
+      "name": "SJC 1",
+      "nationality": "CZE",
+      "club": "SJC"
+    },
+    {
+      "bib_number": "208",
+      "name": "TAP 1",
+      "nationality": "CZE",
+      "club": "TAP"
+    },
+    {
+      "bib_number": "209",
+      "name": "DKP 2",
+      "nationality": "CZE",
+      "club": "DKP"
+    },
+    {
+      "bib_number": "210",
+      "name": "TUR 2",
+      "nationality": "CZE",
+      "club": "TUR"
+    }
+  ]
+}

@@ -845,6 +845,18 @@
   resolved "https://registry.npmjs.org/@sindresorhus/merge-streams/-/merge-streams-4.0.0.tgz"
   integrity sha512-tlqY9xq5ukxTUZBmoOp+m61cqwQD5pHJtFY3Mn8CA8ps6yghLH/Hw8UPdqg4OLmFW3IFlcXnQNmo/dh8HzXYIQ==
 
+"@tabler/icons-vue@^3.34.0":
+  version "3.34.0"
+  resolved "https://registry.yarnpkg.com/@tabler/icons-vue/-/icons-vue-3.34.0.tgz#51760ca54c7774e7f884f25a38ff166d94719db4"
+  integrity sha512-5JAR3ij6APih9NNO94EA/IN7sl13Z2f60x7+F82Dt74Bt5iou0clf9mLcCDCvv3Ea91sbkNWOCF6JEx5z1bz/g==
+  dependencies:
+    "@tabler/icons" "3.34.0"
+
+"@tabler/icons@3.34.0":
+  version "3.34.0"
+  resolved "https://registry.yarnpkg.com/@tabler/icons/-/icons-3.34.0.tgz#b11734dc76686abe969b68c2f33e565b116b70fb"
+  integrity sha512-jtVqv0JC1WU2TTEBN32D9+R6mc1iEBuPwLnBsWaR02SIEciu9aq5806AWkCHuObhQ4ERhhXErLEK7Fs+tEZxiA==
+
 "@tailwindcss/node@4.1.8":
   version "4.1.8"
   resolved "https://registry.npmjs.org/@tailwindcss/node/-/node-4.1.8.tgz"

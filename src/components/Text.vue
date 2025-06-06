@@ -1,6 +1,13 @@
 <template>
   <div class="Text">
-    <span v-text="props.text"></span>
+    <div class="Text__Icon" v-if="$slots.icon">
+      <slot name="icon"></slot>
+    </div>
+    <div class="Text__Gutter" v-else>&nbsp;</div>
+    <span
+        class="Text__Content"
+        v-text="props.text"
+    />
   </div>
 </template>
 
