@@ -2,9 +2,10 @@ import { fileURLToPath, URL } from 'node:url'
 
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import vueDevTools from 'vite-plugin-vue-devtools'
+// import vueDevTools from 'vite-plugin-vue-devtools'
 import tailwindcss from '@tailwindcss/vite'
 import tailwindAutoReference from 'vite-plugin-vue-tailwind-auto-reference';
+import postcssNesting from 'postcss-nesting';
 
 
 // https://vite.dev/config/
@@ -12,6 +13,7 @@ export default defineConfig({
   base: process.env["VITE_BASEPATH"] || '/',
   plugins: [
     vue(),
+    // vueDevTools(),
     tailwindAutoReference('@/assets/main.css'),
     tailwindcss()
   ],
@@ -20,14 +22,11 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
-  // https://github.com/tailwindlabs/tailwindcss/discussions/16429
   css: {
-    preprocessorOptions: {
-      scss: {
-        additionalData: `
-          @use "@/tailwind.css" as *;
-        `,
-      },
+    postcss: {
+      plugins: [
+        postcssNesting
+      ],
     },
   },
   server: {

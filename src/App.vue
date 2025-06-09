@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {useEventSource} from '@vueuse/core'
-import SplitTable from "@/components/SplitTable.vue";
+import SplitFeed from "@/components/SplitFeed.vue";
 import Time from "@/components/Time.vue";
 import Text from "@/components/Text.vue";
 import ResultsTable from "@/components/ResultsTable.vue";
@@ -61,7 +61,7 @@ onKeyStroke('7', (e) => {
 <template>
   <main class="GfxScreen" :class="{ 'GfxScreen--debug': isDebug }">
     <Transition name="slide">
-      <SplitTable class="absolute left-24 bottom-24" v-show="flags.split"/>
+      <SplitFeed class="absolute left-24 bottom-24" v-show="flags.split"/>
     </Transition>
     <Transition name="slide">
       <Time class="absolute right-24 bottom-24" v-show="flags.time"/>
