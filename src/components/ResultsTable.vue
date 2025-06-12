@@ -1,9 +1,9 @@
 <template>
   <div class="Table">
     <div class="Table__Title Table__Title--highlight">
-      <span v-text="data.label"></span>
+      <span class="Gfx__Control Gfx__Control--finish Gfx__Control--invert"><span></span></span>
+      <span v-text="data.label" class="mr-auto"></span>
       <span v-text="data.class"></span>
-      <!--      <span class="Gfx__Control Gfx__Control&#45;&#45;finish"><span></span></span>-->
     </div>
 
     <div class="Table__Grid Table__Grid--expand">
@@ -30,10 +30,7 @@
           </span>
           <span class="Table__Time" v-text="row.time"></span>
 
-          <div
-              v-if="index < data.data.length - 1"
-              class="Table__Divider"
-          ></div>
+          <div class="Table__Divider"></div>
         </div>
 
       </template>
@@ -44,6 +41,7 @@
 <script setup lang="ts">
 import Flag from "@/components/Flag.vue";
 import type {IResults} from "@/types/api";
+import CoSymbol from "@/assets/co_symbol.svg"
 
 defineProps<{
   data: IResults

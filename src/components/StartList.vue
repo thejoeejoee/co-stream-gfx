@@ -1,7 +1,8 @@
 <template>
   <div class="Table">
     <div class="Table__Title">
-      <span v-text="data.label"></span>
+      <co-symbol class="fill-co-orange h-[var(--text-lg--line-height)]" />
+      <span v-text="data.label" class="mr-auto"></span>
       <span v-text="data.class"></span>
       <!--      <span class="Gfx__Control Gfx__Control&#45;&#45;finish"><span></span></span>-->
     </div>
@@ -27,9 +28,9 @@
             <Flag :country="row.nationality" v-if="row.nationality"/>
           </span>
           <span class="Table__Time" v-text="row.start_time" v-if="row.start_time"></span>
-        </div>
 
-        <div class="Table__Divider"></div>
+          <div class="Table__Divider"></div>
+        </div>
       </template>
     </div>
   </div>
@@ -38,6 +39,7 @@
 <script setup lang="ts">
 import Flag from "@/components/Flag.vue";
 import type {IStartList} from "@/types/api";
+import CoSymbol from "@/assets/co_symbol.svg?component"
 
 defineProps<{
   data: IStartList

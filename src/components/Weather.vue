@@ -1,7 +1,7 @@
 <template>
   <div class="
     flex flex-col
-    text-lg text-semibold
+    text-md text-semibold
     text-co-black bg-white
     text-right
     font-co

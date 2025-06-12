@@ -1,4 +1,6 @@
 {
-  "indent": "off",
-  "@typescript-eslint/indent": ["error"]
+  "rules": {
+    "indent": "off",
+    "@typescript-eslint/indent": ["error"]
+  }
 }

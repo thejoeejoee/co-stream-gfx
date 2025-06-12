@@ -19,7 +19,7 @@
     ">
       {{ data.class }}
     </div>
-    <div class="px-4 text-lg" v-for="(item, index) in data.data" :key="index">
+    <div class="px-4 text-md" v-for="(item, index) in data.data" :key="index">
       <span class="text-co-orange">
         {{ (item as any).key.toLowerCase() }}
       </span>

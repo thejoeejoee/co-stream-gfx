@@ -1,5 +1,5 @@
 import { fileURLToPath, URL } from 'node:url'
-
+import svgLoader from 'vite-svg-loader'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 // import vueDevTools from 'vite-plugin-vue-devtools'
@@ -15,7 +15,8 @@ export default defineConfig({
     vue(),
     // vueDevTools(),
     tailwindAutoReference('@/assets/main.css'),
-    tailwindcss()
+    tailwindcss(),
+    svgLoader(),
   ],
   resolve: {
     alias: {

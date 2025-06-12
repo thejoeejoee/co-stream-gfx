@@ -8,6 +8,7 @@ import RaceTitle from "@/components/RaceTitle.vue";
 import Parameters from "@/components/Parameters.vue";
 import Weather from "@/components/Weather.vue";
 import Flag from "@/components/Flag.vue";
+import Debug from "@/components/Debug.vue";
 import {IconSpeakerphone} from "@tabler/icons-vue";
 import type {
   IFreeText,
@@ -97,7 +98,7 @@ const isDebug = params.has('debug')
 </script>
 
 <template>
-  <main class="GfxScreen" :class="{ 'GfxScreen--debug': isDebug }">
+  <main class="GfxScreen select-none" :class="{ 'GfxScreen--debug': isDebug }">
     <Transition name="slide">
       <LiveFeed
           v-if="state.liveFeed !== null"
@@ -161,7 +162,7 @@ const isDebug = params.has('debug')
       " v-if="state.singleRunner !== null">
         <div class="
           flex flex-row items-center justify-between
-          text-lg
+          text-lg bg-white
         ">
           <span
               v-if="state.singleRunner.bib_number || 10"
@@ -184,7 +185,7 @@ const isDebug = params.has('debug')
         </div>
 
         <h2 class="
-          font-co text-md h-12 flex items-center justify-between
+          font-co text-md h-12 flex items-center justify-between gap-x-4
           p-4
           bg-co-orange text-co-beige
         ">
@@ -234,7 +235,7 @@ const isDebug = params.has('debug')
     </Transition>
   </main>
 
-  <!--  <Debug v-if="isDebug"/>-->
+    <Debug v-if="eventSource" :event-source="eventSource"/>
 </template>
 
 <style scoped lang="postcss">

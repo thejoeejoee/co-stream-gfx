@@ -115,10 +115,6 @@
     @apply bg-co-orange text-co-beige
 }
 
-
-
-
-
 .Gfx__Control {
     @apply flex justify-center items-center
 }
@@ -132,4 +128,14 @@
 .Gfx__Control--finish span {
     box-shadow: inset 0 0 0 3px var(--color-co-beige),
     inset 0 0 0 6px var(--color-co-orange);
+}
+
+.Gfx__Control--invert {
+    span {
+        @apply border-co-beige
+    }
+    &.Gfx__Control--finish span {
+        box-shadow: inset 0 0 0 3px var(--color-co-orange),
+        inset 0 0 0 6px var(--color-co-beige);
+    }
 }
