@@ -1,90 +1,232 @@
 <script setup lang="ts">
-import {useEventSource} from '@vueuse/core'
-import SplitFeed from "@/components/SplitFeed.vue";
-import Time from "@/components/Time.vue";
+import {useEventSource, useLocalStorage} from '@vueuse/core'
+import LiveFeed from "@/components/LiveFeed.vue";
 import Text from "@/components/Text.vue";
 import ResultsTable from "@/components/ResultsTable.vue";
+import StartList from "@/components/StartList.vue";
 import RaceTitle from "@/components/RaceTitle.vue";
 import Parameters from "@/components/Parameters.vue";
 import Weather from "@/components/Weather.vue";
+import Flag from "@/components/Flag.vue";
 import {IconSpeakerphone} from "@tabler/icons-vue";
-
-import {onKeyStroke} from '@vueuse/core'
-import {ref} from "vue";
-
-const {status, data, error, close, eventSource} = useEventSource('http://localhost:8080/_sse')
-
-eventSource.value?.addEventListener("message", (event) => {
-  console.log("Message received:", event.data);
-})
+import type {
+  IFreeText,
+  ILiveFeed,
+  IParameters,
+  IRaceTitle,
+  IResults,
+  ISingleRunner,
+  ISpeaker,
+  IStartDetail,
+  IStartList,
+  IWeather
+} from "@/types/api";
 
 const params = new URLSearchParams(window.location.search)
-// check url param ?debug
-const isDebug = params.has('debug')
-const showAll = params.has('all')
 
-class Flags {
-  time: boolean = params.has("time") || showAll || false
-  speaker: boolean = params.has("speaker") || showAll || false
-  results: boolean = params.has("results") || showAll || false
-  split: boolean = params.has("split") || showAll || false
-  raceTitle: boolean = params.has("raceTitle") || showAll || false
-  weather: boolean = params.has("weather") || showAll || false
-  parameters: boolean = params.has("parameters") || showAll || false
+class State {
+  freetext: IFreeText | null = null
+  liveFeed: ILiveFeed | null = null
+  parameters: IParameters | null = null
+  results: IResults | null = null;
+  singleRunner: ISingleRunner | null = null;
+  speaker: ISpeaker | null = null;
+  start: IStartDetail | null = null;
+  startlist: IStartList | null = null;
+  title: IRaceTitle | null = null;
+  weather: IWeather | null = null;
 }
 
-let flags = ref(new Flags())
+let state = useLocalStorage("state-v1", new State())
 
-onKeyStroke('1', (e) => {
-  flags.value.time = !flags.value.time
+// TODO: reconnect needed
+const {
+  status,
+  data,
+  error,
+  close,
+  eventSource
+} = useEventSource(params.get("sse") || 'http://localhost:8080/_sse/default')
+
+eventSource.value?.addEventListener("hide", (event) => {
+  state.value.freetext = null
+  state.value.parameters = null
+  state.value.liveFeed = null
+  state.value.title = null
+  state.value.speaker = null
+  state.value.weather = null
+  state.value.startlist = null
+  state.value.singleRunner = null
+  state.value.start = null
+  state.value.results = null
 })
-onKeyStroke('2', (e) => {
-  flags.value.speaker = !flags.value.speaker
+// TODO: generalize?
+eventSource.value?.addEventListener("freetext", (event) => {
+  state.value.freetext = JSON.parse(event.data) as IFreeText
 })
-onKeyStroke('3', (e) => {
-  flags.value.split = !flags.value.split
+eventSource.value?.addEventListener("params", (event) => {
+  state.value.parameters = JSON.parse(event.data) as IParameters
 })
-onKeyStroke('4', (e) => {
-  flags.value.results = !flags.value.results
+eventSource.value?.addEventListener("live-feed", (event) => {
+  state.value.liveFeed = JSON.parse(event.data) as ILiveFeed
 })
-onKeyStroke('5', (e) => {
-  flags.value.raceTitle = !flags.value.raceTitle
+eventSource.value?.addEventListener("title", (event) => {
+  state.value.title = JSON.parse(event.data) as IRaceTitle
 })
-onKeyStroke('6', (e) => {
-  flags.value.weather = !flags.value.weather
+eventSource.value?.addEventListener("speaker", (event) => {
+  state.value.speaker = JSON.parse(event.data) as ISpeaker
 })
-onKeyStroke('7', (e) => {
-  flags.value.parameters = !flags.value.parameters
+eventSource.value?.addEventListener("weather", (event) => {
+  state.value.weather = JSON.parse(event.data) as IWeather
 })
+eventSource.value?.addEventListener("startlist", (event) => {
+  state.value.startlist = JSON.parse(event.data) as IStartList
+})
+eventSource.value?.addEventListener("single-runner", (event) => {
+  state.value.singleRunner = JSON.parse(event.data) as ISingleRunner
+})
+eventSource.value?.addEventListener("start", (event) => {
+  state.value.start = JSON.parse(event.data) as IStartDetail
+})
+eventSource.value?.addEventListener("results", (event) => {
+  state.value.results = JSON.parse(event.data) as IResults
+})
+
+// check url param ?debug
+const isDebug = params.has('debug')
 </script>
 
 <template>
   <main class="GfxScreen" :class="{ 'GfxScreen--debug': isDebug }">
     <Transition name="slide">
-      <SplitFeed class="absolute left-24 bottom-24" v-show="flags.split"/>
+      <LiveFeed
+          v-if="state.liveFeed !== null"
+          class="absolute left-24 bottom-24"
+          :data="state.liveFeed"
+      />
     </Transition>
     <Transition name="slide">
-      <Time class="absolute right-24 bottom-24" v-show="flags.time"/>
+      <!--      <Time class="absolute right-24 bottom-24" v-show="flags.time"/>-->
     </Transition>
     <Transition name="slide">
-      <ResultsTable class="absolute top-48 left-64 right-64" v-show="flags.results"/>
+      <ResultsTable
+          v-if="state.results !== null"
+          :data="state.results"
+          class="absolute top-36 left-96 right-96"
+      />
     </Transition>
     <Transition name="slide">
-      <RaceTitle class="absolute bottom-24 left-64 right-64" v-show="flags.raceTitle"/>
+      <StartList
+          v-if="state.startlist !== null"
+          :data="state.startlist"
+          class="absolute top-36 left-96 right-96"
+      />
     </Transition>
     <Transition name="slide">
-      <Weather class="absolute right-24 bottom-24" v-show="flags.weather"/>
+      <RaceTitle
+          v-if="state.title !== null"
+          :data="state.title"
+          class="absolute bottom-24 left-64 right-64"
+      />
     </Transition>
     <Transition name="slide">
-      <Parameters class="absolute right-24 bottom-24" v-show="flags.parameters"/>
+      <Weather
+          v-if="state.weather !== null"
+          :data="state.weather"
+          class="absolute right-24 bottom-24"
+      />
+    </Transition>
+    <Transition name="slide">
+      <Parameters
+          class="absolute right-24 bottom-24"
+          v-if="state.parameters !== null"
+          :data="state.parameters"
+      />
     </Transition>
 
     <Transition name="slide">
       <Text
-          v-show="flags.speaker"
+          v-if="state.freetext !== null"
           class="absolute left-24 bottom-24"
-          text="Dan Wolf, David Procházka"
       >
+        {{ state.freetext.text }}
+      </Text>
+    </Transition>
+
+    <Transition name="slide">
+      <div class="
+        absolute left-24 bottom-24
+        h-36 flex-col
+        border-l-[calc(var(--spacing)*2)] border-l-co-orange
+      " v-if="state.singleRunner !== null">
+        <div class="
+          flex flex-row items-center justify-between
+          text-lg
+        ">
+          <span
+              v-if="state.singleRunner.bib_number || 10"
+              class="
+              flex items-center px-6
+              bg-co-orange  text-co-beige
+              h-24 font-semibold
+            "
+              v-text="state.singleRunner.bib_number || 10"
+          />
+          <h1
+              class="
+                h-24 bg-white px-6 gap-x-4
+                flex flex-row justify-between items-center
+                font-co uppercase text-co-black
+          ">
+            {{ state.singleRunner.name }}
+            <Flag :country="state.singleRunner.nationality" class="px-4"/>
+          </h1>
+        </div>
+
+        <h2 class="
+          font-co text-md h-12 flex items-center justify-between
+          p-4
+          bg-co-orange text-co-beige
+        ">
+          <span v-text="state.singleRunner.class" class="italic font-semibold"/>
+          <span v-text="state.singleRunner.detail"></span>
+        </h2>
+
+      </div>
+    </Transition>
+
+    <Transition name="slide">
+      <Text
+          v-if="state.start !== null"
+          class="absolute left-24 bottom-24"
+      >
+        <template v-slot:icon v-if="state.start.bib_number || 10">
+          <span
+              v-text="state.start.bib_number || 10"
+              class="text-lg font-semibold"
+          ></span>
+        </template>
+
+        <span v-text="state.start.name"></span>
+
+        <template v-slot:right v-if="state.start.nationality">
+          <Flag :country="state.start.nationality"/>
+        </template>
+        <template v-slot:right-gutter v-if="state.start.start_time">
+          <span
+              class="text-lg bg-co-orange text-co-beige p-6 font-semibold"
+              v-text="state.start.start_time"
+          ></span>
+        </template>
+      </Text>
+    </Transition>
+
+    <Transition name="slide">
+      <Text
+          v-if="state.speaker !== null"
+          class="absolute left-24 bottom-24"
+      >
+        {{ state.speaker.commentators }}
         <template #icon>
           <IconSpeakerphone size="64" stroke="2"/>
         </template>
@@ -92,26 +234,7 @@ onKeyStroke('7', (e) => {
     </Transition>
   </main>
 
-  <div
-    v-if="isDebug"
-    class="
-      flex flex-row gap-x-4 justify-center pt-8
-      [&_button]:p-2
-      [&_button]:bg-amber-100
-      [&_button]:border-amber-400
-      [&_button]:border
-      [&_button]:uppercase
-      [&_button]:font-semibold
-      [&_button]:cursor-pointer
-  ">
-    <button @click="flags.time = !flags.time">time</button>
-    <button @click="flags.speaker = !flags.speaker">speaker</button>
-    <button @click="flags.split = !flags.split">split</button>
-    <button @click="flags.results = !flags.results">results</button>
-    <button @click="flags.raceTitle = !flags.raceTitle">race title</button>
-    <button @click="flags.weather = !flags.weather">weather</button>
-    <button @click="flags.parameters = !flags.parameters">parameters</button>
-  </div>
+  <!--  <Debug v-if="isDebug"/>-->
 </template>
 
 <style scoped lang="postcss">

@@ -1,6 +1,6 @@
 <template>
   <div class="Time">
-    <IconStopwatch size="64" stroke="2" />
+    <IconStopwatch size="64" stroke="2"/>
     <span
         v-if="stopwatch.hours.value > 0"
     >{{ stopwatch.hours.value.toString().padStart(2, '0') + ':' }}</span>
@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
 // import { computed, ref } from "vue";
-import { useStopwatch } from 'vue-timer-hook';
+import {useStopwatch} from 'vue-timer-hook';
 
 import {IconStopwatch} from "@tabler/icons-vue";
 

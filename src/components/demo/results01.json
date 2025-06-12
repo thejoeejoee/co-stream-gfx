@@ -1,77 +1,77 @@
 {
-    "vmix_url": "10.0.1.160:8088",
-    "label": "Kone\u010dn\u00e9 v\u00fdsledky",
-    "class": "D40",
-    "data": [
-        {
-            "position": "1",
-            "name": "ASU1",
-            "nationality": "CZE",
-            "club": "ASU",
-            "time": "28:48"
-        },
-        {
-            "position": "2",
-            "name": "PLU1",
-            "nationality": "CZE",
-            "club": "PLU",
-            "time": "+58:33"
-        },
-        {
-            "position": "3",
-            "name": "JPV1",
-            "nationality": "CZE",
-            "club": "JPV",
-            "time": "+59:40"
-        },
-        {
-            "position": "4",
-            "name": "KON1",
-            "nationality": "CZE",
-            "club": "KON",
-            "time": "+1:14:33"
-        },
-        {
-            "position": "5",
-            "name": "UOL1",
-            "nationality": "CZE",
-            "club": "UOL",
-            "time": "+1:27:16"
-        },
-        {
-            "position": "",
-            "name": "",
-            "nationality": "",
-            "club": "",
-            "time": ""
-        },
-        {
-            "position": "",
-            "name": "",
-            "nationality": "",
-            "club": "",
-            "time": ""
-        },
-        {
-            "position": "",
-            "name": "",
-            "nationality": "",
-            "club": "",
-            "time": ""
-        },
-        {
-            "position": "",
-            "name": "",
-            "nationality": "",
-            "club": "",
-            "time": ""
-        },
-        {
-            "position": "",
-            "name": "",
-            "nationality": "",
-            "club": "",
-            "time": ""
-        }
-    ]
+  "vmix_url": "10.0.1.160:8088",
+  "label": "Kone\u010dn\u00e9 v\u00fdsledky",
+  "class": "D40",
+  "data": [
+    {
+      "position": "1",
+      "name": "ASU1",
+      "nationality": "CZE",
+      "club": "ASU",
+      "time": "28:48"
+    },
+    {
+      "position": "2",
+      "name": "PLU1",
+      "nationality": "CZE",
+      "club": "PLU",
+      "time": "+58:33"
+    },
+    {
+      "position": "3",
+      "name": "JPV1",
+      "nationality": "CZE",
+      "club": "JPV",
+      "time": "+59:40"
+    },
+    {
+      "position": "4",
+      "name": "KON1",
+      "nationality": "CZE",
+      "club": "KON",
+      "time": "+1:14:33"
+    },
+    {
+      "position": "5",
+      "name": "UOL1",
+      "nationality": "CZE",
+      "club": "UOL",
+      "time": "+1:27:16"
+    },
+    {
+      "position": "",
+      "name": "",
+      "nationality": "",
+      "club": "",
+      "time": ""
+    },
+    {
+      "position": "",
+      "name": "",
+      "nationality": "",
+      "club": "",
+      "time": ""
+    },
+    {
+      "position": "",
+      "name": "",
+      "nationality": "",
+      "club": "",
+      "time": ""
+    },
+    {
+      "position": "",
+      "name": "",
+      "nationality": "",
+      "club": "",
+      "time": ""
+    },
+    {
+      "position": "",
+      "name": "",
+      "nationality": "",
+      "club": "",
+      "time": ""
+    }
+  ]
 }

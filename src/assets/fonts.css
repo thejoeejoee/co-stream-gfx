@@ -4,7 +4,7 @@
     font-weight: bold;
     font-display: swap;
     src: url("./fonts/GT-Planar-Bold.woff") format("woff"),
-        url("./fonts/GT-Planar-Bold.woff2") format("woff2");
+    url("./fonts/GT-Planar-Bold.woff2") format("woff2");
 }
 
 @font-face {
@@ -24,6 +24,7 @@
     src: url("./fonts/GT-Planar-Italic-30-Regular.woff") format("woff"),
     url("./fonts/GT-Planar-Italic-30-Regular.woff2") format("woff2");
 }
+
 @font-face {
     font-family: GTPlanar;
     font-style: italic;

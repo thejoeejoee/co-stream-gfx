@@ -10,8 +10,13 @@
       ></span>
       <span class="Table__Name" v-text="data.leader.name"></span>
       <span class="Table__Flag">
+        <span
+            v-if="data.is_national && data.leader.club"
+            v-text="data.leader.club"
+            class="Table__Club"
+        ></span>
         <country-flag
-            v-if="data.leader.nationality"
+            v-if="!data.is_national || data.is_relay"
             :country="data.leader.nationality.toLowerCase()"
             size="big"
         />
@@ -34,8 +39,13 @@
       ></span>
       <span class="Table__Name" v-text="row.name"></span>
       <span class="Table__Flag">
+        <span
+            v-if="data.is_national && row.club"
+            v-text="row.club"
+            class="Table__Club"
+        ></span>
         <country-flag
-            v-if="row.nationality"
+            v-if="!data.is_national || data.is_relay"
             :country="row.nationality.toLowerCase()"
             size="big"
         />
@@ -55,43 +65,11 @@
 
 <script setup lang="ts">
 import CountryFlag from 'vue-country-flag-next'
+import type {ILiveFeed} from "@/types/api";
 
-import { useStorage } from '@vueuse/core'
-
-
-// import DATA from "./demo/split01.json"
-import type {SplitFeed} from "../../types";
-import {computed, ref} from "vue";
-import {onKeyStroke} from "@vueuse/core";
-
-const demos = Object.values(import.meta.glob('./demo/split-feeds/*.json', { eager: true })) as SplitFeed[];
-
-console.log(demos)
-
-const i = useStorage("split-feed-demo-index", 0)
-
-const data = computed(() => {
-  return demos[i.value % demos.length]
-});
-
-onKeyStroke('ArrowRight', (e) => {
-  i.value = (i.value + 1) % demos.length;
-})
-onKeyStroke('ArrowLeft', (e) => {
-  i.value = (i.value - 1 + demos.length) % demos.length;
-})
-onKeyStroke('q', (e) => {
-  i.value = 0;
-})
-
-onKeyStroke('w', (e) => {
-  i.value = 1;
-})
-onKeyStroke('e', (e) => {
-  i.value = 2;
-})
-
-
-
+// property
+defineProps<{
+  data: ILiveFeed
+}>();
 
 </script>

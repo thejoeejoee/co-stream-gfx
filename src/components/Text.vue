@@ -4,15 +4,13 @@
       <slot name="icon"></slot>
     </div>
     <div class="Text__Gutter" v-else>&nbsp;</div>
-    <span
-        class="Text__Content"
-        v-text="props.text"
-    />
+    <span class="Text__Content">
+      <slot name="default"/>
+      <slot name="right"/>
+    </span>
+    <slot name="right-gutter"/>
   </div>
 </template>
 
 <script setup lang="ts">
-import { defineProps } from "vue";
-
-const props = defineProps(['text'])
 </script>

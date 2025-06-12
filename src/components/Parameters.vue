@@ -21,7 +21,7 @@
     </div>
     <div class="px-4 text-lg" v-for="(item, index) in data.data" :key="index">
       <span class="text-co-orange">
-        {{ (item as any).key }}
+        {{ (item as any).key.toLowerCase() }}
       </span>
       {{ (item as any).value }}
     </div>
@@ -29,6 +29,10 @@
 </template>
 
 <script setup lang="ts">
-import { IconTemperature, IconDroplets, IconWind } from '@tabler/icons-vue';
-import data from "./demo/parameters01.json"
+
+import type {IParameters} from "@/types/api";
+
+defineProps<{
+  data: IParameters
+}>();
 </script>

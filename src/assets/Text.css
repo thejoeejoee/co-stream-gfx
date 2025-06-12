@@ -1,39 +1,46 @@
 .Text {
     @apply
-        bg-white
+    bg-white
         /*text-co-beige*/
-
-        flex flex-row items-center justify-between
+    flex flex-row items-center justify-between
 }
 
 .Text__Content {
     @apply
-        font-co
-        text-lg
-        uppercase
-        text-co-black
-        p-6
+    font-co
+    text-lg
+    uppercase
+    text-co-black
+    p-6
+    flex flex-row gap-x-4 items-center
 }
 
 .Text__Icon {
     @apply
-        w-24
-        h-24
-        bg-co-orange
-        fill-co-beige
-        stroke-co-beige
-        text-co-beige
-        flex items-center justify-center
-        p-4
+    w-24
+    h-24
+    bg-co-orange
+    fill-co-beige
+    stroke-co-beige
+    text-co-beige
+    flex items-center justify-center
+    p-4
 }
 
 .Text__Gutter {
     @apply
-        w-4
-        h-24
-        bg-co-orange
+    w-4
+    h-24
+    bg-co-orange
 }
 
+.Text--detail {
+    /*@apply p-4;*/
+
+    .Text__Content {
+        @apply text-md p-4
+    }
+}
 
 .RaceTitle {
     @apply grid grid-cols-2
@@ -41,18 +48,19 @@
 
 .RaceTitle__Title {
     @apply
-        text-xl text-co-beige uppercase col-span-2
-        bg-co-orange italic font-semibold
-        p-6
+    text-xl text-co-beige uppercase col-span-2
+    bg-co-orange italic font-semibold
+    p-6
 }
 
 .RaceTitle__Subtitle {
     @apply
-        px-4 h-18 bg-white text-md font-semibold text-co-black
-        flex flex-row items-center gap-2
-        
+    px-4 h-18 bg-white text-md font-semibold text-co-black
+    flex flex-row items-center gap-2
+
 }
+
 .RaceTitle__Subtitle svg {
     @apply
-        stroke-co-black
+    stroke-co-black
 }

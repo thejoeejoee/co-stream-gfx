@@ -10,10 +10,11 @@
     [&_div]:justify-between
     [&_div]:items-center
     [&_div]:py-3
+    [&_div]:gap-x-8
     divide-gray-200 divide-y-1
    ">
     <div class="bg-co-orange text-co-beige text-xl h-24 italic font-semibold px-8">
-      {{ data.place }}
+      {{ data.place || data.title }}
     </div>
     <div class="px-4">
       <IconTemperature stroke="2" size="48" class="text-co-orange"/>
@@ -31,6 +32,11 @@
 </template>
 
 <script setup lang="ts">
-import { IconTemperature, IconDroplets, IconWind } from '@tabler/icons-vue';
-import data from "./demo/weather01.json"
+import {IconDroplets, IconTemperature, IconWind} from '@tabler/icons-vue';
+import type {IWeather} from "@/types/api";
+
+
+defineProps<{
+  data: IWeather
+}>();
 </script>

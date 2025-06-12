@@ -1,38 +1,38 @@
 {
-    "vmix_url": "10.0.1.160:8088",
-    "flags_path": "C:\\Users\\chmel\\Documents\\orientacnisporty\\IOF_GRAFIKA\\vlajky_3_letters_JWOC\\",
-    "label": "H40 / 2 - C\u00cdL",
-    "has_leader": true,
-    "leader": {
-        "position": "1",
-        "name": "Navr\u00e1til V.",
-        "nationality": "USA",
-        "club": "KON",
-        "time": "22:12"
+  "vmix_url": "10.0.1.160:8088",
+  "flags_path": "C:\\Users\\chmel\\Documents\\orientacnisporty\\IOF_GRAFIKA\\vlajky_3_letters_JWOC\\",
+  "label": "H40 / 2 - C\u00cdL",
+  "has_leader": true,
+  "leader": {
+    "position": "1",
+    "name": "Navr\u00e1til V.",
+    "nationality": "USA",
+    "club": "KON",
+    "time": "22:12"
+  },
+  "punched": true,
+  "row_idx": 1,
+  "data": [
+    {
+      "position": "3",
+      "name": "Květoslavová R.",
+      "nationality": "SWE",
+      "club": "JPV",
+      "time": "+5:56"
     },
-    "punched": true,
-    "row_idx": 1,
-    "data": [
-        {
-            "position": "3",
-            "name": "Květoslavová R.",
-            "nationality": "SWE",
-            "club": "JPV",
-            "time": "+5:56"
-        },
-        {
-            "position": "",
-            "name": "Pavl\u00edk R.",
-            "nationality": "CZE",
-            "club": "ASU",
-            "time": "+22:39"
-        },
-        {
-            "position": "4",
-            "name": "Kovalčík Hanzelová T.",
-            "nationality": "SVK",
-            "club": "AOP",
-            "time": "+24:20"
-        }
-    ]
+    {
+      "position": "",
+      "name": "Pavl\u00edk R.",
+      "nationality": "CZE",
+      "club": "ASU",
+      "time": "+22:39"
+    },
+    {
+      "position": "4",
+      "name": "Kovalčík Hanzelová T.",
+      "nationality": "SVK",
+      "club": "AOP",
+      "time": "+24:20"
+    }
+  ]
 }
