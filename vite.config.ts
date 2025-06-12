@@ -33,5 +33,6 @@ export default defineConfig({
     proxy: {
       '/_sse': 'http://localhost:8080/_sse',
     },
+    allowedHosts: ['.localhost', '.local']
   },
 })
