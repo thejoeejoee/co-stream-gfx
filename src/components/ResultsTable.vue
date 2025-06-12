@@ -1,35 +1,43 @@
 <template>
   <div class="Table">
-    <div class="TableFooter">
+    <div class="Table__Title Table__Title--highlight">
       <span v-text="data.label"></span>
       <span v-text="data.class"></span>
       <!--      <span class="Gfx__Control Gfx__Control&#45;&#45;finish"><span></span></span>-->
     </div>
 
-    <template
-        v-for="(row, index) in data.data"
-        :key="row.name || index"
-    >
-      <div
-          class="Table__Row"
-          :data-index="index"
-          v-if="row.name"
+    <div class="Table__Grid Table__Grid--expand">
+      <template
+          v-for="(row, index) in data.data"
+          :key="row.name || index"
       >
-      <span
-          class="Table__Position"
-          v-html="row.position"
-      ></span>
-        <span class="Table__Name" v-text="row.name"></span>
-        <span class="Table__Flag">
-        <Flag
-            v-if="row.nationality"
-            :country="row.nationality"
-        />
-      </span>
-        <span class="Table__Time" v-text="row.time"></span>
-      </div>
+        <div
+            class="Table__Row"
+            :data-index="index"
+            v-if="row.name"
+        >
+          <span
+              class="Table__Position"
+              v-html="row.position"
+          ></span>
+          <span class="Table__Name" v-text="row.name"></span>
+          <span class="flex flex-row items-center justify-end gap-x-4">
+            <span v-if="row.club" v-text="row.club" class="Table__Club"></span>
+            <Flag
+                v-if="row.nationality"
+                :country="row.nationality"
+            />
+          </span>
+          <span class="Table__Time" v-text="row.time"></span>
 
-    </template>
+          <div
+              v-if="index < data.data.length - 1"
+              class="Table__Divider"
+          ></div>
+        </div>
+
+      </template>
+    </div>
   </div>
 </template>
 

@@ -1,28 +1,29 @@
 <template>
-  <div class="Table min-w-[calc((2.25*64)*var(--spacing))]">
-    <div
-        v-if="data.has_leader"
-        class="Table__Row Table__Row--leader"
-    >
-      <span
-          class="Table__Position"
-          v-html="data.leader.position"
-      ></span>
-      <span class="Table__Name" v-text="data.leader.name"></span>
-      <span class="Table__Flag">
+  <div class="Table min-w-[calc((2.5*64)*var(--spacing))]">
+    <div class="Table__Flex">
+      <div
+          v-if="data.has_leader"
+          class="Table__Row Table__Row--leader"
+      >
         <span
-            v-if="data.is_national && data.leader.club"
-            v-text="data.leader.club"
-            class="Table__Club"
+            class="Table__Position"
+            v-html="data.leader.position"
         ></span>
-        <country-flag
-            v-if="!data.is_national || data.is_relay"
-            :country="data.leader.nationality.toLowerCase()"
-            size="big"
-        />
-      </span>
-      <span class="Table__Time" v-text="data.leader.time"></span>
-    </div>
+        <span class="Table__Name" v-text="data.leader.name"></span>
+        <span class="Table__Flag">
+          <span
+              v-if="data.is_national && data.leader.club"
+              v-text="data.leader.club"
+              class="Table__Club"
+          ></span>
+          <country-flag
+              v-if="!data.is_national || data.is_relay"
+              :country="data.leader.nationality.toLowerCase()"
+              size="big"
+          />
+        </span>
+        <span class="Table__Time" v-text="data.leader.time"></span>
+      </div>
 
     <div
         class="Table__Row"
@@ -53,7 +54,8 @@
       <span class="Table__Time" v-text="row.time"></span>
     </div>
 
-    <div class="TableFooter">
+  </div>
+    <div class="Table__Title">
       <span
           class="Gfx__Control"
           :class="{'Gfx__Control--finish': false}"

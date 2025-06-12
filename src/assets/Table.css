@@ -5,33 +5,92 @@
     divide-gray-200 divide-y-1
 }
 
-.Table__Row {
-    @apply
-    flex flex-row w-full items-center
-    justify-between gap-x-4
-    py-2
-    px-4
-    bg-white
+.Table__Grid {
+    @apply grid bg-white items-center px-3 gap-x-6 py-3 gap-y-2;
+    grid-template-columns: minmax(max-content, 0) auto max-content max-content;
 }
 
-.Table__Row--leader {
+.Table__Position {
     @apply
-    bg-co-orange
-    text-co-beige
-    text-xl
-    py-4
+    text-co-orange font-co
+    tabular-nums
+    text-right
+    text-md
+}
+
+.Table__Name {
+    @apply
+    font-co
+    text-md
+    text-co-black
+}
+
+.Table__Position:empty + .Table__Name {
+    /* if no number present, dismiss part of the left gap */
+    @apply -ml-2;
+}
+
+.Table__Flag {
+    @apply flex flex-row items-center gap-x-4
+}
+
+.Table__Club {
+    @apply text-md text-co-black
+}
+
+.Table__Time {
+    @apply
+    text-co-orange font-co
+    tabular-nums
+    text-right
+    text-md
+}
+
+.Table__Row {
+    @apply contents
+}
+
+.Table__Divider {
+    @apply col-span-4 h-[2px] bg-gray-200;
+}
+
+.Table__Row:last-child .Table__Divider {
+    @apply hidden;
+}
+
+/* SMALL TABLE with highlighting */
+.Table__Flex {
+    @apply
+        flex flex-col items-center justify-between
+        divide-gray-200 divide-y-2
+    ;
+    .Table__Row {
+        @apply
+            flex flex-row items-center justify-between
+            gap-x-4 px-4 py-4 w-full
+            bg-white
+    }
+    .Table__Position {
+        @apply min-w-[2ch]
+    }
+    .Table__Name {
+        @apply mr-auto;
+    }
+}
+
+
+.Table__Flex .Table__Row--leader {
+    @apply
+        py-6
+        bg-co-orange text-co-beige
+        text-md
     ;
 
     .Table__Name,
-    .Table__Club {
-        @apply font-semibold text-co-beige
-    }
-
+    .Table__Club,
     .Table__Position,
     .Table__Time {
-        @apply
-        font-semibold
-        text-co-beige
+        @apply font-semibold text-co-beige
     }
 }
 
@@ -43,48 +102,22 @@
     bg-white
 }
 
-.Table__Position {
-    @apply
-    text-co-orange font-co
-    lining-nums
-    text-md
-    min-w-[1ch]
 
-}
-
-.Table__Name {
-    @apply
-    font-co
-    text-md
-    text-co-black
-
-}
-
-.Table__Flag {
-    @apply ml-auto flex flex-row items-center gap-x-4
-}
-
-.Table__Club {
-    @apply text-md text-co-black
-}
-
-.Table__Time {
-    @apply
-    text-co-orange font-co
-    lining-nums
-    text-right
-    text-md
-
-    min-w-32
-}
-
-.TableFooter {
+/* title over/under */
+.Table__Title {
     @apply
     py-6 px-6 italic font-co font-semibold
     flex flex-row justify-between gap-x-4
-    bg-co-beige text-co-orange
     text-lg
+    bg-co-beige text-co-orange
 }
+.Table__Title--highlight {
+    @apply bg-co-orange text-co-beige
+}
+
+
+
+
 
 .Gfx__Control {
     @apply flex justify-center items-center
