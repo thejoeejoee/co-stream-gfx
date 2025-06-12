@@ -137,16 +137,16 @@ if (autoplay) {
     fire(f)
     i.value++
 
-    setTimeout(() => {
+    window.setTimeout(() => {
       hide()
     }, showDuration)
   }
   loop()
-  id = setInterval(loop, showDuration + hideDuration)
+  id = window.setInterval(loop, showDuration + hideDuration)
 }
 onUnmounted(() => {
   if (autoplay && id) {
-    clearInterval(id)
+    window.clearInterval(id)
   }
 })
 
