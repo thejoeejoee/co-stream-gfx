@@ -35,7 +35,7 @@
 }
 
 .Table__Club {
-    @apply text-md text-co-black
+    @apply text-md 
 }
 
 .Table__Time {

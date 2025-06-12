@@ -180,7 +180,16 @@ const isDebug = params.has('debug')
                 font-co uppercase text-co-black
           ">
             {{ state.singleRunner.name }}
-            <Flag :country="state.singleRunner.nationality" class="px-4"/>
+            <span
+                v-if="state.singleRunner.is_national && state.singleRunner.club"
+                v-text="state.singleRunner.club"
+                class="Table__Club text-co-orange"
+            ></span>
+            <Flag
+                v-if="!state.singleRunner.is_national || state.singleRunner.is_relay"
+                :country="state.singleRunner.nationality"
+                size="big"
+            />
           </h1>
         </div>
 
@@ -211,7 +220,16 @@ const isDebug = params.has('debug')
         <span v-text="state.start.name"></span>
 
         <template v-slot:right v-if="state.start.nationality">
-          <Flag :country="state.start.nationality"/>
+          <span
+              v-if="state.start.is_national && state.start.club"
+              v-text="state.start.club"
+              class="Table__Club text-co-orange"
+          ></span>
+          <Flag
+              v-if="!state.start.is_national || state.start.is_relay"
+              :country="state.start.nationality"
+              size="big"
+          />
         </template>
         <template v-slot:right-gutter v-if="state.start.start_time">
           <span

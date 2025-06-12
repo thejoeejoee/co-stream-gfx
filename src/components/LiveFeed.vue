@@ -16,9 +16,9 @@
               v-text="data.leader.club"
               class="Table__Club"
           ></span>
-          <country-flag
+          <Flag
               v-if="!data.is_national || data.is_relay"
-              :country="data.leader.nationality.toLowerCase()"
+              :country="data.leader.nationality"
               size="big"
           />
         </span>
@@ -68,6 +68,7 @@
 <script setup lang="ts">
 import CountryFlag from 'vue-country-flag-next'
 import type {ILiveFeed} from "@/types/api";
+import Flag from "@/components/Flag.vue";
 
 // property
 defineProps<{

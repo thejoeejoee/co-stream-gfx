@@ -57,6 +57,8 @@ export interface IStartList {
     class:      string;
     page:       number;
     data:    IStartListRunner[];
+    is_national: boolean;
+    is_relay:    boolean;
 }
 
 export interface IStartListRunner {
@@ -67,7 +69,6 @@ export interface IStartListRunner {
     start_time:  string;
 }
 
-// {"bib_number": "", "name": "Novotnu00fd Matu011bj", "nationality": "CZE", "club": "KSU", "detail": "Klub vytrvalostnu00edch sportu016f u0160umperk", "class": "H10C"}
 export interface ISingleRunner {
     bib_number:  string;
     name:        string;
@@ -75,9 +76,10 @@ export interface ISingleRunner {
     club:        string;
     detail:      string;
     class:       string;
+    is_national: boolean;
+    is_relay:    boolean;
 }
 
-// {"bib_number": "", "name": "Novotnu00fd Matu011bj", "nationality": "CZE", "club": "KSU", "detail": "", "start_time": "11:06", "class": "H10C"}
 export interface IStartDetail {
     bib_number:  string;
     name:        string;
@@ -86,14 +88,17 @@ export interface IStartDetail {
     detail:      string;
     start_time:  string;
     class:       string;
+    is_national: boolean;
+    is_relay:    boolean;
 }
-
 
 export interface IResults {
     label:      string;
     class:      string;
     page:       number;
     data:       IResultsRunner[];
+    is_national: boolean;
+    is_relay:    boolean;
 }
 
 export interface IResultsRunner {

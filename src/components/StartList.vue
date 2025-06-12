@@ -24,8 +24,16 @@
           <span class="Table__Name" v-text="row.name"></span>
 
           <span class="flex flex-row items-center justify-end gap-x-4">
-            <span v-if="row.club" v-text="row.club" class="Table__Club"></span>
-            <Flag :country="row.nationality" v-if="row.nationality"/>
+            <span
+                v-if="data.is_national && row.club"
+                v-text="row.club"
+                class="Table__Club"
+            ></span>
+            <Flag
+                v-if="!data.is_national || data.is_relay"
+                :country="row.nationality"
+                size="big"
+            />
           </span>
           <span class="Table__Time" v-text="row.start_time" v-if="row.start_time"></span>
 

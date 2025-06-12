@@ -1,1 +1,79 @@
-{"vmix_url": "127.0.0.1:8080", "flags_path": "C:\\Users\\chmel\\Documents\\orientacnisporty\\IOF_GRAFIKA\\vlajky_3_letters_JWOC\\", "label": "V\u00fdsledky - FOOBAR", "class": "H21C", "page": 1, "data": [{"position": "1", "name": "Horv\u00e1t Petr", "nationality": "CZE", "club": "TBM", "time": "11:31:00"}, {"position": "2", "name": "\u0160torek David", "nationality": "CZE", "club": "JPV", "time": "+8:23"}, {"position": "3", "name": "\u0160torek Jan", "nationality": "CZE", "club": "JPV", "time": "+16:13"}, {"position": "4", "name": "Pt\u00e1\u010dek Jon\u00e1\u0161", "nationality": "CZE", "club": "TBM", "time": "+18:53"}, {"position": "", "name": "", "nationality": "", "club": "", "time": ""}, {"position": "", "name": "", "nationality": "", "club": "", "time": ""}, {"position": "", "name": "", "nationality": "", "club": "", "time": ""}, {"position": "", "name": "", "nationality": "", "club": "", "time": ""}, {"position": "", "name": "", "nationality": "", "club": "", "time": ""}, {"position": "", "name": "", "nationality": "", "club": "", "time": ""}]}
+{
+  "vmix_url": "127.0.0.1:8080",
+  "flags_path": "C:\\Users\\chmel\\Documents\\orientacnisporty\\IOF_GRAFIKA\\vlajky_3_letters_JWOC\\",
+  "label": "V\u00fdsledky - FOOBAR",
+  "class": "H21C",
+  "page": 1,
+  "data": [
+    {
+      "position": "1",
+      "name": "Horv\u00e1t Petr",
+      "nationality": "CZE",
+      "club": "TBM",
+      "time": "11:31:00"
+    },
+    {
+      "position": "2",
+      "name": "\u0160torek David",
+      "nationality": "CZE",
+      "club": "JPV",
+      "time": "+8:23"
+    },
+    {
+      "position": "3",
+      "name": "\u0160torek Jan",
+      "nationality": "CZE",
+      "club": "JPV",
+      "time": "+16:13"
+    },
+    {
+      "position": "4",
+      "name": "Pt\u00e1\u010dek Jon\u00e1\u0161",
+      "nationality": "CZE",
+      "club": "TBM",
+      "time": "+18:53"
+    },
+    {
+      "position": "",
+      "name": "",
+      "nationality": "",
+      "club": "",
+      "time": ""
+    },
+    {
+      "position": "",
+      "name": "",
+      "nationality": "",
+      "club": "",
+      "time": ""
+    },
+    {
+      "position": "",
+      "name": "",
+      "nationality": "",
+      "club": "",
+      "time": ""
+    },
+    {
+      "position": "",
+      "name": "",
+      "nationality": "",
+      "club": "",
+      "time": ""
+    },
+    {
+      "position": "",
+      "name": "",
+      "nationality": "",
+      "club": "",
+      "time": ""
+    },
+    {
+      "position": "",
+      "name": "",
+      "nationality": "",
+      "club": "",
+      "time": ""
+    }
+  ]
+}
