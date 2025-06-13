@@ -3,6 +3,9 @@
   "flags_path": "C:\\Users\\chmel\\Documents\\orientacnisporty\\IOF_GRAFIKA\\vlajky_3_letters_JWOC\\",
   "label": "H40 / 2 - C\u00cdL",
   "has_leader": true,
+  "is_national": false,
+  "is_relay": false,
+  "finish": true,
   "leader": {
     "position": "1",
     "name": "Navr\u00e1til V.",

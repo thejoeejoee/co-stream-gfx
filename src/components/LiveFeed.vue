@@ -58,7 +58,7 @@
     <div class="Table__Title">
       <span
           class="Gfx__Control"
-          :class="{'Gfx__Control--finish': false}"
+          :class="{'Gfx__Control--finish': data.finish}"
       ><span></span></span>
       <span v-text="data.label"></span>
     </div>

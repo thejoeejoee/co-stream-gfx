@@ -4,6 +4,7 @@ export interface ILiveFeed {
     is_national: boolean;
     is_relay: boolean;
     has_leader: boolean;
+    finish:      boolean;
     leader: ILiveFeedRunner;
     punched: boolean;
     row_idx: number;
@@ -99,6 +100,7 @@ export interface IResults {
     data:       IResultsRunner[];
     is_national: boolean;
     is_relay:    boolean;
+    finish:      boolean;
 }
 
 export interface IResultsRunner {

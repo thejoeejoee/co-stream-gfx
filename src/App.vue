@@ -206,38 +206,41 @@ const isDebug = params.has('debug')
     </Transition>
 
     <Transition name="slide">
-      <Text
-          v-if="state.start !== null"
-          class="absolute left-24 bottom-24"
-      >
-        <template v-slot:icon v-if="state.start.bib_number || 10">
-          <span
-              v-text="state.start.bib_number || 10"
-              class="text-lg font-semibold"
-          ></span>
-        </template>
+      <div class="absolute left-24 bottom-24" v-if="state.start !== null">
+        <Text>
+          <template v-slot:icon v-if="state.start.bib_number || 10">
+            <span
+                v-text="state.start.bib_number || 10"
+                class="text-lg font-semibold"
+            ></span>
+          </template>
 
-        <span v-text="state.start.name"></span>
+          <span v-text="state.start.name"></span>
 
-        <template v-slot:right v-if="state.start.nationality">
-          <span
-              v-if="state.start.is_national && state.start.club"
-              v-text="state.start.club"
-              class="Table__Club text-co-orange"
-          ></span>
-          <Flag
-              v-if="!state.start.is_national || state.start.is_relay"
-              :country="state.start.nationality"
-              size="big"
-          />
-        </template>
-        <template v-slot:right-gutter v-if="state.start.start_time">
-          <span
-              class="text-lg bg-co-orange text-co-beige p-6 font-semibold"
-              v-text="state.start.start_time"
-          ></span>
-        </template>
-      </Text>
+          <template v-slot:right v-if="state.start.nationality">
+            <span
+                v-if="state.start.is_national && state.start.club"
+                v-text="state.start.club"
+                class="Table__Club text-co-orange"
+            ></span>
+            <Flag
+                v-if="!state.start.is_national || state.start.is_relay"
+                :country="state.start.nationality"
+                size="big"
+            />
+          </template>
+          <template v-slot:right-gutter v-if="state.start.start_time">
+            <span
+                class="text-lg bg-co-orange text-co-beige p-6 font-semibold"
+                v-text="state.start.start_time"
+            ></span>
+          </template>
+        </Text>
+
+        <div v-if="state.start.detail" class="text-md p-4 bg-co-orange text-co-beige font-co">
+          {{ state.start?.detail }}
+        </div>
+      </div>
     </Transition>
 
     <Transition name="slide">

@@ -1,7 +1,10 @@
 <template>
   <div class="Table">
     <div class="Table__Title Table__Title--highlight">
-      <span class="Gfx__Control Gfx__Control--finish Gfx__Control--invert"><span></span></span>
+      <span
+          class="Gfx__Control Gfx__Control--invert"
+          :class="{'Gfx__Control--finish': data.finish}"
+      ><span></span></span>
       <span v-text="data.label" class="mr-auto"></span>
       <span v-text="data.class"></span>
     </div>

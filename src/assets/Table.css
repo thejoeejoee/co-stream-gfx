@@ -6,7 +6,7 @@
 }
 
 .Table__Grid {
-    @apply grid bg-white items-center px-3 gap-x-6 py-3 gap-y-2;
+    @apply grid bg-white items-center px-6 gap-x-6 py-3 gap-y-2;
     grid-template-columns: minmax(max-content, 0) auto max-content max-content;
 }
 
@@ -35,7 +35,7 @@
 }
 
 .Table__Club {
-    @apply text-md 
+    @apply text-md
 }
 
 .Table__Time {
@@ -67,7 +67,7 @@
     .Table__Row {
         @apply
             flex flex-row items-center justify-between
-            gap-x-4 px-4 py-4 w-full
+            gap-x-4 px-4 py-2 w-full
             bg-white
     }
     .Table__Position {
@@ -81,7 +81,7 @@
 
 .Table__Flex .Table__Row--leader {
     @apply
-        py-6
+        py-4
         bg-co-orange text-co-beige
         text-md
     ;
