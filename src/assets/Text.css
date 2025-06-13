@@ -13,6 +13,7 @@
     text-co-black
     p-6
     flex flex-row gap-x-4 items-center
+    w-full
 }
 
 .Text__Icon {

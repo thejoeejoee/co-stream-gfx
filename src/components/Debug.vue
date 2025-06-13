@@ -129,11 +129,13 @@ let id: number | undefined = undefined
 let i = useLocalStorage("autoPlayIndex", 0)
 
 if (autoplay) {
+  const demoKeysRandom = [...demoKeys].sort(() => Math.random() - 0.5)
+
   const loop = () => {
     if (i.value >= demoKeys.length) {
       i.value = 0
     }
-    const f = demoKeys[i.value]
+    const f = demoKeysRandom[i.value]
     fire(f)
     i.value++
 

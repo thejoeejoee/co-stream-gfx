@@ -175,7 +175,7 @@ const isDebug = params.has('debug')
           />
           <h1
               class="
-                h-24 bg-white px-6 gap-x-4
+                h-24 bg-white px-6 gap-x-4 w-full
                 flex flex-row justify-between items-center
                 font-co uppercase text-co-black
           ">
@@ -215,7 +215,7 @@ const isDebug = params.has('debug')
             ></span>
           </template>
 
-          <span v-text="state.start.name"></span>
+          <span v-text="state.start.name" class="mr-auto"></span>
 
           <template v-slot:right v-if="state.start.nationality">
             <span

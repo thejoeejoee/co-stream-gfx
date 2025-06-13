@@ -22,7 +22,7 @@ body {
     0% {
         opacity: 0;
         /*transform: skewX(60deg) scaleX(150%);*/
-        transform: translateX(-128px);
+        transform: translateX(128px);
         transform-origin: right center;
     }
     100% {
@@ -35,7 +35,7 @@ body {
     0% {
         opacity: 0;
         /*transform: skewX(-60deg) scaleX(150%);*/
-        transform: translateX(128px);
+        transform: translateX(-128px);
         transform-origin: left center;
     }
     100% {

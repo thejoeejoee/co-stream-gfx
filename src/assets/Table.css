@@ -27,7 +27,7 @@
 
 .Table__Position:empty + .Table__Name {
     /* if no number present, dismiss part of the left gap */
-    @apply -ml-2;
+    @apply -ml-6;
 }
 
 .Table__Flag {

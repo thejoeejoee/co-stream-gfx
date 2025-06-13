@@ -10,7 +10,7 @@
     [&_div]:justify-between
     [&_div]:items-center
     [&_div]:py-3
-    [&_div]:gap-x-4
+    [&_div]:gap-x-16
     divide-gray-200 divide-y-1
    ">
     <div class="
@@ -19,12 +19,14 @@
     ">
       {{ data.class }}
     </div>
-    <div class="px-4 text-md" v-for="(item, index) in data.data" :key="index">
+    <template v-for="(item, index) in data.data" >
+      <div class="px-4 text-md" :key="index" v-if="item.value">
       <span class="text-co-orange">
-        {{ (item as any).key.toLowerCase() }}
+        {{ item.key.toLowerCase() }}
       </span>
-      {{ (item as any).value }}
-    </div>
+        {{ item.value }}
+      </div>
+    </template>
   </div>
 </template>
 
