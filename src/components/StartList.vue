@@ -7,7 +7,7 @@
       <!--      <span class="Gfx__Control Gfx__Control&#45;&#45;finish"><span></span></span>-->
     </div>
 
-    <div class="Table__Grid Table__Grid--expand">
+    <div class="Table__Grid Table__Grid--expand Table__Grid--no-left-margin">
       <template
           v-for="(row, index) in data.data"
           :key="row.name || index"

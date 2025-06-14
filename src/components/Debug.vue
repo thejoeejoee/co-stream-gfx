@@ -88,6 +88,7 @@ const props = defineProps<{
 const params = new URLSearchParams(window.location.search)
 const isDebug = params.has('debug')
 const autoplay = params.has('autoplay')
+const show = params.get('show')
 
 const demos: Record<string, any> = import.meta.glob("./demo/*.json", {
   eager: true,
@@ -145,7 +146,15 @@ if (autoplay) {
   }
   loop()
   id = window.setInterval(loop, showDuration + hideDuration)
+} else if (show) {
+  const f = demoKeys.find((d) => d.includes(show))
+  if (f) {
+    fire(f)
+  } else {
+    console.warn(`No demo found for show: ${show}`)
+  }
 }
+
 onUnmounted(() => {
   if (autoplay && id) {
     window.clearInterval(id)
