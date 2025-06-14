@@ -64,6 +64,11 @@
         flex flex-col items-center justify-between
         divide-gray-200 divide-y-2
     ;
+    .Table__Row--leader,
+    .Table__Row--highlight,
+    .Table__Row:last-child {
+        border-style: none;
+    }
     .Table__Row {
         @apply
             flex flex-row items-center justify-between
