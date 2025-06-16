@@ -3,6 +3,9 @@
   "label": "Kone\u010dn\u00e9 v\u00fdsledky",
   "class": "D40",
   "finish": true,
+  "is_national": true,
+  "is_relay": true,
+  "page": 3,
   "data": [
     {
       "position": "1",

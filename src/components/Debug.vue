@@ -48,10 +48,10 @@
 </template>
 
 <script setup lang="ts">
-import {onUnmounted, ref} from "vue";
+import {computed, onUnmounted, ref} from "vue";
 import {onKeyStroke, useLocalStorage} from "@vueuse/core";
 
-import { useFileDialog } from '@vueuse/core'
+import {useFileDialog} from '@vueuse/core'
 
 const { files, open: openFileModal, reset, onCancel, onChange } = useFileDialog({
   accept: '.json',
@@ -117,7 +117,6 @@ const fire = (f: string) => {
       eventName,
     {data: JSON.stringify(payload)}
   )
-  console.log("Firing event", eventName)
   props.eventSource.dispatchEvent(e)
 }
 
@@ -149,6 +148,7 @@ if (autoplay) {
 } else if (show) {
   const f = demoKeys.find((d) => d.includes(show))
   if (f) {
+    hide()
     fire(f)
   } else {
     console.warn(`No demo found for show: ${show}`)

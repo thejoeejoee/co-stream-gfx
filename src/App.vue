@@ -98,7 +98,7 @@ const isDebug = params.has('debug')
 </script>
 
 <template>
-  <main class="GfxScreen select-none" :class="{ 'GfxScreen--debug': isDebug }">
+  <main class="GfxScreen select-none backface-hidden" :class="{ 'GfxScreen--debug': isDebug }">
     <Transition name="slide">
       <LiveFeed
           v-if="state.liveFeed !== null"
@@ -180,15 +180,11 @@ const isDebug = params.has('debug')
                 font-co uppercase text-co-black
           ">
             {{ state.singleRunner.name }}
-            <span
-                v-if="state.singleRunner.is_national && state.singleRunner.club"
-                v-text="state.singleRunner.club"
-                class="Table__Club text-co-orange"
-            ></span>
-            <Flag
-                v-if="!state.singleRunner.is_national || state.singleRunner.is_relay"
-                :country="state.singleRunner.nationality"
-                size="big"
+
+            <club-flag
+                :conf="state.singleRunner"
+                :item="state.singleRunner"
+                club-class="text-co-orange"
             />
           </h1>
         </div>
@@ -218,15 +214,10 @@ const isDebug = params.has('debug')
           <span v-text="state.start.name" class="mr-auto"></span>
 
           <template v-slot:right v-if="state.start.nationality">
-            <span
-                v-if="state.start.is_national && state.start.club"
-                v-text="state.start.club"
-                class="Table__Club text-co-orange"
-            ></span>
-            <Flag
-                v-if="!state.start.is_national || state.start.is_relay"
-                :country="state.start.nationality"
-                size="big"
+            <club-flag
+                :conf="state.start"
+                :item="state.start"
+                club-class="text-co-orange"
             />
           </template>
           <template v-slot:right-gutter v-if="state.start.start_time">

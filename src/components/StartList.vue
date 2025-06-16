@@ -7,14 +7,13 @@
       <!--      <span class="Gfx__Control Gfx__Control&#45;&#45;finish"><span></span></span>-->
     </div>
 
-    <div class="Table__Grid Table__Grid--expand Table__Grid--no-left-margin">
+<!--    <div class="Table__Grid Table__Grid&#45;&#45;expand Table__Grid&#45;&#45;no-left-margin" tag="div" name="list">-->
+      <div class="Table__Grid Table__Grid--expand Table__Grid--no-empty-gutter-margin">
       <template
           v-for="(row, index) in data.data"
-          :key="row.name || index"
+          :key="row.name"
       >
-        <div
-            class="Table__Row"
-            :data-index="index"
+        <template
             v-if="row.name"
         >
           <span
@@ -22,23 +21,14 @@
               v-html="row.bib_number"
           ></span>
           <span class="Table__Name" v-text="row.name"></span>
-
-          <span class="flex flex-row items-center justify-end gap-x-4">
-            <span
-                v-if="data.is_national && row.club"
-                v-text="row.club"
-                class="Table__Club"
-            ></span>
-            <Flag
-                v-if="!data.is_national || data.is_relay"
-                :country="row.nationality"
-                size="big"
-            />
-          </span>
-          <span class="Table__Time" v-text="row.start_time" v-if="row.start_time"></span>
+          <club-flag
+              :conf="data"
+              :item="row"
+          />
+          <span class="Table__Time" v-text="row.start_time"></span>
 
           <div class="Table__Divider"></div>
-        </div>
+        </template>
       </template>
     </div>
   </div>
@@ -48,6 +38,8 @@
 import Flag from "@/components/Flag.vue";
 import type {IStartList} from "@/types/api";
 import CoSymbol from "@/assets/co_symbol.svg?component"
+import ClubFlag from "@/components/ClubFlag.vue";
+import PositionChangeSymbol from "@/components/PositionChangeSymbol.vue";
 
 defineProps<{
   data: IStartList

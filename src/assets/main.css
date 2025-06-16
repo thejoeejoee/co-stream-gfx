@@ -43,3 +43,40 @@ body {
         transform: translateX(0);
     }
 }
+
+.list-move, /* apply transition to moving elements */
+.list-enter-active,
+.list-leave-active {
+    transition: all 200ms ease;
+}
+
+.list-enter-from,
+.list-leave-to {
+    opacity: 0;
+    transform: translateX(32px);
+}
+
+/* ensure leaving items are taken out of layout flow so that moving
+   animations can be calculated correctly. */
+.list-leave-active {
+    position: absolute;
+    transform-origin: bottom center;
+}
+
+
+.table-enter-active { animation: 200ms clip-top; }
+.table-leave-active { animation: 200ms clip-bottom reverse; }
+
+.table-leave-active {
+    position: absolute;
+    width: 100%;
+}
+
+@keyframes clip-top {
+    0% { clip-path: inset(0 0 100% 0); }
+    100% { clip-path: inset(0 0 0 0); }
+}
+@keyframes clip-bottom {
+    0% { clip-path: inset(100% 0 0 0); }
+    100% { clip-path: inset(0 0 0 0); }
+}

@@ -9,40 +9,39 @@
       <span v-text="data.class"></span>
     </div>
 
-    <div class="Table__Grid Table__Grid--expand">
+    <TransitionGroup name="table" tag="div">
+    <div class="Table__Grid Table__Grid--expand" :key="data.page">
       <template
-          v-for="(row, index) in data.data"
-          :key="row.name || index"
+          v-for="(row, _) in data.data"
+          :key="row.name"
       >
-        <div
-            class="Table__Row"
-            :data-index="index"
-            v-if="row.name"
-        >
+        <template v-if="row.name">
           <span
               class="Table__Position"
               v-html="row.position"
           ></span>
           <span class="Table__Name" v-text="row.name"></span>
-          <span class="flex flex-row items-center justify-end gap-x-4">
-            <span
-                v-if="data.is_national && row.club"
-                v-text="row.club"
-                class="Table__Club"
-            ></span>
-            <Flag
-                v-if="!data.is_national || data.is_relay"
-                :country="row.nationality"
-                size="big"
-            />
-          </span>
+          <club-flag
+              :conf="data"
+              :item="row"
+              clubClass="min-w-[3.5ch] text-right"
+          >
+            <template #prefix>
+              <position-change-symbol
+                  v-if="row.change !== undefined"
+                  :change="row.change"
+              />
+            </template>
+          </club-flag>
+
           <span class="Table__Time" v-text="row.time"></span>
 
           <div class="Table__Divider"></div>
-        </div>
+        </template>
 
       </template>
     </div>
+    </TransitionGroup>
   </div>
 </template>
 
@@ -50,6 +49,9 @@
 import Flag from "@/components/Flag.vue";
 import type {IResults} from "@/types/api";
 import CoSymbol from "@/assets/co_symbol.svg"
+import {rand} from "@vueuse/shared";
+import PositionChangeSymbol from "@/components/PositionChangeSymbol.vue";
+import ClubFlag from "@/components/ClubFlag.vue";
 
 defineProps<{
   data: IResults

@@ -1,0 +1,41 @@
+{
+  "vmix_url": "127.0.0.1:8080",
+  "flags_path": "C:\\Users\\chmel\\Documents\\orientacnisporty\\IOF_GRAFIKA\\vlajky_3_letters_JWOC\\",
+  "label": "D14B - C\u00cdL",
+  "finish": true,
+  "is_national": true,
+  "is_relay": false,
+  "has_leader": true,
+  "leader": {
+    "position": "1",
+    "name": "\u0160\u00e1chov\u00e1 L.",
+    "nationality": "CZE",
+    "club": "",
+    "time": "32:25"
+  },
+  "punched": false,
+  "row_idx": 0,
+  "data": [
+    {
+      "position": "",
+      "name": "Nykodymov\u00e1 A.",
+      "nationality": "CZE",
+      "club": "",
+      "time": "+22:50"
+    },
+    {
+      "position": "2",
+      "name": "Ko\u0161\u00e1rkov\u00e1 A.",
+      "nationality": "CZE",
+      "club": "",
+      "time": "+38:57"
+    },
+    {
+      "position": "3",
+      "name": "Chumov\u00e1 L.",
+      "nationality": "CZE",
+      "club": "",
+      "time": "+42:23"
+    }
+  ]
+}

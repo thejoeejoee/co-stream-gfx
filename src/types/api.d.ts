@@ -16,6 +16,7 @@ export interface ILiveFeedRunner {
     nationality: string;
     club: string;
     time: string;
+    change: number;
 }
 
 export interface IParameters {
@@ -109,4 +110,21 @@ export interface IResultsRunner {
     nationality: string;
     club:        string;
     time:        string;
+    change:      number;
+}
+
+export interface IFlowers {
+    label:       string;
+    class:       string;
+    rows:        number;
+    data:        IFlowersRunner[];
+    is_relay:    boolean;
+    is_national: boolean;
+}
+
+export interface IFlowersRunner {
+    position:    string;
+    name:        string;
+    nationality: string;
+    club:        string;
 }

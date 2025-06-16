@@ -7,6 +7,6 @@
   "club": "Den",
   "detail": "Danish Orienteering Federation",
   "class": "Mixed",
-  "is_national": true,
+  "is_national": false,
   "is_relay": true
 }
