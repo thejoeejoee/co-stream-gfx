@@ -47,16 +47,9 @@
               v-if="row.change !== undefined"
               :change="row.change"
           />
-          <span
-              v-if="data.is_national && row.club"
-              v-text="row.club"
-              class="Table__Club"
-          ></span>
-
-          <country-flag
-              v-if="!data.is_national || data.is_relay"
-              :country="row.nationality.toLowerCase()"
-              size="big"
+          <club-flag
+              :conf="data"
+              :item="row"
           />
         </span>
         <span class="Table__Time" v-text="row.time"></span>

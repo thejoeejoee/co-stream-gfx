@@ -10,6 +10,7 @@ import Weather from "@/components/Weather.vue";
 import Flag from "@/components/Flag.vue";
 import Debug from "@/components/Debug.vue";
 import {IconSpeakerphone} from "@tabler/icons-vue";
+import ClubFlag from "@/components/ClubFlag.vue";
 import type {
   IFreeText,
   ILiveFeed,
