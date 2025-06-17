@@ -12,8 +12,9 @@
     [&_div]:py-3
     [&_div]:gap-x-8
     divide-gray-200 divide-y-1
+    rounded-md
    ">
-    <div class="bg-co-orange text-co-beige text-xl h-24 italic font-semibold px-8">
+    <div class="bg-co-orange text-co-beige text-xl h-24 italic font-semibold px-8 rounded-t-md">
       {{ data.place || data.title }}
     </div>
     <div class="px-4">

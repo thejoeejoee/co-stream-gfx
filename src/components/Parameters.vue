@@ -12,6 +12,7 @@
     [&_div]:py-3
     [&_div]:gap-x-16
     divide-gray-200 divide-y-1
+    rounded-md overflow-hidden
    ">
     <div class="
       bg-co-orange text-co-beige

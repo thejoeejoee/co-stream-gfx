@@ -1,5 +1,5 @@
 <template>
-  <div class="Table">
+  <div class="Table rounded-md overflow-hidden">
     <div class="Table__Title">
       <co-symbol class="fill-co-orange h-[var(--text-lg--line-height)]" />
       <span v-text="data.label" class="mr-auto"></span>

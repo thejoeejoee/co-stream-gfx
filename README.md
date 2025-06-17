@@ -31,3 +31,10 @@ flowchart TB
         control-api --->|POST<br>/webhook/EVENT| co-stream-gfx-proxy
     end
 ```
+
+# Flag vs. Club Display
+
+|                             | is_national | is_international (==!is_national) |
+|-----------------------------|-------------|-----------------------------------|
+| is_relay                    | club        | club+flag                         |
+| is_individual (==!is_relay) | club        | flag                              |

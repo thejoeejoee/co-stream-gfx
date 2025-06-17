@@ -2,12 +2,14 @@
     @apply
     flex flex-col
 
-    divide-gray-200 divide-y-1
+    divide-gray-200/90 divide-y-1
 }
 
 .Table__Grid {
-    @apply grid bg-white items-center px-6 gap-x-6 py-3 gap-y-2;
     grid-template-columns: minmax(max-content, 0fr) auto max-content max-content;
+    @apply
+        grid bg-white/90 items-center
+        px-6 gap-x-6 py-3 gap-y-2
 }
 
 .Table__Position {
@@ -25,8 +27,8 @@
     text-co-black
 }
 
-.Table__Grid--no-empty-gutter-margin .Table__Position:empty + .Table__Name {
-    /* if no number present, dismiss part of the left gap */
+.Table__Grid--no-empty-gutter-margin:has(.Table__Position:not:empty) .Table__Position:empty + .Table__Name {
+    /* if each position is empty, consume the left margin together */
     @apply -ml-6;
 }
 

@@ -128,3 +128,21 @@ export interface IFlowersRunner {
     nationality: string;
     club:        string;
 }
+
+export interface IPositionHistory {
+    class: string;
+    data:  IPositionHistoryRunner[];
+}
+
+export interface IPositionHistoryRunner {
+    name:        string;
+    club:        string;
+    nationality: string;
+    history:     IPositionHistoryEntry[];
+}
+
+export interface IPositionHistoryEntry {
+    position:   number;
+    time_loss:  number;
+}
+

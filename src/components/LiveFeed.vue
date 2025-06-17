@@ -1,10 +1,10 @@
 <template>
-  <div class="Table min-w-[calc((2.5*64)*var(--spacing))]">
+  <div class="Table min-w-[calc((2*64)*var(--spacing))]">
     <TransitionGroup class="Table__Flex" tag="div" name="list">
       <!-- leader row -->
       <div
           v-if="data.has_leader"
-          class="Table__Row Table__Row--leader"
+          class="Table__Row Table__Row--leader rounded-t-md"
           :key="data.leader.name"
       >
         <span
@@ -27,14 +27,14 @@
         </club-flag>
         <span class="Table__Time" v-text="data.leader.time"></span>
       </div>
-
       <div
           class="Table__Row"
           v-for="(row, index) in data.data?.filter((r) => r.name && r.name.length > 0) || []"
           :data-index="index"
           :key="row.name || index"
           :class="{
-            'Table__Row--highlight': index === data.row_idx,
+            'Table__Row--highlight rounded-md': index === data.row_idx,
+            'rounded-t-md': index == 0 && !data.has_leader,
           }"
       >
         <span
@@ -56,7 +56,7 @@
       </div>
 
   </TransitionGroup>
-    <div class="Table__Title">
+    <div class="Table__Title rounded-b-md">
       <span
           class="Gfx__Control"
           :class="{'Gfx__Control--finish': data.finish}"

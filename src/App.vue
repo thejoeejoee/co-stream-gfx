@@ -7,11 +7,13 @@ import StartList from "@/components/StartList.vue";
 import RaceTitle from "@/components/RaceTitle.vue";
 import Parameters from "@/components/Parameters.vue";
 import Weather from "@/components/Weather.vue";
-import Flag from "@/components/Flag.vue";
+import Flowers from "@/components/Flowers.vue";
 import Debug from "@/components/Debug.vue";
 import {IconSpeakerphone} from "@tabler/icons-vue";
-import ClubFlag from "@/components/ClubFlag.vue";
+import Start from "@/components/Start.vue";
+import SingleRunner from "@/components/SingleRunner.vue";
 import type {
+  IFlowers,
   IFreeText,
   ILiveFeed,
   IParameters,
@@ -21,7 +23,7 @@ import type {
   ISpeaker,
   IStartDetail,
   IStartList,
-  IWeather
+  IWeather,
 } from "@/types/api";
 
 const params = new URLSearchParams(window.location.search)
@@ -37,6 +39,7 @@ class State {
   startlist: IStartList | null = null;
   title: IRaceTitle | null = null;
   weather: IWeather | null = null;
+  flowers: IFlowers | null = null;
 }
 
 let state = useLocalStorage("state-v1", new State())
@@ -61,6 +64,7 @@ eventSource.value?.addEventListener("hide", (event) => {
   state.value.singleRunner = null
   state.value.start = null
   state.value.results = null
+  state.value.flowers = null
 })
 // TODO: generalize?
 eventSource.value?.addEventListener("freetext", (event) => {
@@ -93,6 +97,9 @@ eventSource.value?.addEventListener("start", (event) => {
 eventSource.value?.addEventListener("results", (event) => {
   state.value.results = JSON.parse(event.data) as IResults
 })
+eventSource.value?.addEventListener("flowers", (event) => {
+  state.value.flowers = JSON.parse(event.data) as IFlowers
+})
 
 // check url param ?debug
 const isDebug = params.has('debug')
@@ -107,21 +114,21 @@ const isDebug = params.has('debug')
           :data="state.liveFeed"
       />
     </Transition>
-    <Transition name="slide">
+<!--    <Transition name="slide">-->
       <!--      <Time class="absolute right-24 bottom-24" v-show="flags.time"/>-->
-    </Transition>
+<!--    </Transition>-->
     <Transition name="slide">
       <ResultsTable
           v-if="state.results !== null"
           :data="state.results"
-          class="absolute top-36 left-96 right-96"
+          class="absolute top-36 left-120 right-120"
       />
     </Transition>
     <Transition name="slide">
       <StartList
           v-if="state.startlist !== null"
           :data="state.startlist"
-          class="absolute top-36 left-96 right-96"
+          class="absolute top-36 left-120 right-120"
       />
     </Transition>
     <Transition name="slide">
@@ -147,98 +154,42 @@ const isDebug = params.has('debug')
     </Transition>
 
     <Transition name="slide">
+      <Flowers
+          v-if="state.flowers !== null"
+          class="absolute bottom-36 left-64 right-64"
+          :data="state.flowers"
+      />
+    </Transition>
+
+    <Transition name="slide">
       <Text
           v-if="state.freetext !== null"
-          class="absolute left-24 bottom-24"
+          class="absolute left-24 bottom-24 rounded-md overflow-hidden"
       >
         {{ state.freetext.text }}
       </Text>
     </Transition>
 
     <Transition name="slide">
-      <div class="
-        absolute left-24 bottom-24
-        h-36 flex-col
-        border-l-[calc(var(--spacing)*2)] border-l-co-orange
-      " v-if="state.singleRunner !== null">
-        <div class="
-          flex flex-row items-center justify-between
-          text-lg bg-white
-        ">
-          <span
-              v-if="state.singleRunner.bib_number || 10"
-              class="
-              flex items-center px-6
-              bg-co-orange  text-co-beige
-              h-24 font-semibold
-            "
-              v-text="state.singleRunner.bib_number || 10"
-          />
-          <h1
-              class="
-                h-24 bg-white px-6 gap-x-4 w-full
-                flex flex-row justify-between items-center
-                font-co uppercase text-co-black
-          ">
-            {{ state.singleRunner.name }}
-
-            <club-flag
-                :conf="state.singleRunner"
-                :item="state.singleRunner"
-                club-class="text-co-orange"
-            />
-          </h1>
-        </div>
-
-        <h2 class="
-          font-co text-md h-12 flex items-center justify-between gap-x-4
-          p-4
-          bg-co-orange text-co-beige
-        ">
-          <span v-text="state.singleRunner.class" class="italic font-semibold"/>
-          <span v-text="state.singleRunner.detail"></span>
-        </h2>
-
+      <div class="absolute left-24 bottom-24" v-if="state.singleRunner !== null">
+        <SingleRunner
+            :single-runner="state.singleRunner"
+        />
       </div>
     </Transition>
 
     <Transition name="slide">
-      <div class="absolute left-24 bottom-24" v-if="state.start !== null">
-        <Text>
-          <template v-slot:icon v-if="state.start.bib_number || 10">
-            <span
-                v-text="state.start.bib_number || 10"
-                class="text-lg font-semibold"
-            ></span>
-          </template>
-
-          <span v-text="state.start.name" class="mr-auto"></span>
-
-          <template v-slot:right v-if="state.start.nationality">
-            <club-flag
-                :conf="state.start"
-                :item="state.start"
-                club-class="text-co-orange"
-            />
-          </template>
-          <template v-slot:right-gutter v-if="state.start.start_time">
-            <span
-                class="text-lg bg-co-orange text-co-beige p-6 font-semibold"
-                v-text="state.start.start_time"
-            ></span>
-          </template>
-        </Text>
-
-        <div v-if="state.start.detail" class="text-md p-4 bg-co-orange text-co-beige font-co">
-          {{ state.start?.detail }}
-        </div>
+      <div class="absolute left-24 bottom-24 rounded-md overflow-hidden" v-if="state.start !== null">
+        <Start
+            :start="state.start"
+        />
       </div>
     </Transition>
 
     <Transition name="slide">
       <Text
           v-if="state.speaker !== null"
-          class="absolute left-24 bottom-24"
+          class="absolute left-24 bottom-24 rounded-md overflow-hidden"
       >
         {{ state.speaker.commentators }}
         <template #icon>

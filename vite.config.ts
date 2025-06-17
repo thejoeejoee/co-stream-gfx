@@ -2,7 +2,7 @@ import { fileURLToPath, URL } from 'node:url'
 import svgLoader from 'vite-svg-loader'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-// import vueDevTools from 'vite-plugin-vue-devtools'
+import vueDevTools from 'vite-plugin-vue-devtools'
 import tailwindcss from '@tailwindcss/vite'
 import tailwindAutoReference from 'vite-plugin-vue-tailwind-auto-reference';
 import postcssNesting from 'postcss-nesting';
@@ -38,5 +38,8 @@ export default defineConfig({
     watch: {
       ignored: ["**/out/**"],
     },
+    hmr: {
+      overlay: false,
+    }
   },
 })

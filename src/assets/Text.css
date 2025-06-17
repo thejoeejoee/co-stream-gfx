@@ -51,13 +51,14 @@
     @apply
     text-xl text-co-beige uppercase col-span-2
     bg-co-orange italic font-semibold
-    p-6
+    p-6 rounded-t-md
 }
 
 .RaceTitle__Subtitle {
     @apply
     px-4 h-18 bg-white text-md font-semibold text-co-black
     flex flex-row items-center gap-2
+    rounded-b-md
 
 }
 

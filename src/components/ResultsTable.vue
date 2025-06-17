@@ -1,5 +1,5 @@
 <template>
-  <div class="Table">
+  <div class="Table rounded-md overflow-hidden">
     <div class="Table__Title Table__Title--highlight">
       <span
           class="Gfx__Control Gfx__Control--invert"

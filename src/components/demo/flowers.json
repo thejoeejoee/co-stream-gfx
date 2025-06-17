@@ -1,0 +1,29 @@
+{
+  "vmix_url": "127.0.0.1:8080",
+  "flags_path": "C:\\Users\\chmel\\Documents\\orientacnisporty\\IOF_GRAFIKA\\vlajky_3_letters_JWOC\\",
+  "label": "Stupn\u011b v\u00edt\u011bz\u016f",
+  "class": "H21C",
+  "rows": 10,
+  "data": [
+    {
+      "position": "1",
+      "name": "Horv\u00e1t Petr",
+      "nationality": "CZE",
+      "club": "TBM"
+    },
+    {
+      "position": "2",
+      "name": "Pt\u00e1\u010dek Vladimír Květoslav",
+      "nationality": "CZE",
+      "club": "TBM"
+    },
+    {
+      "position": "3",
+      "name": "Nováková Davidová Evelína",
+      "nationality": "CZE",
+      "club": "JPV"
+    }
+  ],
+  "is_relay": true,
+  "is_national": true
+}
