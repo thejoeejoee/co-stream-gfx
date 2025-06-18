@@ -2,13 +2,13 @@
     @apply
     flex flex-col
 
-    divide-gray-200/90 divide-y-1
+    divide-gray-200/95 divide-y-1
 }
 
 .Table__Grid {
     grid-template-columns: minmax(max-content, 0fr) auto max-content max-content;
     @apply
-        grid bg-white/90 items-center
+        grid bg-white/95 items-center
         px-6 gap-x-6 py-3 gap-y-2
 }
 
