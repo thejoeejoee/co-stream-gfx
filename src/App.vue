@@ -117,35 +117,35 @@ const isDebug = params.has('debug')
 <!--    <Transition name="slide">-->
       <!--      <Time class="absolute right-24 bottom-24" v-show="flags.time"/>-->
 <!--    </Transition>-->
-    <Transition name="slide">
+    <Transition name="nested-slide" :duration="500">
       <ResultsTable
           v-if="state.results !== null"
           :data="state.results"
           class="absolute top-36 left-120 right-120"
       />
     </Transition>
-    <Transition name="slide">
+    <Transition name="nested-slide" :duration="500">
       <StartList
           v-if="state.startlist !== null"
           :data="state.startlist"
           class="absolute top-36 left-120 right-120"
       />
     </Transition>
-    <Transition name="slide">
+    <Transition name="nested-slide" :duration="500">
       <RaceTitle
           v-if="state.title !== null"
           :data="state.title"
           class="absolute bottom-24 left-64 right-64"
       />
     </Transition>
-    <Transition name="slide">
+    <Transition name="nested-slide" :duration="500">
       <Weather
           v-if="state.weather !== null"
           :data="state.weather"
           class="absolute right-24 bottom-24"
       />
     </Transition>
-    <Transition name="slide">
+    <Transition name="nested-slide" :duration="500">
       <Parameters
           class="absolute right-24 bottom-24"
           v-if="state.parameters !== null"
@@ -170,19 +170,23 @@ const isDebug = params.has('debug')
       </Text>
     </Transition>
 
-    <Transition name="slide">
-      <div class="absolute left-24 bottom-24" v-if="state.singleRunner !== null">
-        <SingleRunner
-            :single-runner="state.singleRunner"
-        />
+    <Transition name="nested-slide" :duration="500" mode="out-in">
+      <div
+          class="absolute left-24 bottom-24"
+          v-if="state.singleRunner !== null"
+          :key="state.singleRunner.name"
+      >
+        <SingleRunner :single-runner="state.singleRunner"/>
       </div>
     </Transition>
 
-    <Transition name="slide">
-      <div class="absolute left-24 bottom-24 rounded-md overflow-hidden" v-if="state.start !== null">
-        <Start
-            :start="state.start"
-        />
+    <Transition name="nested-slide" :duration="500" mode="out-in">
+      <div
+          class="absolute left-24 bottom-24 rounded-md overflow-hidden"
+          v-if="state.start !== null"
+          :key="state.start.name"
+      >
+        <Start :start="state.start"/>
       </div>
     </Transition>
 
@@ -214,6 +218,7 @@ const isDebug = params.has('debug')
 .GfxScreen--debug {
   //margin: 128px auto;
   background-image: repeating-conic-gradient(#cccccc44 0 25%, #0000 0 50%);
+  //background-color: darkgreen;
   background-position: bottom center;
   background-size: 96px 96px;
 }

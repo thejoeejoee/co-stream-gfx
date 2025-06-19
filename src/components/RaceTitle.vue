@@ -1,15 +1,17 @@
 <template>
   <div class="RaceTitle">
-    <div class="RaceTitle__Title">
+    <div class="RaceTitle__Title Animate__Slide">
       {{ data.title }}
     </div>
-    <div class="RaceTitle__Subtitle">
-      <IconCalendarWeek size="48" stroke="1.5"/>
-      {{ data.date }}
-    </div>
-    <div class="RaceTitle__Subtitle justify-end">
-      {{ data.place }}
-      <IconMapPin size="48" stroke="1.5"/>
+    <div class="RaceTitle__Subtitle Animate__Clip">
+      <span class="flex items-center">
+        <IconCalendarWeek size="48" stroke="1.5"/>
+        {{ data.date }}
+      </span>
+      <span class="flex items-center">
+        {{ data.place }}
+        <IconMapPin size="48" stroke="1.5"/>
+      </span>
     </div>
   </div>
 </template>

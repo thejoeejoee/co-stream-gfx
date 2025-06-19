@@ -1,6 +1,6 @@
 <template>
   <div class="Table min-w-[calc((2*64)*var(--spacing))]">
-    <TransitionGroup class="Table__Flex" tag="div" name="list">
+    <TransitionGroup class="Table__Flex Animate__Clip" tag="div" name="list">
       <!-- leader row -->
       <div
           v-if="data.has_leader"
@@ -55,8 +55,8 @@
         <span class="Table__Time" v-text="row.time"></span>
       </div>
 
-  </TransitionGroup>
-    <div class="Table__Title rounded-b-md">
+    </TransitionGroup>
+    <div class="Table__Title rounded-b-md Animate__Slide">
       <span
           class="Gfx__Control"
           :class="{'Gfx__Control--finish': data.finish}"

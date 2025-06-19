@@ -1,6 +1,6 @@
 <template>
   <div class="Table rounded-md overflow-hidden">
-    <div class="Table__Title Table__Title--highlight">
+    <div class="Table__Title Table__Title--highlight Animate__Slide">
       <span
           class="Gfx__Control Gfx__Control--invert"
           :class="{'Gfx__Control--finish': data.finish}"
@@ -9,8 +9,11 @@
       <span v-text="data.class"></span>
     </div>
 
-    <TransitionGroup name="table" tag="div">
-    <div class="Table__Grid Table__Grid--expand" :key="data.page">
+    <TransitionGroup name="table" tag="div" class="Animate__Clip">
+    <div
+        :key="data.page.toString()+data.data[0]?.name"
+        class="Table__Grid Table__Grid--expand"
+    >
       <template
           v-for="(row, _) in data.data"
           :key="row.name"

@@ -1,33 +1,27 @@
 <template>
   <div class="
-    flex flex-col
+    Table
     text-md text-semibold
-    text-co-black bg-white
     text-right
     font-co
-    [&_div]:flex
-    [&_div]:flex-row
-    [&_div]:justify-between
-    [&_div]:items-center
-    [&_div]:py-3
-    [&_div]:gap-x-8
-    divide-gray-200 divide-y-1
-    rounded-md
+    rounded-md overflow-hidden
    ">
-    <div class="bg-co-orange text-co-beige text-xl h-24 italic font-semibold px-8 rounded-t-md">
+    <div class="Table__Title Table__Title--highlight Animate__Slide">
       {{ data.place || data.title }}
     </div>
-    <div class="px-4">
-      <IconTemperature stroke="2" size="48" class="text-co-orange"/>
-      {{ data.temperature }}
-    </div>
-    <div class="px-4">
-      <IconDroplets stroke="2" size="48" class="text-co-orange"/>
-      {{ data.humidity }}
-    </div>
-    <div class="px-4">
-      <IconWind stroke="2" size="48" class="text-co-orange"/>
-      {{ data.wind_speed }}
+    <div class="Table__Flex Animate__Clip">
+      <div class="Table__Row">
+        <IconTemperature stroke="2" size="48" class="text-co-orange"/>
+        {{ data.temperature }}
+      </div>
+      <div class="Table__Row">
+        <IconDroplets stroke="2" size="48" class="text-co-orange"/>
+        {{ data.humidity }}
+      </div>
+      <div class="Table__Row">
+        <IconWind stroke="2" size="48" class="text-co-orange"/>
+        {{ data.wind_speed }}
+      </div>
     </div>
   </div>
 </template>

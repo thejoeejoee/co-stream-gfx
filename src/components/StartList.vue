@@ -1,6 +1,6 @@
 <template>
   <div class="Table rounded-md overflow-hidden">
-    <div class="Table__Title">
+    <div class="Table__Title Animate__Slide">
       <co-symbol class="fill-co-orange h-[var(--text-lg--line-height)]" />
       <span v-text="data.label" class="mr-auto"></span>
       <span v-text="data.class"></span>
@@ -8,7 +8,10 @@
     </div>
 
 <!--    <div class="Table__Grid Table__Grid&#45;&#45;expand Table__Grid&#45;&#45;no-left-margin" tag="div" name="list">-->
-      <div class="Table__Grid Table__Grid--expand Table__Grid--no-empty-gutter-margin">
+    <TransitionGroup name="table" tag="div" class="Animate__Clip">
+      <div
+          :key="data.page.toString()+data.data[0]?.name"
+          class="Table__Grid Table__Grid--expand Table__Grid--no-empty-gutter-margin">
       <template
           v-for="(row, index) in data.data"
           :key="row.name"
@@ -31,6 +34,7 @@
         </template>
       </template>
     </div>
+    </TransitionGroup>
   </div>
 </template>
 

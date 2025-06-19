@@ -63,7 +63,6 @@ body {
     transform-origin: bottom center;
 }
 
-
 .table-enter-active { animation: 200ms clip-top; }
 .table-leave-active { animation: 200ms clip-bottom reverse; }
 
@@ -72,11 +71,46 @@ body {
     width: 100%;
 }
 
+/* +-50% for not-clipping the scaled elements */
 @keyframes clip-top {
-    0% { clip-path: inset(0 0 100% 0); }
-    100% { clip-path: inset(0 0 0 0); }
+    0% { clip-path: inset(0 -50% 100% -50%); }
+    100% { clip-path: inset(0 -50% 0 -50%); }
 }
 @keyframes clip-bottom {
-    0% { clip-path: inset(100% 0 0 0); }
-    100% { clip-path: inset(0 0 0 0); }
+    0% { clip-path: inset(100% -50% 0 -50%); }
+    100% { clip-path: inset(0 -50% 0 -50%); }
+}
+
+/* enter by sliding */
+.nested-slide-enter-active {
+    animation: slideLeft 200ms ease-in-out;
+    animation-fill-mode: both;
+}
+/* unclip from top */
+.nested-slide-enter-active .Animate__Slide + .Animate__Clip {
+    animation: clip-top 300ms ease-in-out;
+    animation-delay: 200ms;
+    animation-fill-mode: both;
+}
+/* unclip from bottom */
+.nested-slide-enter-active .Animate__Clip:has(+ .Animate__Slide) {
+    animation: clip-bottom 300ms ease-in-out;
+    animation-delay: 200ms;
+    animation-fill-mode: both;
+}
+/* clip to top */
+.nested-slide-leave-active .Animate__Slide + .Animate__Clip {
+    animation: clip-top 200ms ease-in-out reverse;
+    animation-fill-mode: both;
+}
+/* clip to bottom */
+.nested-slide-leave-active .Animate__Clip:has(+ .Animate__Slide) {
+    animation: clip-bottom 200ms ease-in-out reverse;
+    animation-fill-mode: both;
+}
+/* leave by sliding */
+.nested-slide-leave-active {
+    animation: slideRight 200ms ease-in-out reverse;
+    animation-delay: 300ms;
+    animation-fill-mode: both;
 }

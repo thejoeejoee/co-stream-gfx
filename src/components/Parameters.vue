@@ -1,33 +1,26 @@
 <template>
   <div class="
-    flex flex-col
+    Table
     text-lg text-semibold
-    text-co-black bg-white
+    text-co-black
     text-right
     font-co
-    [&_div]:flex
-    [&_div]:flex-row
-    [&_div]:justify-between
-    [&_div]:items-center
-    [&_div]:py-3
-    [&_div]:gap-x-16
-    divide-gray-200 divide-y-1
     rounded-md overflow-hidden
    ">
-    <div class="
-      bg-co-orange text-co-beige
-        text-xl h-24 italic font-semibold px-8
-    ">
+    <div class="Table__Title Table__Title--highlight Animate__Slide">
       {{ data.class }}
     </div>
-    <template v-for="(item, index) in data.data" >
-      <div class="px-4 text-md" :key="index" v-if="item.value">
-      <span class="text-co-orange">
-        {{ item.key.toLowerCase() }}
-      </span>
-        {{ item.value }}
-      </div>
-    </template>
+
+    <div class="Table__Flex Animate__Clip">
+      <template v-for="(item, index) in data.data" >
+        <div class="text-md w-full Table__Row" :key="index" v-if="item.value">
+          <span class="text-co-orange">
+            {{ item.key.toLowerCase() }}
+          </span>
+          {{ item.value }}
+        </div>
+      </template>
+    </div>
   </div>
 </template>
 
