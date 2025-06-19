@@ -51,7 +51,7 @@
     @apply
     text-xl text-co-beige uppercase col-span-2
     bg-co-orange italic font-semibold
-    p-6 rounded-t-md
+    p-6 rounded-t-md font-co
 }
 
 .RaceTitle__Subtitle {
