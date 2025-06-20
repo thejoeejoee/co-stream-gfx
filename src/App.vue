@@ -107,7 +107,7 @@ const isDebug = params.has('debug')
 
 <template>
   <main class="GfxScreen select-none backface-hidden" :class="{ 'GfxScreen--debug': isDebug }">
-    <Transition name="slide">
+    <Transition name="nested-slide" :duration="500">
       <LiveFeed
           v-if="state.liveFeed !== null"
           class="absolute left-24 bottom-24"
