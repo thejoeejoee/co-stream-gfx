@@ -135,7 +135,7 @@ const isDebug = params.has('debug')
       <RaceTitle
           v-if="state.title !== null"
           :data="state.title"
-          class="absolute bottom-24 left-64 right-64"
+          class="absolute bottom-24 left-80 right-80"
       />
     </Transition>
     <Transition name="nested-slide" :duration="500">
