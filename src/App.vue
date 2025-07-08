@@ -110,7 +110,7 @@ const isDebug = params.has('debug')
     <Transition name="nested-slide" :duration="500">
       <LiveFeed
           v-if="state.liveFeed !== null"
-          class="absolute left-24 bottom-24"
+          class="absolute right-24 bottom-24"
           :data="state.liveFeed"
       />
     </Transition>
@@ -172,7 +172,7 @@ const isDebug = params.has('debug')
 
     <Transition name="nested-slide" :duration="500" mode="out-in">
       <div
-          class="absolute left-24 bottom-24"
+          class="absolute right-24 bottom-24"
           v-if="state.singleRunner !== null"
           :key="state.singleRunner.name"
       >
