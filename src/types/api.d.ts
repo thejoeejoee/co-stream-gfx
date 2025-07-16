@@ -67,8 +67,10 @@ export interface IStartListRunner {
     bib_number:  string;
     name:        string;
     nationality: string;
-    club:        string;
-    start_time:  string;
+    club?:        string;
+    start_time?:  string;
+
+    start_time_ts?: number; // optional, unix timestamp
 }
 
 export interface ISingleRunner {
@@ -131,6 +133,9 @@ export interface IFlowersRunner {
 
 export interface IPositionHistory {
     class: string;
+    is_national: boolean;
+    is_relay: boolean;
+    controls: string[];
     data:  IPositionHistoryRunner[];
 }
 
@@ -146,3 +151,7 @@ export interface IPositionHistoryEntry {
     time_loss:  number;
 }
 
+export interface ClubFlagConfiguration {
+  is_national: boolean;
+  is_relay: boolean;
+}

@@ -39,11 +39,11 @@
 </template>
 
 <script setup lang="ts">
-import Flag from "@/components/Flag.vue";
+import Flag from "@/components/gfx/Flag.vue";
 import type {IStartList} from "@/types/api";
 import CoSymbol from "@/assets/co_symbol.svg?component"
 import ClubFlag from "@/components/ClubFlag.vue";
-import PositionChangeSymbol from "@/components/PositionChangeSymbol.vue";
+import PositionChangeSymbol from "@/components/gfx/PositionChangeSymbol.vue";
 
 defineProps<{
   data: IStartList

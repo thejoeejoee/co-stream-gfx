@@ -70,7 +70,7 @@
 import CountryFlag from 'vue-country-flag-next'
 import type {ILiveFeed} from "@/types/api";
 import Flag from "@/components/Flag.vue";
-import PositionChangeSymbol from "@/components/PositionChangeSymbol.vue";
+import PositionChangeSymbol from "@/components/gfx/PositionChangeSymbol.vue";
 import ClubFlag from "@/components/ClubFlag.vue";
 
 // property

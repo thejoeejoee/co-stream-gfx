@@ -53,7 +53,7 @@ import Flag from "@/components/Flag.vue";
 import type {IResults} from "@/types/api";
 import CoSymbol from "@/assets/co_symbol.svg"
 import {rand} from "@vueuse/shared";
-import PositionChangeSymbol from "@/components/PositionChangeSymbol.vue";
+import PositionChangeSymbol from "@/components/gfx/PositionChangeSymbol.vue";
 import ClubFlag from "@/components/ClubFlag.vue";
 
 defineProps<{

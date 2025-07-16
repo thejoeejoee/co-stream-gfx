@@ -20,11 +20,7 @@
 <script setup lang="ts">
 import Flag from "@/components/Flag.vue";
 import {computed} from "vue";
-
-interface ClubFlagConfiguration {
-  is_national: boolean;
-  is_relay: boolean;
-}
+import type {ClubFlagConfiguration} from "@/types/api";
 
 interface WithClubFlag {
   nationality: string;

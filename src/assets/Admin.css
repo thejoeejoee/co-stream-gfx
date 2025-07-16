@@ -1,0 +1,3 @@
+.Admin__StartAlert__row {
+  @apply flex flex-row items-center justify-between gap-6 p-4
+}

@@ -2,7 +2,7 @@
 import {computed, ref} from "vue";
 // import "vue-data-ui/style.css"; // If you are using multiple components, place styles import in your main
 
-import Text from "@/components/Text.vue";
+import Text from "@/components/gfx/Text.vue";
 
 import ApexCharts from 'vue3-apexcharts'
 import lo from 'lodash'
