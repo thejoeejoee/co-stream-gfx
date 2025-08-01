@@ -1,47 +1,51 @@
 <template>
-  <div v-if="isDebug" class="
-    max-w-[70vw] mx-auto
-    p-4 flex flex-col gap-4 items-center
+  <div>
+    <GfxMain class="GfxScreen--debug"/>
 
-    [&_button]:p-2
-    [&_button]:bg-amber-100
-    [&_button]:border-amber-400
-    [&_button]:border
-    [&_button]:uppercase
-    [&_button]:font-semibold
-    [&_button]:cursor-pointer
-    [&_a]:p-2
+    <div class="
+      max-w-[70vw] mx-auto
+      p-4 flex flex-col gap-4 items-center
 
-    [&_a]:bg-amber-100
-    [&_a]:border-amber-400
-    [&_a]:border
-    [&_a]:uppercase
-    [&_a]:font-semibold
-    [&_a]:cursor-pointer
-  ">
+      [&_button]:p-2
+      [&_button]:bg-amber-100
+      [&_button]:border-amber-400
+      [&_button]:border
+      [&_button]:uppercase
+      [&_button]:font-semibold
+      [&_button]:cursor-pointer
+      [&_a]:p-2
 
-    <div v-if="autoplay" class="text-md">autoplay enabled</div>
+      [&_a]:bg-amber-100
+      [&_a]:border-amber-400
+      [&_a]:border
+      [&_a]:uppercase
+      [&_a]:font-semibold
+      [&_a]:cursor-pointer
+    ">
 
-    <div class="flex flex-row gap-16 flex-wrap justify-center pt-8" v-if="!autoplay">
-      <button
-          class="text-md font-semibold mx-auto"
-          @click="hide"
-      >hide all</button>
-      <button
-          class="text-md font-semibold mx-auto"
-          @click="openFileModal()"
-      >import file</button>
+      <div v-if="autoplay" class="text-md">autoplay enabled</div>
 
-      <a href="?autoplay" class="text-md font-semibold mx-auto">autoplay</a>
+      <div class="flex flex-row gap-16 flex-wrap justify-center pt-8" v-if="!autoplay">
+        <button
+            class="text-md font-semibold mx-auto"
+            @click="hide"
+        >hide all</button>
+        <button
+            class="text-md font-semibold mx-auto"
+            @click="openFileModal()"
+        >import file</button>
 
-    </div>
+        <a href="?autoplay" class="text-md font-semibold mx-auto">autoplay</a>
 
-    <div class="flex flex-row gap-4 flex-wrap justify-center pt-8" v-if="!autoplay">
-      <button
-          v-for="path in demoKeys"
-          @click="fire(path)"
-          v-text="nameFromPath(path)"
-      ></button>
+      </div>
+
+      <div class="flex flex-row gap-4 flex-wrap justify-center pt-8" v-if="!autoplay">
+        <button
+            v-for="path in demoKeys"
+            @click="fire(path)"
+            v-text="nameFromPath(path)"
+        ></button>
+      </div>
     </div>
   </div>
 
@@ -52,6 +56,8 @@ import {computed, onUnmounted, ref} from "vue";
 import {onKeyStroke, useLocalStorage} from "@vueuse/core";
 
 import {useFileDialog} from '@vueuse/core'
+import GfxMain from "@/components/gfx/Main.vue";
+import {eventSource} from "@/state.ts";
 
 const { files, open: openFileModal, reset, onCancel, onChange } = useFileDialog({
   accept: '.json',
@@ -71,7 +77,7 @@ onChange(async () => {
         eventName,
         {data: JSON.stringify(data)}
       )
-      props.eventSource.dispatchEvent(e)
+      eventSource.value?.dispatchEvent(e)
     } catch (error) {
       alert("Error parsing JSON file. Please ensure it is valid JSON.")
       console.error("Error parsing JSON file:", error)
@@ -81,12 +87,9 @@ onChange(async () => {
 })
 
 
-const props = defineProps<{
-  eventSource: EventSource
-}>()
 
 const params = new URLSearchParams(window.location.search)
-const isDebug = params.has('debug')
+// const isDebug = params.has('debug')
 const autoplay = params.has('autoplay')
 const show = params.get('show')
 
@@ -105,7 +108,7 @@ const nameFromPath = (path: string) => {
 }
 
 const hide = () => {
-  props.eventSource.dispatchEvent(new MessageEvent('hide'))
+  eventSource.value?.dispatchEvent(new MessageEvent('hide'))
 }
 
 const fire = (f: string) => {
@@ -117,7 +120,7 @@ const fire = (f: string) => {
       eventName,
     {data: JSON.stringify(payload)}
   )
-  props.eventSource.dispatchEvent(e)
+  eventSource.value?.dispatchEvent(e)
 }
 
 // TODO: receive event stream and send demo data

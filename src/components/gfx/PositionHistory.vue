@@ -8,7 +8,7 @@ import ApexCharts from 'vue3-apexcharts'
 import lo from 'lodash'
 import type {Ref} from "vue";
 import type {ApexOptions} from "apexcharts";
-import history from "./demo/position-history.01.json"
+import history from "./../demo/position-history.01.json"
 import type {IPositionHistory, IPositionHistoryEntry, IPositionHistoryRunner} from "@/types/api";
 import {onKeyStroke} from "@vueuse/core";
 

@@ -15,6 +15,7 @@ import Weather from "@/components/gfx/Weather.vue";
 import SingleRunner from "@/components/gfx/SingleRunner.vue";
 import Parameters from "@/components/gfx/Parameters.vue";
 import Start from "@/components/gfx/Start.vue";
+import TimeText from "@/components/gfx/Time.vue";
 import RaceTitle from "@/components/gfx/RaceTitle.vue";
 import StartList from "@/components/gfx/StartList.vue";
 import Text from "@/components/gfx/Text.vue";
@@ -23,11 +24,7 @@ import Flowers from "@/components/gfx/Flowers.vue";
 import LiveFeed from "@/components/gfx/LiveFeed.vue";
 import ResultsTable from "@/components/gfx/ResultsTable.vue";
 
-const {eventSource, params} = defineProps<{
-  eventSource: EventSource
-  params: URLSearchParams
-}>()
-
+import {params, eventSource} from "@/state.ts";
 
 class State {
   freetext: IFreeText | null = null
@@ -45,7 +42,7 @@ class State {
 
 let state = useLocalStorage("state-v1", new State())
 
-eventSource.addEventListener("hide", (event) => {
+eventSource.value?.addEventListener("hide", (event) => {
   state.value.freetext = null
   state.value.parameters = null
   state.value.liveFeed = null
@@ -59,49 +56,46 @@ eventSource.addEventListener("hide", (event) => {
   state.value.flowers = null
 })
 // TODO: generalize?
-eventSource.addEventListener("freetext", (event) => {
+eventSource.value?.addEventListener("freetext", (event) => {
   state.value.freetext = JSON.parse(event.data) as IFreeText
 })
-eventSource.addEventListener("params", (event) => {
+eventSource.value?.addEventListener("params", (event) => {
   state.value.parameters = JSON.parse(event.data) as IParameters
 })
-eventSource.addEventListener("live-feed", (event) => {
+eventSource.value?.addEventListener("live-feed", (event) => {
   state.value.liveFeed = JSON.parse(event.data) as ILiveFeed
 })
-eventSource.addEventListener("title", (event) => {
+eventSource.value?.addEventListener("title", (event) => {
   state.value.title = JSON.parse(event.data) as IRaceTitle
 })
-eventSource.addEventListener("speaker", (event) => {
+eventSource.value?.addEventListener("speaker", (event) => {
   state.value.speaker = JSON.parse(event.data) as ISpeaker
 })
-eventSource.addEventListener("weather", (event) => {
+eventSource.value?.addEventListener("weather", (event) => {
   state.value.weather = JSON.parse(event.data) as IWeather
 })
-eventSource.addEventListener("startlist", (event) => {
+eventSource.value?.addEventListener("startlist", (event) => {
   state.value.startlist = JSON.parse(event.data) as IStartList
 })
-eventSource.addEventListener("single-runner", (event) => {
+eventSource.value?.addEventListener("single-runner", (event) => {
   state.value.start = null
   state.value.singleRunner = JSON.parse(event.data) as ISingleRunner
 })
-eventSource.addEventListener("start", (event) => {
+eventSource.value?.addEventListener("start", (event) => {
   state.value.singleRunner = null
   state.value.start = JSON.parse(event.data) as IStartDetail
 })
-eventSource.addEventListener("results", (event) => {
+eventSource.value?.addEventListener("results", (event) => {
   state.value.results = JSON.parse(event.data) as IResults
 })
-eventSource.addEventListener("flowers", (event) => {
+eventSource.value?.addEventListener("flowers", (event) => {
   state.value.flowers = JSON.parse(event.data) as IFlowers
 })
-
-// check url param ?debug
-const isDebug = params.has('debug')
 
 </script>
 
 <template>
-  <div class="GfxScreen select-none backface-hidden" :class="{ 'GfxScreen--debug': isDebug }">
+  <div class="GfxScreen select-none backface-hidden">
 
 <!--    <PositionHistory-->
 <!--      class="absolute inset-64"-->
@@ -114,7 +108,10 @@ const isDebug = params.has('debug')
       />
     </Transition>
 <!--    <Transition name="slide">-->
-      <!--      <Time class="absolute right-24 bottom-24" v-show="flags.time"/>-->
+<!--      <div class="absolute right-24 bottom-24 flex flex-row" v-if="false">-->
+<!--        <TimeText prefix="M18"/>-->
+<!--        <TimeText prefix="W18" :offset="300"/>-->
+<!--      </div>-->
 <!--    </Transition>-->
     <Transition name="nested-slide" :duration="500">
       <ResultsTable

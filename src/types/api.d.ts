@@ -67,7 +67,7 @@ export interface IStartListRunner {
     bib_number:  string;
     name:        string;
     nationality: string;
-    club?:        string;
+    club:        string;
     start_time?:  string;
 
     start_time_ts?: number; // optional, unix timestamp
