@@ -64,8 +64,14 @@ body {
     transform-origin: bottom center;
 }
 
-.table-enter-active { animation: 200ms clip-top; }
-.table-leave-active { animation: 200ms clip-bottom reverse; }
+.table-enter-active {
+    animation: 300ms clip-top 400ms;
+    animation-fill-mode: both;
+}
+.table-leave-active {
+    animation: 300ms clip-top reverse;
+    animation-fill-mode: both;
+}
 
 .table-leave-active {
     position: absolute;
