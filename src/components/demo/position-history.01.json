@@ -1,0 +1,68 @@
+{
+  "class": "D21",
+  "is_relay": false,
+  "is_national": true,
+  "controls": [
+    "Start",
+    "Split 1",
+    "Split 2",
+    "Finish"
+  ],
+  "data": [
+    {
+      "name": "Nováková Davidová E.",
+      "club": "ABC",
+      "nationality": "CZE",
+      "history": [
+        {"position": 0, "time_loss": 0},
+        {"position": 3, "time_loss": 25},
+        {"position": 2, "time_loss": 10},
+        {"position": 1, "time_loss": 0}
+      ]
+    },
+    {
+      "name": "Horvát P.",
+      "club": "CDE",
+      "nationality": "USA",
+      "history": [
+        {"position": 0, "time_loss": 0},
+        {"position": 4, "time_loss": 35},
+        {"position": 3, "time_loss": 12},
+        {"position": 2, "time_loss": 10}
+      ]
+    },
+    {
+      "name": "Walter W.",
+      "club": "DEF",
+      "nationality": "SVK",
+      "history": [
+        {"position": 0, "time_loss": 0},
+        {"position": 7, "time_loss": 67},
+        {"position": 4, "time_loss": 22},
+        {"position": 3, "time_loss": 15}
+      ]
+    },
+    {
+      "name": "Anna G.",
+      "club": "EFG",
+      "nationality": "LAT",
+      "history": [
+        {"position": 0, "time_loss": 0},
+        {"position": 1, "time_loss": 0},
+        {"position": 5, "time_loss": 38},
+        {"position": 4, "time_loss": 22}
+      ]
+    },
+    {
+      "name": "Jesse P.",
+      "club": "FGH",
+      "nationality": "CZE",
+      "history": [
+        {"position": 0, "time_loss": 0},
+        {"position": 2, "time_loss": 3},
+        {"position": 1, "time_loss": 0},
+        {"position": 5, "time_loss": 36}
+      ]
+    }
+  ]
+}
