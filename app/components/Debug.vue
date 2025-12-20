@@ -73,7 +73,7 @@ import { onUnmounted } from 'vue'
 import { useLocalStorage, useFileDialog } from '@vueuse/core'
 
 import GfxMain from './gfx/Main.vue'
-import { eventSource } from '~/state.js'
+import { eventSource } from '~/state'
 
 const { files, open: openFileModal, onChange } = useFileDialog({
   accept: '.json',
