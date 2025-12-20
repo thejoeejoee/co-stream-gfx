@@ -1,0 +1,153 @@
+.Table {
+    @apply
+    flex flex-col
+
+    divide-gray-200/95 divide-y-1
+}
+
+.Table__Grid {
+    grid-template-columns: minmax(max-content, 0fr) auto max-content max-content;
+    @apply
+        grid bg-white/95 items-center
+        px-6 gap-x-6 py-3 gap-y-2
+}
+
+.Table__Position {
+    @apply
+    text-co-orange font-co
+    tabular-nums
+    text-right
+    text-md
+}
+
+.Table__Name {
+    @apply
+    font-co
+    text-md
+    text-co-black
+}
+
+.Table__Grid--no-empty-gutter-margin:has(.Table__Position:not(:empty)) .Table__Position:empty + .Table__Name {
+    /* if each position is empty, consume the left margin together */
+    @apply -ml-6;
+}
+
+.Table__Grid--no-empty-gutter-margin div:has(+ .Table__Time:empty) {
+    /* if no time present, dismiss part of the right gap */
+    @apply -mr-6;
+}
+
+.Table__Flag {
+    @apply flex flex-row items-center gap-x-4
+}
+
+.Table__Club {
+    @apply text-md text-left
+}
+
+.Table__ClubFlag {
+    @apply flex flex-row items-center justify-end gap-x-4;
+}
+
+.Table__Time {
+    @apply
+    text-co-orange font-co
+    tabular-nums
+    text-right
+    text-md
+}
+
+.Table__Divider {
+    @apply col-span-4 h-[2px] bg-gray-200;
+}
+
+.Table__Divider:last-child {
+    @apply hidden;
+}
+
+/* SMALL TABLE with highlighting */
+.Table__Flex {
+    @apply
+        flex flex-col items-center justify-between
+        divide-gray-200 divide-y-2
+    ;
+    .Table__Row--leader,
+    .Table__Row--highlight,
+    .Table__Row:last-child {
+        border-style: none;
+    }
+    .Table__Row {
+        @apply
+            flex flex-row items-center justify-between
+            gap-x-4 px-4 py-2 w-full
+            bg-white
+    }
+    .Table__Position {
+        @apply min-w-[2ch]
+    }
+    .Table__Name {
+        @apply mr-auto;
+    }
+}
+
+
+.Table__Flex .Table__Row--leader {
+    @apply
+        py-4
+        bg-co-orange text-co-beige
+        text-md
+    ;
+
+    .Table__Name,
+    .Table__Club,
+    .Table__Position,
+    .Table__Time {
+        @apply font-semibold text-co-beige
+    }
+}
+
+.Table__Row--highlight {
+    @apply
+    origin-center
+    scale-105
+    my-1
+    bg-white
+}
+
+
+/* title over/under */
+.Table__Title {
+    @apply
+    py-6 px-6 italic font-co font-semibold
+    flex flex-row justify-between gap-x-4
+    text-lg
+    bg-co-beige text-co-orange
+}
+.Table__Title--highlight {
+    @apply bg-co-orange text-co-beige
+}
+
+.Gfx__Control {
+    @apply flex justify-center items-center
+}
+
+.Gfx__Control span {
+    @apply size-12
+    rounded-full
+    border-co-orange border-4
+}
+
+.Gfx__Control--finish span {
+    box-shadow: inset 0 0 0 3px var(--color-co-beige),
+    inset 0 0 0 6px var(--color-co-orange);
+}
+
+.Gfx__Control--invert {
+    span {
+        @apply border-co-beige
+    }
+    &.Gfx__Control--finish span {
+        box-shadow: inset 0 0 0 3px var(--color-co-orange),
+        inset 0 0 0 6px var(--color-co-beige);
+    }
+}
