@@ -7,6 +7,12 @@
 @import "./Admin.css";
 @import "./fonts.css";
 
+@plugin "@tailwindcss/typography";
+/*@plugin "daisyui" {*/
+/* TODO: background of :root is white */
+/*    themes: emerald --default !*, luxury --prefersdark, fantasy*!;*/
+/*}*/
+
 body {
     @apply antialiased
 }
