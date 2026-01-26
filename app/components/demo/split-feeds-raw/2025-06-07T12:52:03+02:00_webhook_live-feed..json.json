@@ -1,0 +1,40 @@
+{
+  "vmix_url": "127.0.0.1:8080",
+  "flags_path": "C:\\Users\\chmel\\Documents\\orientacnisporty\\IOF_GRAFIKA\\vlajky_3_letters_JWOC\\",
+  "label": "H21C - C\u00cdL",
+  "is_national": true,
+  "is_relay": false,
+  "has_leader": true,
+  "leader": {
+    "position": "1",
+    "name": "Horv\u00e1t P.",
+    "nationality": "CZE",
+    "club": "TBM",
+    "time": "59:31"
+  },
+  "punched": false,
+  "row_idx": 1,
+  "data": [
+    {
+      "position": "3",
+      "name": "\u0160torek D.",
+      "nationality": "CZE",
+      "club": "JPV",
+      "time": "+10:51"
+    },
+    {
+      "position": "",
+      "name": "Bialo\u017eyt M.",
+      "nationality": "CZE",
+      "club": "PGP",
+      "time": "+17:32"
+    },
+    {
+      "position": "4",
+      "name": "\u0160torek J.",
+      "nationality": "CZE",
+      "club": "JPV",
+      "time": "+21:38"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "vmix_url": "127.0.0.1:8080",
+  "flags_path": "C:\\Users\\chmel\\Documents\\orientacnisporty\\IOF_GRAFIKA\\vlajky_3_letters_JWOC\\",
+  "label": "H21C - SINGLE",
+  "is_national": true,
+  "is_relay": false,
+  "has_leader": true,
+  "leader": {
+    "position": "1",
+    "name": "Fendrych M.",
+    "nationality": "CZE",
+    "club": "STE",
+    "time": "1:19:06"
+  },
+  "punched": false,
+  "row_idx": 1,
+  "data": [
+    {
+      "position": "2",
+      "name": "Chyba Tu Je.",
+      "nationality": "SVK",
+      "club": "FOO",
+      "time": "+4:30"
+    },
+    {
+      "position": "",
+      "name": "Holusek J.",
+      "nationality": "CZE",
+      "club": "JPV",
+      "time": "+5:50"
+    },
+    {
+      "position": "",
+      "name": "",
+      "nationality": "",
+      "club": "",
+      "time": ""
+    }
+  ]
+}

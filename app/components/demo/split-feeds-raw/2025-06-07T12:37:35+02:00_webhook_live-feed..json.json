@@ -1,0 +1,40 @@
+{
+  "vmix_url": "localhost:8080",
+  "flags_path": "C:\\Users\\chmel\\Documents\\orientacnisporty\\IOF_GRAFIKA\\vlajky_3_letters_JWOC\\",
+  "label": "H21C - sb\u011brka",
+  "is_national": true,
+  "is_relay": false,
+  "has_leader": true,
+  "leader": {
+    "position": "1",
+    "name": "Pt\u00e1\u010dek J.",
+    "nationality": "CZE",
+    "club": "TBM",
+    "time": "15:00"
+  },
+  "punched": false,
+  "row_idx": 1,
+  "data": [
+    {
+      "position": "",
+      "name": "",
+      "nationality": "",
+      "club": "",
+      "time": ""
+    },
+    {
+      "position": "",
+      "name": "Chaloupka J.",
+      "nationality": "CZE",
+      "club": "UOL",
+      "time": "+59:35"
+    },
+    {
+      "position": "",
+      "name": "",
+      "nationality": "",
+      "club": "",
+      "time": ""
+    }
+  ]
+}
