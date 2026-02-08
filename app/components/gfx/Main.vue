@@ -1,16 +1,4 @@
 <script setup lang="ts">
-import type {
-  IFlowers,
-  IFreeText,
-  ILiveFeed,
-  IParameters, IRaceTitle,
-  IResults,
-  ISingleRunner,
-  ISpeaker,
-  IStartDetail,
-  IStartList, IWeather
-} from '~/types/api.d'
-import { useLocalStorage } from '@vueuse/core'
 import Weather from './Weather.vue'
 import SingleRunner from './SingleRunner.vue'
 import Parameters from './Parameters.vue'
@@ -25,79 +13,87 @@ import LiveFeed from './LiveFeed.vue'
 import ResultsTable from './ResultsTable.vue'
 
 import { eventSource } from '~/state'
+import { useGfxState } from '~/composables/useGfxState'
+import { useSSEEvent } from '~/composables/useSSEEvent'
+import {
+  FreeTextSchema,
+  ParametersSchema,
+  LiveFeedSchema,
+  RaceTitleSchema,
+  SpeakerSchema,
+  WeatherSchema,
+  StartListSchema,
+  SingleRunnerSchema,
+  StartDetailSchema,
+  ResultsSchema,
+  FlowersSchema
+} from '~/types/schemas'
 
-class State {
-  freetext: IFreeText | null = null
-  liveFeed: ILiveFeed | null = null
-  parameters: IParameters | null = null
-  results: IResults | null = null
-  singleRunner: ISingleRunner | null = null
-  speaker: ISpeaker | null = null
-  start: IStartDetail | null = null
-  startlist: IStartList | null = null
-  title: IRaceTitle | null = null
-  weather: IWeather | null = null
-  flowers: IFlowers | null = null
-}
+const { state, hideAll } = useGfxState()
 
-const state = useLocalStorage('state-v1', new State())
+// Hide event
+watch(
+  () => eventSource.value,
+  (source) => {
+    if (source) {
+      source.addEventListener('hide', () => {
+        hideAll()
+      })
+    }
+  },
+  { immediate: true }
+)
 
-eventSource.value?.addEventListener('hide', (event: any) => {
-  state.value.freetext = null
-  state.value.parameters = null
-  state.value.liveFeed = null
-  state.value.title = null
-  state.value.speaker = null
-  state.value.weather = null
-  state.value.startlist = null
-  state.value.singleRunner = null
+// Type-safe SSE event handlers with validation
+useSSEEvent(eventSource, 'freetext', FreeTextSchema, (data) => {
+  state.value.freetext = data
+})
+
+useSSEEvent(eventSource, 'params', ParametersSchema, (data) => {
+  state.value.parameters = data
+})
+
+useSSEEvent(eventSource, 'live-feed', LiveFeedSchema, (data) => {
+  state.value.liveFeed = data
+})
+
+useSSEEvent(eventSource, 'title', RaceTitleSchema, (data) => {
+  state.value.title = data
+})
+
+useSSEEvent(eventSource, 'speaker', SpeakerSchema, (data) => {
+  state.value.speaker = data
+})
+
+useSSEEvent(eventSource, 'weather', WeatherSchema, (data) => {
+  state.value.weather = data
+})
+
+useSSEEvent(eventSource, 'startlist', StartListSchema, (data) => {
+  state.value.startlist = data
+})
+
+useSSEEvent(eventSource, 'single-runner', SingleRunnerSchema, (data) => {
   state.value.start = null
-  state.value.results = null
-  state.value.flowers = null
+  state.value.singleRunner = data
 })
-// TODO: generalize?
-eventSource.value?.addEventListener('freetext', (event) => {
-  state.value.freetext = JSON.parse(event.data) as IFreeText
-})
-eventSource.value?.addEventListener('params', (event) => {
-  state.value.parameters = JSON.parse(event.data) as IParameters
-})
-eventSource.value?.addEventListener('live-feed', (event) => {
-  state.value.liveFeed = JSON.parse(event.data) as ILiveFeed
-})
-eventSource.value?.addEventListener('title', (event) => {
-  state.value.title = JSON.parse(event.data) as IRaceTitle
-})
-eventSource.value?.addEventListener('speaker', (event) => {
-  state.value.speaker = JSON.parse(event.data) as ISpeaker
-})
-eventSource.value?.addEventListener('weather', (event) => {
-  state.value.weather = JSON.parse(event.data) as IWeather
-})
-eventSource.value?.addEventListener('startlist', (event) => {
-  state.value.startlist = JSON.parse(event.data) as IStartList
-})
-eventSource.value?.addEventListener('single-runner', (event) => {
-  state.value.start = null
-  state.value.singleRunner = JSON.parse(event.data) as ISingleRunner
-})
-eventSource.value?.addEventListener('start', (event) => {
+
+useSSEEvent(eventSource, 'start', StartDetailSchema, (data) => {
   state.value.singleRunner = null
-  state.value.start = JSON.parse(event.data) as IStartDetail
+  state.value.start = data
 })
-eventSource.value?.addEventListener('results', (event) => {
-  state.value.results = JSON.parse(event.data) as IResults
+
+useSSEEvent(eventSource, 'results', ResultsSchema, (data) => {
+  state.value.results = data
 })
-eventSource.value?.addEventListener('flowers', (event) => {
-  state.value.flowers = JSON.parse(event.data) as IFlowers
+
+useSSEEvent(eventSource, 'flowers', FlowersSchema, (data) => {
+  state.value.flowers = data
 })
 </script>
 
 <template>
   <div class="GfxScreen select-none backface-hidden">
-    <!--    <PositionHistory -->
-    <!--      class="absolute inset-64" -->
-    <!--    /> -->
     <Transition
       name="nested-slide"
       :duration="500"
@@ -108,12 +104,7 @@ eventSource.value?.addEventListener('flowers', (event) => {
         :data="state.liveFeed"
       />
     </Transition>
-    <!--    <Transition name="slide"> -->
-    <!--      <div class="absolute right-24 bottom-24 flex flex-row" v-if="false"> -->
-    <!--        <TimeText prefix="M18"/> -->
-    <!--        <TimeText prefix="W18" :offset="300"/> -->
-    <!--      </div> -->
-    <!--    </Transition> -->
+
     <Transition
       name="nested-slide"
       :duration="500"
@@ -124,6 +115,7 @@ eventSource.value?.addEventListener('flowers', (event) => {
         class="absolute top-36 left-120 right-120"
       />
     </Transition>
+
     <Transition
       name="nested-slide"
       :duration="500"
@@ -134,6 +126,7 @@ eventSource.value?.addEventListener('flowers', (event) => {
         class="absolute top-36 left-120 right-120"
       />
     </Transition>
+
     <Transition
       name="nested-slide"
       :duration="500"
@@ -144,6 +137,7 @@ eventSource.value?.addEventListener('flowers', (event) => {
         class="absolute bottom-24 left-80 right-80"
       />
     </Transition>
+
     <Transition
       name="nested-slide"
       :duration="500"
@@ -154,6 +148,7 @@ eventSource.value?.addEventListener('flowers', (event) => {
         class="absolute right-24 bottom-24"
       />
     </Transition>
+
     <Transition
       name="nested-slide"
       :duration="500"
@@ -176,7 +171,7 @@ eventSource.value?.addEventListener('flowers', (event) => {
     <Transition name="slide">
       <Text
         v-if="state.freetext !== null"
-        class="absolute left-24 bottom-24 rounded-md overflow-hidden"
+        class="absolute left-24 bottom-24 rounded-[var(--border-radius)] overflow-hidden"
       >
         {{ state.freetext.text }}
       </Text>
@@ -204,7 +199,7 @@ eventSource.value?.addEventListener('flowers', (event) => {
       <div
         v-if="state.start !== null"
         :key="state.start.name"
-        class="absolute left-24 bottom-24 rounded-md overflow-hidden"
+        class="absolute left-24 bottom-24 rounded-[var(--border-radius)] overflow-hidden"
       >
         <Start :start="state.start" />
       </div>
@@ -213,7 +208,7 @@ eventSource.value?.addEventListener('flowers', (event) => {
     <Transition name="slide">
       <Text
         v-if="state.speaker !== null"
-        class="absolute left-24 bottom-24 rounded-md overflow-hidden"
+        class="absolute left-24 bottom-24 rounded-[var(--border-radius)] overflow-hidden"
       >
         {{ state.speaker.commentators }}
         <template #icon>
@@ -237,9 +232,7 @@ eventSource.value?.addEventListener('flowers', (event) => {
 }
 
 .GfxScreen--debug {
-
   background-image: repeating-conic-gradient(#cccccc44 0 25%, #0000 0 50%);
-
   background-position: bottom center;
   background-size: 96px 96px;
 }

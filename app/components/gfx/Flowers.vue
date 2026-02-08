@@ -26,7 +26,7 @@
     </div>
     <div class="w-1/3 text-lg">
       <span class="bg-co-orange text-co-beige p-6 px-6">{{ first?.position }}</span>
-      <span class="p-6 w-full flex flex-row items-center justify-between bg-white gap-x-4">
+      <span class="p-6 w-full flex flex-row items-center justify-between bg-white" style="column-gap: 1rem">
         {{ first?.name }}
         <club-flag
           v-if="first"

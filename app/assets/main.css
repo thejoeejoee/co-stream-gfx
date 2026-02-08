@@ -8,74 +8,74 @@
 @import "./fonts.css";
 
 @plugin "@tailwindcss/typography";
-/*@plugin "daisyui" {*/
-/* TODO: background of :root is white */
-/*    themes: emerald --default !*, luxury --prefersdark, fantasy*!;*/
-/*}*/
 
 body {
-    @apply antialiased
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
+/* Modern animation system with spring physics */
 .slide-enter-active {
-    animation: slideLeft 200ms ease-in-out;
+    animation: slideLeft var(--transition-speed) var(--transition-timing);
 }
 
 .slide-leave-active {
-    animation: slideRight 200ms reverse ease-in-out;
+    animation: slideRight var(--transition-speed) reverse var(--transition-smooth);
 }
 
 @keyframes slideLeft {
     0% {
         opacity: 0;
-        /*transform: skewX(60deg) scaleX(150%);*/
-        transform: translateX(128px);
+        transform: translateX(128px) scale(0.95);
+        filter: blur(4px);
         transform-origin: right center;
     }
     100% {
         opacity: 1;
-        transform: translateX(0);
+        transform: translateX(0) scale(1);
+        filter: blur(0);
     }
 }
 
 @keyframes slideRight {
     0% {
         opacity: 0;
-        /*transform: skewX(-60deg) scaleX(150%);*/
-        transform: translateX(-128px);
+        transform: translateX(-128px) scale(0.95);
+        filter: blur(4px);
         transform-origin: left center;
     }
     100% {
         opacity: 1;
-        transform: translateX(0);
+        transform: translateX(0) scale(1);
+        filter: blur(0);
     }
 }
 
-.list-move, /* apply transition to moving elements */
+/* Enhanced list animations with stagger */
+.list-move,
 .list-enter-active,
 .list-leave-active {
-    transition: all 200ms ease;
+    transition: all var(--transition-speed) var(--transition-smooth);
 }
 
 .list-enter-from,
 .list-leave-to {
     opacity: 0;
-    transform: translateX(32px);
+    transform: translateX(32px) scale(0.95);
 }
 
-/* ensure leaving items are taken out of layout flow so that moving
-   animations can be calculated correctly. */
 .list-leave-active {
     position: absolute;
     transform-origin: bottom center;
 }
 
+/* Table animations with clip effect */
 .table-enter-active {
-    animation: 300ms clip-top 400ms;
+    animation: var(--transition-speed) clip-top 400ms var(--transition-smooth);
     animation-fill-mode: both;
 }
 .table-leave-active {
-    animation: 300ms clip-top reverse;
+    animation: var(--transition-speed) clip-top reverse var(--transition-smooth);
     animation-fill-mode: both;
 }
 
@@ -84,46 +84,143 @@ body {
     width: 100%;
 }
 
-/* +-50% for not-clipping the scaled elements */
 @keyframes clip-top {
-    0% { clip-path: inset(0 -50% 100% -50%); }
-    100% { clip-path: inset(0 -50% 0 -50%); }
+    0% { 
+        clip-path: inset(0 -50% 100% -50%);
+        opacity: 0;
+    }
+    100% { 
+        clip-path: inset(0 -50% 0 -50%);
+        opacity: 1;
+    }
 }
 @keyframes clip-bottom {
-    0% { clip-path: inset(100% -50% 0 -50%); }
-    100% { clip-path: inset(0 -50% 0 -50%); }
+    0% { 
+        clip-path: inset(100% -50% 0 -50%);
+        opacity: 0;
+    }
+    100% { 
+        clip-path: inset(0 -50% 0 -50%);
+        opacity: 1;
+    }
 }
 
-/* enter by sliding */
+/* Nested slide animations with modern timing */
 .nested-slide-enter-active {
-    animation: slideLeft 200ms ease-in-out;
+    animation: slideLeft var(--transition-speed) var(--transition-timing);
     animation-fill-mode: both;
 }
-/* unclip from top */
+
 .nested-slide-enter-active .Animate__Slide + .Animate__Clip {
-    animation: clip-top 300ms ease-in-out;
-    animation-delay: 200ms;
+    animation: clip-top var(--transition-speed) var(--transition-smooth);
+    animation-delay: var(--transition-speed-fast);
     animation-fill-mode: both;
 }
-/* unclip from bottom */
+
 .nested-slide-enter-active .Animate__Clip:has(+ .Animate__Slide) {
-    animation: clip-bottom 300ms ease-in-out;
-    animation-delay: 200ms;
+    animation: clip-bottom var(--transition-speed) var(--transition-smooth);
+    animation-delay: var(--transition-speed-fast);
     animation-fill-mode: both;
 }
-/* clip to top */
+
 .nested-slide-leave-active .Animate__Slide + .Animate__Clip {
-    animation: clip-top 200ms ease-in-out reverse;
+    animation: clip-top var(--transition-speed-fast) var(--transition-smooth) reverse;
     animation-fill-mode: both;
 }
-/* clip to bottom */
+
 .nested-slide-leave-active .Animate__Clip:has(+ .Animate__Slide) {
-    animation: clip-bottom 200ms ease-in-out reverse;
+    animation: clip-bottom var(--transition-speed-fast) var(--transition-smooth) reverse;
     animation-fill-mode: both;
 }
-/* leave by sliding */
+
 .nested-slide-leave-active {
-    animation: slideRight 200ms ease-in-out reverse;
-    animation-delay: 300ms;
+    animation: slideRight var(--transition-speed) var(--transition-smooth) reverse;
+    animation-delay: var(--transition-speed);
     animation-fill-mode: both;
+}
+
+/* New: Shimmer effect for highlights */
+@keyframes shimmer {
+    0% {
+        background-position: -200% center;
+    }
+    100% {
+        background-position: 200% center;
+    }
+}
+
+.shimmer {
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        oklch(100% 0 0 / 0.3) 50%,
+        transparent 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s ease-in-out infinite;
+}
+
+/* New: Pulsing glow for leader */
+@keyframes pulse-glow {
+    0%, 100% {
+        box-shadow: var(--shadow-glow);
+    }
+    50% {
+        box-shadow: var(--shadow-glow-strong);
+    }
+}
+
+.pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* New: Bounce animation for position changes */
+@keyframes bounce-in {
+    0% {
+        transform: scale(0.3);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    70% {
+        transform: scale(0.9);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.bounce-in {
+    animation: bounce-in 400ms var(--transition-timing);
+}
+
+/* New: Gradient animation */
+@keyframes gradient-shift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.gradient-animated {
+    background-size: 200% 200%;
+    animation: gradient-shift 3s ease infinite;
+}
+
+/* Accessibility: Respect motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
 }

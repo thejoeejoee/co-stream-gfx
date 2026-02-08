@@ -15,7 +15,7 @@ export interface ILiveFeedRunner {
   nationality: string
   club: string
   time: string
-  change: number
+  change?: number
 }
 
 export interface IParameters {
@@ -111,7 +111,7 @@ export interface IResultsRunner {
   nationality: string
   club: string
   time: string
-  change: number
+  change?: number
 }
 
 export interface IFlowers {

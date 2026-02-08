@@ -1,3 +1,8 @@
 .Admin__StartAlert__row {
-  @apply flex flex-row items-center justify-between gap-6 p-4
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 1.5rem;
+  padding: 1rem;
 }

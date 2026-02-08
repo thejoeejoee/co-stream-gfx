@@ -1,68 +1,86 @@
 <template>
-  <div
-    v-if="singleRunner !== null"
-    class="
-    h-36 flex-col
-
-    rounded-md overflow-hidden
-  "
+  <Transition
+    name="nested-slide"
+    appear
   >
     <div
-      class="
-      flex flex-row items-center justify-between
-      text-lg bg-white
-      Animate__Slide
-    "
+      v-if="singleRunner !== null"
+      class="h-36 flex-col"
     >
-      <span
-        v-if="singleRunner.bib_number"
+      <div
         class="
-          flex items-center px-6
-          bg-co-orange  text-co-beige
-          h-24 font-semibold
+          flex flex-row items-center justify-between
+          text-lg
+          Animate__Slide
+          rounded-t-[var(--border-radius)] overflow-hidden
         "
-        v-text="singleRunner.bib_number"
-      />
-      <h1
-        class="
-          h-24 bg-white px-6 gap-x-4 w-full
-          flex flex-row justify-between items-center
-          font-co uppercase text-co-black
-        "
-        :class="{ 'border-l-[calc(var(--spacing)*2)] border-l-co-orange': !singleRunner.bib_number }"
+        style="background: var(--glass-bg); backdrop-filter: blur(var(--glass-blur))"
       >
-        {{ singleRunner.name }}
-
-        <club-flag
-          :conf="singleRunner"
-          :item="singleRunner"
-          club-class="text-co-orange"
+        <span
+          v-if="singleRunner.bib_number"
+          class="
+            flex items-center px-6
+            h-24 font-semibold
+            gradient-animated
+          "
+          style="
+            background: linear-gradient(135deg, var(--color-co-orange) 0%, var(--color-co-orange-dark) 100%);
+            background-size: 200% 200%;
+            color: var(--color-co-beige);
+          "
+          v-text="singleRunner.bib_number"
         />
-      </h1>
-    </div>
+        <AnimatedText
+          variant="title"
+          class="
+            h-24 px-6 w-full
+            flex flex-row justify-between items-center
+            uppercase text-co-black
+          "
+          :class="{ 'border-l-[calc(var(--spacing)*2)]': !singleRunner.bib_number }"
+          style="column-gap: 1rem; border-color: var(--color-co-orange)"
+        >
+          {{ singleRunner.name }}
 
-    <h2
-      class="
-      font-co text-md h-12 flex items-center justify-between gap-x-4
-      p-4
-      bg-co-orange text-co-beige
-      Animate__Clip
-    "
-    >
-      <span
-        class="italic font-semibold"
-        v-text="singleRunner.class"
-      />
-      <span v-text="singleRunner.detail" />
-    </h2>
-  </div>
+          <club-flag
+            :conf="singleRunner"
+            :item="singleRunner"
+            club-class="text-co-orange"
+          />
+        </AnimatedText>
+      </div>
+
+      <h2
+        class="
+          font-co text-md h-12 flex items-center justify-between
+          p-4
+          rounded-b-[var(--border-radius)]
+          Animate__Clip
+        "
+        style="
+          column-gap: 1rem;
+          background: linear-gradient(135deg, var(--color-co-orange) 0%, var(--color-co-orange-dark) 100%);
+          color: var(--color-co-beige);
+          box-shadow: var(--shadow-md);
+        "
+      >
+        <span
+          class="italic font-semibold"
+          v-text="singleRunner.class"
+        />
+        <span v-text="singleRunner.detail" />
+      </h2>
+    </div>
+  </Transition>
 </template>
 
 <script setup lang="ts">
 import type { ISingleRunner } from '~/types/api.d'
 import ClubFlag from './../ClubFlag.vue'
+import AnimatedText from '~/components/core/AnimatedText.vue'
 
 defineProps<{
   singleRunner: ISingleRunner
 }>()
 </script>
+

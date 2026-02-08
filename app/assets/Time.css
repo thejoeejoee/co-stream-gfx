@@ -1,13 +1,14 @@
 .Time {
-    /*box-shadow: inset 0 8px 0 var(--color-co-beige);*/
-    @apply
-    tabular-nums
-    p-4
-
-    text-co-orange
-    bg-co-beige
-    font-co
-    text-xl
-
-    flex flex-row justify-around items-center gap-x-2
+    font-variant-numeric: tabular-nums;
+    padding: 1rem;
+    color: var(--color-co-orange);
+    background-color: var(--color-co-beige);
+    font-family: var(--font-co);
+    font-size: var(--text-xl);
+    line-height: var(--text-xl--line-height);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    column-gap: 0.5rem;
 }

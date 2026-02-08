@@ -14,7 +14,66 @@
     --text-xl: 64px;
     --text-xl--line-height: 64px;
 
-    --color-co-orange: #fe5900;
+    /* Enhanced color system with oklch for vibrancy */
+    --color-co-orange: oklch(65% 0.19 35);
+    --color-co-orange-dark: oklch(55% 0.19 35);
+    --color-co-orange-light: oklch(75% 0.16 35);
     --color-co-beige: #edece3;
     --color-co-black: #272727;
+    
+    /* Accent colors for position changes */
+    --color-gain: oklch(70% 0.15 145);      /* Green for positions gained */
+    --color-loss: oklch(65% 0.18 15);       /* Red for positions lost */
+    --color-neutral: oklch(65% 0.02 240);   /* Gray for no change */
+
+    /* Animation system */
+    --transition-speed-fast: 200ms;
+    --transition-speed: 300ms;
+    --transition-speed-slow: 500ms;
+    --transition-timing: cubic-bezier(0.34, 1.56, 0.64, 1);  /* Bouncy spring */
+    --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);       /* Smooth ease */
+
+    /* Visual effects */
+    --shadow-sm: 0 1px 3px oklch(0% 0 0 / 0.08);
+    --shadow-md: 0 4px 12px oklch(0% 0 0 / 0.12);
+    --shadow-lg: 0 8px 32px oklch(0% 0 0 / 0.16);
+    --shadow-glow: 0 0 32px oklch(65% 0.19 35 / 0.4);
+    --shadow-glow-strong: 0 0 48px oklch(65% 0.19 35 / 0.6);
+    
+    --border-radius: 12px;
+    --border-radius-sm: 8px;
+    --border-radius-lg: 16px;
+
+    /* Scale effects */
+    --scale-highlight: 1.05;
+    --scale-active: 1.02;
+
+    /* Glassmorphism */
+    --glass-bg: oklch(100% 0 0 / 0.85);
+    --glass-border: oklch(100% 0 0 / 0.2);
+    --glass-blur: 12px;
+}
+
+/* Utility classes for Tailwind v4 compatibility */
+@layer utilities {
+    /* Gap utilities */
+    .gap-x-1 { column-gap: 0.25rem; }
+    .gap-x-2 { column-gap: 0.5rem; }
+    .gap-x-4 { column-gap: 1rem; }
+    .gap-x-6 { column-gap: 1.5rem; }
+    .gap-y-2 { row-gap: 0.5rem; }
+    .gap-y-3 { row-gap: 0.75rem; }
+    .gap-y-4 { row-gap: 1rem; }
+    
+    /* Font utilities */
+    .font-medium { font-weight: 500; }
+    .font-semibold { font-weight: 600; }
+    .font-bold { font-weight: 700; }
+    
+    /* Transition utilities */
+    .transition-all { transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1); }
+    .transition-colors { transition: color 150ms cubic-bezier(0.4, 0, 0.2, 1), background-color 150ms cubic-bezier(0.4, 0, 0.2, 1), border-color 150ms cubic-bezier(0.4, 0, 0.2, 1); }
+    .transition-transform { transition: transform 150ms cubic-bezier(0.4, 0, 0.2, 1); }
+    .duration-300 { transition-duration: 300ms; }
+    .duration-200 { transition-duration: 200ms; }
 }
