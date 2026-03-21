@@ -57,8 +57,8 @@ Single special call is to hide all graphics, which is done by calling the same A
 # App development
 
 ```shell
-yarn install
-yarn run dev
+bun install
+bun run dev
 ```
 
 Pass `?debug` to enable debug mode with autoplay and examples.
