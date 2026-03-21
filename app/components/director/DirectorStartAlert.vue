@@ -6,6 +6,7 @@ import { computed } from 'vue'
 import duration from 'format-duration-time'
 import ClubFlag from './../ClubFlag.vue'
 import { alertOffset, timeOffset } from '~/state'
+import { inRange } from '~/utils/range'
 
 const props = defineProps<{
   data: IStartListRunner[]

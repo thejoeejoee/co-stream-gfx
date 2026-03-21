@@ -46,7 +46,7 @@ watchEffect((onCleanup) => {
   es.addEventListener('hide', () => hideAll(), { signal: controller.signal })
 
   for (const [eventName, stateKey] of Object.entries(eventMap)) {
-    es.addEventListener(eventName, (event) => {
+    es.addEventListener(eventName, (event: MessageEvent) => {
       try {
         const exclusion = exclusions[stateKey]
         if (exclusion) {
