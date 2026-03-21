@@ -3,10 +3,10 @@ import { invoke, until, useFetch, type UseFetchReturn, useNow } from '@vueuse/co
 import { computed, ref } from 'vue'
 import DirectorStartAlert from './DirectorStartAlert.vue'
 import type { IStartListRunner } from '~/types/api.d'
-import { alertOffset, timeOffest } from '~/state'
+import { alertOffset, timeOffset } from '~/state'
 
 const now = useNow({})
-const nowTs = computed(() => (now.value.getTime() / 1000) - timeOffest)
+const nowTs = computed(() => (now.value.getTime() / 1000) - timeOffset)
 
 interface IDirectorFavorite {
   is_national: boolean
