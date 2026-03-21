@@ -34,7 +34,7 @@ jobs:
         with:
           path: |
             dist
-          key: build-${{ hashFiles('dist') }}
+          key: build-${{ hashFiles('yarn.lock') }}
           restore-keys: |
             build-
       - name: Install dependencies
