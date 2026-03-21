@@ -25,34 +25,9 @@ import LiveFeed from './LiveFeed.vue'
 import ResultsTable from './ResultsTable.vue'
 
 import { eventSource } from '~/state'
+import { type GfxState, createDefaultState, eventMap, exclusions } from '~/utils/gfx-state'
 
-interface GfxState {
-  freetext: IFreeText | null
-  liveFeed: ILiveFeed | null
-  parameters: IParameters | null
-  results: IResults | null
-  singleRunner: ISingleRunner | null
-  speaker: ISpeaker | null
-  start: IStartDetail | null
-  startlist: IStartList | null
-  title: IRaceTitle | null
-  weather: IWeather | null
-  flowers: IFlowers | null
-}
-
-const state = useLocalStorage<GfxState>('state-v1', {
-  freetext: null,
-  liveFeed: null,
-  parameters: null,
-  results: null,
-  singleRunner: null,
-  speaker: null,
-  start: null,
-  startlist: null,
-  title: null,
-  weather: null,
-  flowers: null
-})
+const state = useLocalStorage<GfxState>('state-v1', createDefaultState())
 
 const stateKeys = Object.keys(state.value) as (keyof GfxState)[]
 
@@ -60,27 +35,6 @@ const hideAll = () => {
   for (const key of stateKeys) {
     state.value[key] = null
   }
-}
-
-// SSE event name → state key mapping
-const eventMap: Record<string, keyof GfxState> = {
-  'freetext': 'freetext',
-  'params': 'parameters',
-  'live-feed': 'liveFeed',
-  'title': 'title',
-  'speaker': 'speaker',
-  'weather': 'weather',
-  'startlist': 'startlist',
-  'single-runner': 'singleRunner',
-  'start': 'start',
-  'results': 'results',
-  'flowers': 'flowers'
-}
-
-// Mutually exclusive pairs: receiving one clears the other
-const exclusions: Partial<Record<keyof GfxState, keyof GfxState>> = {
-  singleRunner: 'start',
-  start: 'singleRunner'
 }
 
 watchEffect((onCleanup) => {

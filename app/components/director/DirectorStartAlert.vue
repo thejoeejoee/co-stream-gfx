@@ -15,10 +15,6 @@ const props = defineProps<{
 const now = useNow()
 const nowTs = computed(() => (now.value.getTime() / 1000) - timeOffset)
 
-const inRange = (from_: number, to: number, what: number): boolean => {
-  return what >= from_ && what <= to
-}
-
 const timeDiffLabel = (startTime: number): string => {
   const diff = nowTs.value - startTime
   return (diff < 0 ? '-' : '') + duration(Math.abs(diff), 's').format('mm:ss')
