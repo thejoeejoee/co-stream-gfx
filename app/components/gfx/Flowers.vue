@@ -69,7 +69,5 @@ const second = computed(() => {
 const third = computed(() => {
   return props.data.data?.find(item => item.position === '3')
 })
-const fourth = computed(() => {
-  return props.data.data?.find(item => item.position === '4')
-})
+
 </script>

@@ -2,8 +2,6 @@
 import { computed, ref } from 'vue'
 // import "vue-data-ui/style.css"; // If you are using multiple components, place styles import in your main
 
-import Text from './gfx/Text.vue'
-
 import ApexCharts from 'vue3-apexcharts'
 import lo from 'lodash'
 import type { Ref } from 'vue'
@@ -75,7 +73,6 @@ const chartOptions: Ref<ApexOptions> = ref({
     },
     formatter(val, opts) {
       if (opts.dataPointIndex != 0 && opts.dataPointIndex != /* shownControls.value */data.controls.length - 1) {
-        return val
         return ''
       }
       const seriesName = opts.w.config.series[opts.seriesIndex].name

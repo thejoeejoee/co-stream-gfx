@@ -22,25 +22,25 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
         with:
-          node-version: "20"
-          cache: yarn
+          bun-version: "1.3.10"
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Restore cache
         uses: actions/cache@v4
         with:
           path: |
-            dist
-          key: build-${{ hashFiles('dist') }}
+            ~/.bun/install/cache
+            node_modules
+          key: deps-${{ hashFiles('bun.lock') }}
           restore-keys: |
-            build-
+            deps-
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: bun install --frozen-lockfile
       - name: Static HTML export
-        run: npx nuxt build --preset github_pages
+        run: bunx nuxt build --preset github_pages
         env:
           NUXT_APP_BASE_URL: "/${{ github.event.repository.name }}/"
       - name: Upload artifact

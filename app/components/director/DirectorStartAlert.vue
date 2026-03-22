@@ -5,7 +5,8 @@ import { computed } from 'vue'
 
 import duration from 'format-duration-time'
 import ClubFlag from './../ClubFlag.vue'
-import { alertOffset, timeOffest } from '~/state'
+import { alertOffset, timeOffset } from '~/state'
+import { inRange } from '~/utils/range'
 
 const props = defineProps<{
   data: IStartListRunner[]
@@ -13,11 +14,7 @@ const props = defineProps<{
 }>()
 
 const now = useNow()
-const nowTs = computed(() => (now.value.getTime() / 1000) - timeOffest)
-
-const inRange = (from_: number, to: number, what: number): boolean => {
-  return what >= from_ && what <= to
-}
+const nowTs = computed(() => (now.value.getTime() / 1000) - timeOffset)
 
 const timeDiffLabel = (startTime: number): string => {
   const diff = nowTs.value - startTime

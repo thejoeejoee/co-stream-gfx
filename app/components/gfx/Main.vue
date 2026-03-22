@@ -11,11 +11,11 @@ import type {
   IStartList, IWeather
 } from '~/types/api.d'
 import { useLocalStorage } from '@vueuse/core'
+import { watchEffect } from 'vue'
 import Weather from './Weather.vue'
 import SingleRunner from './SingleRunner.vue'
 import Parameters from './Parameters.vue'
 import Start from './Start.vue'
-import _TimeText from './Time.vue'
 import RaceTitle from './RaceTitle.vue'
 import StartList from './StartList.vue'
 import Text from './Text.vue'
@@ -25,71 +25,41 @@ import LiveFeed from './LiveFeed.vue'
 import ResultsTable from './ResultsTable.vue'
 
 import { eventSource } from '~/state'
+import { type GfxState, createDefaultState, eventMap, exclusions } from '~/utils/gfx-state'
 
-class State {
-  freetext: IFreeText | null = null
-  liveFeed: ILiveFeed | null = null
-  parameters: IParameters | null = null
-  results: IResults | null = null
-  singleRunner: ISingleRunner | null = null
-  speaker: ISpeaker | null = null
-  start: IStartDetail | null = null
-  startlist: IStartList | null = null
-  title: IRaceTitle | null = null
-  weather: IWeather | null = null
-  flowers: IFlowers | null = null
+const state = useLocalStorage<GfxState>('state-v1', createDefaultState())
+
+const stateKeys = Object.keys(state.value) as (keyof GfxState)[]
+
+const hideAll = () => {
+  for (const key of stateKeys) {
+    state.value[key] = null
+  }
 }
 
-const state = useLocalStorage('state-v1', new State())
+watchEffect((onCleanup) => {
+  const es = eventSource.value
+  if (!es) return
 
-eventSource.value?.addEventListener('hide', (event: any) => {
-  state.value.freetext = null
-  state.value.parameters = null
-  state.value.liveFeed = null
-  state.value.title = null
-  state.value.speaker = null
-  state.value.weather = null
-  state.value.startlist = null
-  state.value.singleRunner = null
-  state.value.start = null
-  state.value.results = null
-  state.value.flowers = null
-})
-// TODO: generalize?
-eventSource.value?.addEventListener('freetext', (event) => {
-  state.value.freetext = JSON.parse(event.data) as IFreeText
-})
-eventSource.value?.addEventListener('params', (event) => {
-  state.value.parameters = JSON.parse(event.data) as IParameters
-})
-eventSource.value?.addEventListener('live-feed', (event) => {
-  state.value.liveFeed = JSON.parse(event.data) as ILiveFeed
-})
-eventSource.value?.addEventListener('title', (event) => {
-  state.value.title = JSON.parse(event.data) as IRaceTitle
-})
-eventSource.value?.addEventListener('speaker', (event) => {
-  state.value.speaker = JSON.parse(event.data) as ISpeaker
-})
-eventSource.value?.addEventListener('weather', (event) => {
-  state.value.weather = JSON.parse(event.data) as IWeather
-})
-eventSource.value?.addEventListener('startlist', (event) => {
-  state.value.startlist = JSON.parse(event.data) as IStartList
-})
-eventSource.value?.addEventListener('single-runner', (event) => {
-  state.value.start = null
-  state.value.singleRunner = JSON.parse(event.data) as ISingleRunner
-})
-eventSource.value?.addEventListener('start', (event) => {
-  state.value.singleRunner = null
-  state.value.start = JSON.parse(event.data) as IStartDetail
-})
-eventSource.value?.addEventListener('results', (event) => {
-  state.value.results = JSON.parse(event.data) as IResults
-})
-eventSource.value?.addEventListener('flowers', (event) => {
-  state.value.flowers = JSON.parse(event.data) as IFlowers
+  const controller = new AbortController()
+
+  es.addEventListener('hide', () => hideAll(), { signal: controller.signal })
+
+  for (const [eventName, stateKey] of Object.entries(eventMap)) {
+    es.addEventListener(eventName, (event: MessageEvent) => {
+      try {
+        const exclusion = exclusions[stateKey]
+        if (exclusion) {
+          state.value[exclusion] = null
+        }
+        state.value[stateKey] = JSON.parse(event.data)
+      } catch (err) {
+        console.error(`Failed to parse SSE event "${eventName}":`, err)
+      }
+    }, { signal: controller.signal })
+  }
+
+  onCleanup(() => controller.abort())
 })
 </script>
 
