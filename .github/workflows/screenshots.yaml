@@ -81,12 +81,8 @@ jobs:
           REPO="${{ github.repository }}"
           
           # Build HTML comment with screenshots-bot marker
-          BODY="<!-- screenshots-bot -->
-          ## GFX Screenshots
-          
-          | Demo | CO | IOF |
-          |------|-----|-----|"
-          
+          BODY="<!-- screenshots-bot -->"$'\n'"## GFX Screenshots"$'\n'$'\n'"| Demo | CO | IOF |"$'\n'"|------|-----|-----|"
+
           DEMOS=(
             "flowers" "freetext" "live-feed" "live-feed.01"
             "live-feed.GFX1" "live-feed.GFX2" "live-feed.projected-2"
@@ -97,12 +93,11 @@ jobs:
             "start.01" "start.02" "start.03" "start.04"
             "startlist" "startlist.01" "title" "weather"
           )
-          
+
           for DEMO in "${DEMOS[@]}"; do
             CO_URL="https://raw.githubusercontent.com/${REPO}/${SHA}/${DEMO}-co.png"
             IOF_URL="https://raw.githubusercontent.com/${REPO}/${SHA}/${DEMO}-iof.png"
-            BODY="${BODY}
-          | \`${DEMO}\` | <img src=\"${CO_URL}\" width=\"480\"> | <img src=\"${IOF_URL}\" width=\"480\"> |"
+            BODY="${BODY}"$'\n'"| \`${DEMO}\` | <img src=\"${CO_URL}\" width=\"480\"> | <img src=\"${IOF_URL}\" width=\"480\"> |"
           done
           
           # Write to file to handle multiline
