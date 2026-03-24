@@ -25,9 +25,12 @@ import LiveFeed from './LiveFeed.vue'
 import ResultsTable from './ResultsTable.vue'
 
 import { eventSource } from '~/state'
+import { useTheme } from '~/composables/useTheme'
 import { type GfxState, createDefaultState, eventMap, exclusions } from '~/utils/gfx-state'
 
 const state = useLocalStorage<GfxState>('state-v1', createDefaultState())
+
+useTheme()
 
 const stateKeys = Object.keys(state.value) as (keyof GfxState)[]
 
@@ -143,14 +146,14 @@ watchEffect((onCleanup) => {
       />
     </Transition>
 
-    <Transition name="slide">
-      <Text
-        v-if="state.freetext !== null"
-        class="absolute left-24 bottom-24 rounded-md overflow-hidden"
-      >
-        {{ state.freetext.text }}
-      </Text>
-    </Transition>
+     <Transition name="slide">
+       <Text
+         v-if="state.freetext !== null"
+         class="absolute left-24 bottom-24 rounded-[var(--gfx-radius)] overflow-hidden"
+       >
+         {{ state.freetext.text }}
+       </Text>
+     </Transition>
 
     <Transition
       name="nested-slide"
@@ -166,34 +169,34 @@ watchEffect((onCleanup) => {
       </div>
     </Transition>
 
-    <Transition
-      name="nested-slide"
-      :duration="500"
-      mode="out-in"
-    >
-      <div
-        v-if="state.start !== null"
-        :key="state.start.name"
-        class="absolute left-24 bottom-24 rounded-md overflow-hidden"
-      >
-        <Start :start="state.start" />
-      </div>
-    </Transition>
+     <Transition
+       name="nested-slide"
+       :duration="500"
+       mode="out-in"
+     >
+       <div
+         v-if="state.start !== null"
+         :key="state.start.name"
+         class="absolute left-24 bottom-24 rounded-[var(--gfx-radius)] overflow-hidden"
+       >
+         <Start :start="state.start" />
+       </div>
+     </Transition>
 
-    <Transition name="slide">
-      <Text
-        v-if="state.speaker !== null"
-        class="absolute left-24 bottom-24 rounded-md overflow-hidden"
-      >
-        {{ state.speaker.commentators }}
-        <template #icon>
-          <IconSpeakerphone
-            size="64"
-            stroke="2"
-          />
-        </template>
-      </Text>
-    </Transition>
+     <Transition name="slide">
+       <Text
+         v-if="state.speaker !== null"
+         class="absolute left-24 bottom-24 rounded-[var(--gfx-radius)] overflow-hidden"
+       >
+         {{ state.speaker.commentators }}
+         <template #icon>
+           <IconSpeakerphone
+             size="64"
+             stroke="2"
+           />
+         </template>
+       </Text>
+     </Transition>
   </div>
 </template>
 
