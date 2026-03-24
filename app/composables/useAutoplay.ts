@@ -1,13 +1,9 @@
-import { onUnmounted } from 'vue'
+import { onUnmounted, ref } from 'vue'
 import { useLocalStorage } from '@vueuse/core'
 
 import { eventSource, params } from '~/state'
 
-const demos: Record<string, any> = import.meta.glob('../components/demo/*.json', {
-  eager: true,
-})
-
-const demoKeys = Object.keys(demos)
+const demoModules = import.meta.glob('../components/demo/*.json')
 
 const nameFromPath = (path: string) => {
   const filename = path.split('/').pop() ?? path
@@ -18,13 +14,22 @@ const hide = () => {
   eventSource.value?.dispatchEvent(new MessageEvent('hide'))
 }
 
-const fire = (f: string) => {
-  const eventName = nameFromPath(f).split('.')[0] ?? nameFromPath(f)
-  const payload = demos[f].default
+const loadDemo = async (path: string) => {
+  const loader = demoModules[path]
+  if (!loader) return undefined
+  const mod = await loader() as { default: unknown }
+  return mod.default
+}
+
+const fire = async (path: string) => {
+  const name = nameFromPath(path)
+  const eventName = name.split('.')[0] || name
+  const payload = await loadDemo(path)
+  if (!payload) return
 
   const e = new MessageEvent(
     eventName,
-    { data: JSON.stringify(payload) },
+    { data: JSON.stringify(payload) }
   )
   eventSource.value?.dispatchEvent(e)
 }
@@ -35,44 +40,57 @@ const HIDE_DURATION = 200
 export function useAutoplay() {
   const autoplay = params.has('autoplay')
   const show = params.get('show')
+  const demoKeys = ref<string[]>([])
 
   let intervalId: number | undefined
+  let timeoutIds: number[] = []
   const autoPlayIndex = useLocalStorage('autoPlayIndex', 0)
 
-  if (autoplay) {
-    const demoKeysRandom = [...demoKeys].sort(() => Math.random() - 0.5)
+  const init = async () => {
+    demoKeys.value = Object.keys(demoModules)
 
-    const loop = () => {
-      if (autoPlayIndex.value >= demoKeys.length) {
-        autoPlayIndex.value = 0
+    if (autoplay) {
+      const demoKeysRandom = [...demoKeys.value].sort(() => Math.random() - 0.5)
+
+      const loop = async () => {
+        if (autoPlayIndex.value >= demoKeys.value.length) {
+          autoPlayIndex.value = 0
+        }
+        const f = demoKeysRandom[autoPlayIndex.value]
+        if (!f) return
+        await fire(f)
+        autoPlayIndex.value++
+
+        const tid = window.setTimeout(() => {
+          hide()
+        }, SHOW_DURATION)
+        timeoutIds.push(tid)
       }
-      const f = demoKeysRandom[autoPlayIndex.value]
-      if (!f) return
-      fire(f)
-      autoPlayIndex.value++
-
-      window.setTimeout(() => {
+      await loop()
+      intervalId = window.setInterval(loop, SHOW_DURATION + HIDE_DURATION)
+    }
+    else if (show) {
+      const f = demoKeys.value.find(d => d.includes(show))
+      if (f) {
         hide()
-      }, SHOW_DURATION)
-    }
-    loop()
-    intervalId = window.setInterval(loop, SHOW_DURATION + HIDE_DURATION)
-  }
-  else if (show) {
-    const f = demoKeys.find(d => d.includes(show))
-    if (f) {
-      hide()
-      fire(f)
-    }
-    else {
-      console.warn(`No demo found for show: ${show}`)
+        await fire(f)
+      }
+      else {
+        console.warn(`No demo found for show: ${show}`)
+      }
     }
   }
+
+  init()
 
   onUnmounted(() => {
     if (intervalId) {
       window.clearInterval(intervalId)
     }
+    for (const tid of timeoutIds) {
+      window.clearTimeout(tid)
+    }
+    timeoutIds = []
   })
 
   return {
@@ -80,6 +98,6 @@ export function useAutoplay() {
     demoKeys,
     fire,
     hide,
-    nameFromPath,
+    nameFromPath
   }
 }

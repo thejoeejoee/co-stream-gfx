@@ -90,7 +90,8 @@ onChange(async () => {
   r.onload = () => {
     try {
       const data = JSON.parse(r.result as string)
-      const eventName: string = nameFromPath(f.name).split('.')[0] ?? nameFromPath(f.name)
+      const baseName = nameFromPath(f.name)
+      const eventName: string = baseName.split('.')[0] || baseName
       const e = new MessageEvent(
         eventName,
         { data: JSON.stringify(data) }
