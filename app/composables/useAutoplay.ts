@@ -1,4 +1,4 @@
-import { onUnmounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import { useLocalStorage } from '@vueuse/core'
 
 import { eventSource, params } from '~/state'
@@ -42,8 +42,9 @@ export function useAutoplay() {
   const show = params.get('show')
   const demoKeys = ref<string[]>([])
 
-  let intervalId: number | undefined
-  let timeoutIds: number[] = []
+  let loopTimeoutId: number | undefined
+  let hideTimeoutId: number | undefined
+  let stopped = false
   const autoPlayIndex = useLocalStorage('autoPlayIndex', 0)
 
   const init = async () => {
@@ -53,6 +54,7 @@ export function useAutoplay() {
       const demoKeysRandom = [...demoKeys.value].sort(() => Math.random() - 0.5)
 
       const loop = async () => {
+        if (stopped) return
         if (autoPlayIndex.value >= demoKeys.value.length) {
           autoPlayIndex.value = 0
         }
@@ -61,13 +63,13 @@ export function useAutoplay() {
         await fire(f)
         autoPlayIndex.value++
 
-        const tid = window.setTimeout(() => {
+        hideTimeoutId = window.setTimeout(() => {
           hide()
         }, SHOW_DURATION)
-        timeoutIds.push(tid)
+
+        loopTimeoutId = window.setTimeout(loop, SHOW_DURATION + HIDE_DURATION)
       }
       await loop()
-      intervalId = window.setInterval(loop, SHOW_DURATION + HIDE_DURATION)
     }
     else if (show) {
       const f = demoKeys.value.find(d => d.includes(show))
@@ -81,16 +83,20 @@ export function useAutoplay() {
     }
   }
 
-  init()
+  onMounted(() => {
+    void init().catch((error) => {
+      console.error('Failed to initialize autoplay', error)
+    })
+  })
 
   onUnmounted(() => {
-    if (intervalId) {
-      window.clearInterval(intervalId)
+    stopped = true
+    if (loopTimeoutId) {
+      window.clearTimeout(loopTimeoutId)
     }
-    for (const tid of timeoutIds) {
-      window.clearTimeout(tid)
+    if (hideTimeoutId) {
+      window.clearTimeout(hideTimeoutId)
     }
-    timeoutIds = []
   })
 
   return {
