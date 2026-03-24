@@ -50,18 +50,18 @@ jobs:
       - name: Build app
         run: bunx nuxt build --preset github_pages
 
-       - name: Start preview server
-         run: |
-           npx -y serve .output/public -l 3000 &
-           for i in $(seq 1 30); do
-             curl -sf http://localhost:3000 > /dev/null && break
-             sleep 1
-           done
+      - name: Start preview server
+        run: |
+          npx -y serve .output/public -l 3000 &
+          for i in $(seq 1 30); do
+            curl -sf http://localhost:3000 > /dev/null && break
+            sleep 1
+          done
 
-       - name: Run screenshot script
-         run: |
-           npm install --no-save playwright tsx
-           npx tsx e2e/screenshots.ts --base-url http://localhost:3000 --output-dir ./screenshots
+      - name: Run screenshot script
+        run: |
+          npm install --no-save playwright tsx
+          npx tsx e2e/screenshots.ts --base-url http://localhost:3000 --output-dir ./screenshots
 
       - name: Push screenshots to _mr_previews branch
         id: push
