@@ -1,0 +1,72 @@
+/* Semantic CSS Custom Property Token System */
+/* CO defaults (root) + IOF overrides (.theme-iof) */
+
+:root {
+    /* Primary brand color */
+    --gfx-color-primary: #fe5900;
+    
+    /* Secondary brand color */
+    --gfx-color-secondary: #edece3;
+    
+    /* Text color for body content */
+    --gfx-color-text: #272727;
+    
+    /* Surface/background color */
+    --gfx-color-surface: #ffffff;
+    
+    /* Text color on primary background */
+    --gfx-color-on-primary: #edece3;
+    
+    /* Text color on secondary background */
+    --gfx-color-on-secondary: #fe5900;
+    
+    /* Divider color for borders and separators */
+    --gfx-color-divider: #e5e5e5;
+    
+    /* Positive/success color */
+    --gfx-color-positive: #fe5900;
+    
+    /* Font family for GFX */
+    --gfx-font-family: GTPlanar, sans-serif;
+    
+    /* Border radius */
+    --gfx-radius: 0.375rem;
+    
+    /* Text transform (none, uppercase, lowercase) */
+    --gfx-text-transform: none;
+}
+
+.theme-iof {
+    /* IOF Red override for primary */
+    --gfx-color-primary: #e30420;
+    
+    /* IOF Blue override for secondary */
+    --gfx-color-secondary: #307ea1;
+    
+    /* IOF Dark text override */
+    --gfx-color-text: #231f20;
+    
+    /* White surface (same as root) */
+    --gfx-color-surface: #ffffff;
+    
+    /* White text on primary */
+    --gfx-color-on-primary: #ffffff;
+    
+    /* White text on secondary */
+    --gfx-color-on-secondary: #ffffff;
+    
+    /* Light gray divider */
+    --gfx-color-divider: #d4d4d4;
+    
+    /* IOF Green override for positive */
+    --gfx-color-positive: #00794c;
+    
+    /* ITC Franklin Gothic font stack */
+    --gfx-font-family: ITCFranklinGothicStd, MyriadPro, "Gill Sans", Arial, sans-serif;
+    
+    /* No border radius (sharp corners) */
+    --gfx-radius: 0;
+    
+    /* All text uppercase */
+    --gfx-text-transform: uppercase;
+}

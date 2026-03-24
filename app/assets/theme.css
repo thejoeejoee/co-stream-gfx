@@ -2,6 +2,7 @@
 
 @theme {
     --font-co: GTPlanar, sans-serif;
+    --font-gfx: var(--gfx-font-family);
 
     --spacing: 4px;
 
@@ -17,4 +18,13 @@
     --color-co-orange: #fe5900;
     --color-co-beige: #edece3;
     --color-co-black: #272727;
+
+    --color-gfx-primary: var(--gfx-color-primary);
+    --color-gfx-secondary: var(--gfx-color-secondary);
+    --color-gfx-text: var(--gfx-color-text);
+    --color-gfx-surface: var(--gfx-color-surface);
+    --color-gfx-on-primary: var(--gfx-color-on-primary);
+    --color-gfx-on-secondary: var(--gfx-color-on-secondary);
+    --color-gfx-divider: var(--gfx-color-divider);
+    --color-gfx-positive: var(--gfx-color-positive);
 }
