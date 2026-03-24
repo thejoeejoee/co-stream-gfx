@@ -1,10 +1,11 @@
 <template>
-  <div class="Table rounded-md overflow-hidden">
+  <div class="Table rounded-[var(--gfx-radius)] overflow-hidden">
     <div class="Table__Title Table__Title--highlight Animate__Slide">
       <span
         class="Gfx__Control Gfx__Control--invert"
         :class="{ 'Gfx__Control--finish': data.finish }"
       ><span /></span>
+      <img v-if="isIOF" src="/img/iof-logo.png" alt="IOF" class="h-10 w-auto" />
       <span
         class="mr-auto"
         v-text="data.label"
@@ -64,6 +65,9 @@
 import type { IResults } from '~/types/api.d'
 import PositionChangeSymbol from './PositionChangeSymbol.vue'
 import ClubFlag from './../ClubFlag.vue'
+import { useTheme } from '~/composables/useTheme'
+
+const { isIOF } = useTheme()
 
 defineProps<{
   data: IResults

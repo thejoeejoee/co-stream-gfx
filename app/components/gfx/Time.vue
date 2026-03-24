@@ -2,7 +2,7 @@
   <div class="Time">
     <!--    <IconStopwatch size="64" stroke="2"/> -->
     <div
-      class="font-co font-bold italic mr-4"
+      class="font-gfx font-bold italic mr-4"
       v-text="prefix"
     />
     <span

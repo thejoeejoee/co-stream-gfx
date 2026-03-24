@@ -1,16 +1,15 @@
 .Text {
     @apply
     bg-white
-        /*text-co-beige*/
     flex flex-row items-center justify-between
 }
 
 .Text__Content {
     @apply
-    font-co
+    font-gfx
     text-lg
     uppercase
-    text-co-black
+    text-gfx-text
     p-6
     flex flex-row gap-x-4 items-center
     w-full
@@ -20,10 +19,10 @@
     @apply
     w-24
     h-24
-    bg-co-orange
-    fill-co-beige
-    stroke-co-beige
-    text-co-beige
+    bg-gfx-primary
+    fill-gfx-on-primary
+    stroke-gfx-on-primary
+    text-gfx-on-primary
     flex items-center justify-center
     p-4
 }
@@ -32,7 +31,7 @@
     @apply
     w-4
     h-24
-    bg-co-orange
+    bg-gfx-primary
 }
 
 .Text--detail {
@@ -49,20 +48,24 @@
 
 .RaceTitle__Title {
     @apply
-    text-xl text-co-beige uppercase col-span-2
-    bg-co-orange italic font-semibold
-    p-6 rounded-t-md font-co
+    text-xl text-gfx-on-secondary uppercase col-span-2
+    bg-gfx-secondary italic font-semibold
+    p-6 rounded-t-[var(--gfx-radius)] font-gfx
 }
 
 .RaceTitle__Subtitle {
     @apply
-    px-4 h-18 bg-white text-md font-semibold text-co-black
+    px-4 h-18 bg-white text-md font-semibold text-gfx-text
     flex flex-row items-center gap-2 justify-between
-    rounded-b-md
+    rounded-b-[var(--gfx-radius)]
 
 }
 
 .RaceTitle__Subtitle svg {
     @apply
-    stroke-co-black
+    stroke-gfx-text
+}
+
+.theme-iof .Text__Content {
+    text-transform: var(--gfx-text-transform);
 }

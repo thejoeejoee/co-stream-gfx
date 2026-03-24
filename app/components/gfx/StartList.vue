@@ -1,7 +1,8 @@
 <template>
-  <div class="Table rounded-md overflow-hidden">
+  <div class="Table rounded-[var(--gfx-radius)] overflow-hidden">
     <div class="Table__Title Animate__Slide">
-      <co-symbol class="fill-co-orange h-[var(--text-lg--line-height)]" />
+      <co-symbol v-if="!isIOF" class="fill-gfx-primary h-[var(--text-lg--line-height)]" />
+      <img v-if="isIOF" src="/img/iof-logo.png" alt="IOF" class="h-10 w-auto" />
       <span
         class="mr-auto"
         v-text="data.label"
@@ -56,6 +57,9 @@
 import type { IStartList } from '~/types/api.d'
 import CoSymbol from '../../assets/co_symbol.svg?component'
 import ClubFlag from './../ClubFlag.vue'
+import { useTheme } from '~/composables/useTheme'
+
+const { isIOF } = useTheme()
 
 defineProps<{
   data: IStartList
