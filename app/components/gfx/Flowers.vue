@@ -14,7 +14,7 @@
   >
     <div class="w-1/3">
       <span class="bg-gfx-primary text-gfx-on-primary p-4 px-6">{{ second?.position }}</span>
-      <span class="p-4 w-full flex flex-row items-center justify-between bg-white gap-x-4">
+      <span class="p-4 w-full flex flex-row items-center justify-between bg-gfx-surface gap-x-4">
         {{ second?.name }}
         <club-flag
           v-if="second"
@@ -26,7 +26,7 @@
     </div>
     <div class="w-1/3 text-lg">
       <span class="bg-gfx-primary text-gfx-on-primary p-6 px-6">{{ first?.position }}</span>
-      <span class="p-6 w-full flex flex-row items-center justify-between bg-white gap-x-4">
+      <span class="p-6 w-full flex flex-row items-center justify-between bg-gfx-surface gap-x-4">
         {{ first?.name }}
         <club-flag
           v-if="first"
@@ -38,7 +38,7 @@
     </div>
     <div class="w-1/3 text-md">
       <span class="bg-gfx-primary text-gfx-on-primary p-4 px-6">{{ third?.position }}</span>
-      <span class="p-4 w-full flex flex-row items-center justify-between bg-white gap-x-4">
+      <span class="p-4 w-full flex flex-row items-center justify-between bg-gfx-surface gap-x-4">
         {{ third?.name }}
         <club-flag
           v-if="third"

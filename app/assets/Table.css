@@ -8,7 +8,7 @@
 .Table__Grid {
     grid-template-columns: minmax(max-content, 0fr) auto max-content max-content;
     @apply
-        grid bg-white/95 items-center
+        grid bg-gfx-surface/95 items-center
         px-6 gap-x-6 py-3 gap-y-2
 }
 
@@ -80,7 +80,7 @@
         @apply
             flex flex-row items-center justify-between
             gap-x-4 px-4 py-2 w-full
-            bg-white
+            bg-gfx-surface
     }
     .Table__Position {
         @apply min-w-[2ch]
@@ -111,12 +111,11 @@
     origin-center
     scale-105
     my-1
-    bg-white
+    bg-gfx-surface
 }
 
 
 /* title over/under */
-.Table__Title {
     @apply
     py-6 px-6 italic font-gfx font-semibold
     flex flex-row justify-between gap-x-4

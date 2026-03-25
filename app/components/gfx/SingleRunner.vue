@@ -10,7 +10,7 @@
     <div
       class="
       flex flex-row items-center justify-between
-      text-lg bg-white
+      text-lg bg-gfx-surface
       Animate__Slide
     "
     >
@@ -25,7 +25,7 @@
       />
       <h1
         class="
-          h-24 bg-white px-6 gap-x-4 w-full
+          h-24 bg-gfx-surface px-6 gap-x-4 w-full
           flex flex-row justify-between items-center
           font-gfx uppercase text-gfx-text
         "

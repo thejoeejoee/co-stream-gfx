@@ -48,7 +48,7 @@ jobs:
         id: tools
         run: |
           TOOL_DIR=$(mktemp -d)
-          npm --prefix "$TOOL_DIR" install playwright tsx
+          npm --prefix "$TOOL_DIR" install playwright@1.58.2 tsx@4.21.0
           "$TOOL_DIR/node_modules/.bin/playwright" install chromium --with-deps
           ln -s "$TOOL_DIR/node_modules/playwright" node_modules/playwright
           ln -s "$TOOL_DIR/node_modules/playwright-core" node_modules/playwright-core
