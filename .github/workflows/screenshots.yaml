@@ -44,8 +44,13 @@ jobs:
       - name: Install dependencies
         run: bun install --frozen-lockfile
 
-      - name: Install Playwright Chromium
-        run: npx playwright install chromium --with-deps
+      - name: Install Playwright and tsx
+        id: tools
+        run: |
+          TOOL_DIR=$(mktemp -d)
+          npm --prefix "$TOOL_DIR" install playwright tsx
+          "$TOOL_DIR/node_modules/.bin/playwright" install chromium --with-deps
+          echo "dir=$TOOL_DIR" >> $GITHUB_OUTPUT
 
       - name: Build app
         run: bunx nuxt build --preset github_pages
@@ -60,8 +65,9 @@ jobs:
 
       - name: Run screenshot script
         run: |
-          npm install --no-save playwright tsx
-          npx tsx e2e/screenshots.ts --base-url http://localhost:3000 --output-dir ./screenshots
+          NODE_PATH="${{ steps.tools.outputs.dir }}/node_modules" \
+            "${{ steps.tools.outputs.dir }}/node_modules/.bin/tsx" \
+            e2e/screenshots.ts --base-url http://localhost:3000 --output-dir ./screenshots
 
       - name: Push screenshots to _mr_previews branch
         id: push
