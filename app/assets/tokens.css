@@ -37,36 +37,41 @@
 }
 
 .theme-iof {
-    /* IOF Red override for primary */
+     /* IOF Red override for primary */
     --gfx-color-primary: #e30420;
     
-    /* IOF Blue override for secondary */
+     /* IOF Blue override for secondary */
     --gfx-color-secondary: #307ea1;
     
-    /* IOF Dark text override */
+     /* IOF Dark text override */
     --gfx-color-text: #231f20;
     
-    /* White surface (same as root) */
+     /* White surface (same as root) */
     --gfx-color-surface: #ffffff;
     
-    /* White text on primary */
+     /* White text on primary */
     --gfx-color-on-primary: #ffffff;
     
-    /* White text on secondary */
+     /* White text on secondary */
     --gfx-color-on-secondary: #ffffff;
     
-    /* Light gray divider */
+     /* Light gray divider */
     --gfx-color-divider: #d4d4d4;
     
-    /* IOF Green override for positive */
+     /* IOF Green override for positive */
     --gfx-color-positive: #00794c;
     
-    /* ITC Franklin Gothic font stack */
+     /* ITC Franklin Gothic font stack */
     --gfx-font-family: ITCFranklinGothicStd, MyriadPro, "Gill Sans", Arial, sans-serif;
     
-    /* No border radius (sharp corners) */
+     /* No border radius (sharp corners) */
     --gfx-radius: 0;
     
-    /* All text uppercase */
+     /* All text uppercase */
     --gfx-text-transform: uppercase;
+}
+
+/* Neutralize italic for IOF mode: ITCFranklinGothicStd has no italic @font-face */
+.theme-iof * {
+    font-style: normal;
 }
