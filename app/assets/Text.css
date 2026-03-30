@@ -66,3 +66,9 @@
     stroke-gfx-text
 }
 
+/* IOF header differentiation */
+.theme-iof .RaceTitle__Title {
+    font-weight: 800;
+    letter-spacing: 0.05em;
+}
+
