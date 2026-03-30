@@ -58,12 +58,14 @@ func main() {
 
 	broadcastLock := func() {
 		lock.mu.Lock()
-		payload, _ := json.Marshal(map[string]any{
-			"holder":   lock.Holder,
-			"since":    lock.Since,
-			"acquired": lock.Acquired,
-		})
+		snapshot := struct {
+			Holder   string    `json:"holder"`
+			Since    time.Time `json:"since"`
+			Acquired bool      `json:"acquired"`
+		}{lock.Holder, lock.Since, lock.Acquired}
 		lock.mu.Unlock()
+
+		payload, _ := json.Marshal(snapshot)
 		sse.SendMessage(defaultChannel, libsse.NewMessage("", string(payload), "control-lock"))
 	}
 
@@ -81,7 +83,11 @@ func main() {
 		var body struct {
 			Holder string `json:"holder"`
 		}
-		if err := c.ShouldBindJSON(&body); err != nil || body.Holder == "" {
+		if err := c.ShouldBindJSON(&body); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "invalid JSON", "details": err.Error()})
+			return
+		}
+		if body.Holder == "" {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "holder name is required"})
 			return
 		}
