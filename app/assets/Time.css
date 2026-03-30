@@ -10,3 +10,7 @@
 
     flex flex-row justify-around items-center gap-x-2
 }
+
+.theme-iof .Time {
+    @apply text-gfx-on-secondary;
+}
