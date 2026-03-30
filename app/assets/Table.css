@@ -116,6 +116,7 @@
 
 
 /* title over/under */
+.Table__Title {
     @apply
     py-6 px-6 italic font-gfx font-semibold
     flex flex-row justify-between gap-x-4
