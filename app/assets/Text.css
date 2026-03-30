@@ -66,9 +66,14 @@
     stroke-gfx-text
 }
 
-/* IOF header differentiation */
+/* IOF header differentiation + line-height overrides */
 .theme-iof .RaceTitle__Title {
     font-weight: 800;
     letter-spacing: 0.05em;
+    line-height: 1.1;
+}
+
+.theme-iof .Text__Content {
+    line-height: 1.2;
 }
 
