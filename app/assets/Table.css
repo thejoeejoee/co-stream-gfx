@@ -161,5 +161,6 @@
 }
 
 .theme-iof .Table__Title {
+    font-style: normal;
     line-height: 1.15;
 }
