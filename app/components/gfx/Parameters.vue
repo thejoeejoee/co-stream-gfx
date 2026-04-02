@@ -3,10 +3,10 @@
     class="
     Table
     text-lg text-semibold
-    text-co-black
+    text-gfx-text
     text-right
-    font-co
-    rounded-md overflow-hidden
+    font-gfx
+    rounded-[var(--gfx-radius)] overflow-hidden
    "
   >
     <div class="Table__Title Table__Title--highlight Animate__Slide">
@@ -20,7 +20,7 @@
           :key="index"
           class="text-md w-full Table__Row"
         >
-          <span class="text-co-orange">
+          <span class="text-gfx-primary">
             {{ item.key.toLowerCase() }}
           </span>
           {{ item.value }}

@@ -21,7 +21,7 @@
       <club-flag
         :conf="start"
         :item="start"
-        club-class="text-co-orange"
+        club-class="text-gfx-primary"
       />
     </template>
     <template
@@ -29,14 +29,14 @@
       #right-gutter
     >
       <span
-        class="text-lg bg-co-orange text-co-beige p-6 font-semibold"
+        class="text-lg bg-gfx-primary text-gfx-on-primary p-6 font-semibold"
         v-text="start.start_time"
       />
     </template>
   </Text>
   <div
     v-if="start.detail"
-    class="text-md p-4 bg-co-orange text-co-beige font-co Animate__Clip"
+    class="text-md p-4 bg-gfx-secondary text-gfx-on-secondary font-gfx Animate__Clip"
   >
     {{ start?.detail }}
   </div>

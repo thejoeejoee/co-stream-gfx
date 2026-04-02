@@ -9,7 +9,7 @@
       <div
         v-if="data.has_leader"
         :key="data.leader.name"
-        class="Table__Row Table__Row--leader rounded-t-md"
+        class="Table__Row Table__Row--leader rounded-t-[var(--gfx-radius)]"
       >
         <span
           class="Table__Position"
@@ -43,8 +43,8 @@
         class="Table__Row"
         :data-index="index"
         :class="{
-          'Table__Row--highlight rounded-md': index === data.row_idx,
-          'rounded-t-md': index == 0 && !data.has_leader
+          'Table__Row--highlight rounded-[var(--gfx-radius)]': index === data.row_idx,
+          'rounded-t-[var(--gfx-radius)]': index == 0 && !data.has_leader
         }"
       >
         <span
@@ -71,7 +71,7 @@
         />
       </div>
     </TransitionGroup>
-    <div class="Table__Title rounded-b-md Animate__Slide">
+    <div class="Table__Title rounded-b-[var(--gfx-radius)] Animate__Slide">
       <span
         class="Gfx__Control"
         :class="{ 'Gfx__Control--finish': data.finish }"

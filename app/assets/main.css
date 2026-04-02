@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@import "./tokens.css";
+@import "./iof-fonts.css";
 @import "./theme.css";
 
 @import "./Time.css";
