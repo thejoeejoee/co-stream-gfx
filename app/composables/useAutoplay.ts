@@ -21,11 +21,26 @@ const loadDemo = async (path: string) => {
   return mod.default
 }
 
+const isIOF = params.get('theme') === 'iof'
+
+const applyInternationalMode = (payload: unknown): unknown => {
+  if (typeof payload !== 'object' || payload === null) return payload
+  const data = payload as Record<string, unknown>
+  if ('is_national' in data) {
+    return { ...data, is_national: false }
+  }
+  return data
+}
+
 const fire = async (path: string) => {
   const name = nameFromPath(path)
   const eventName = name.split('.')[0] || name
-  const payload = await loadDemo(path)
+  let payload = await loadDemo(path)
   if (!payload) return
+
+  if (isIOF) {
+    payload = applyInternationalMode(payload)
+  }
 
   const e = new MessageEvent(
     eventName,
