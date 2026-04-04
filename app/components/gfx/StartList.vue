@@ -2,7 +2,6 @@
   <div class="Table rounded-[var(--gfx-radius)] overflow-hidden">
     <div class="Table__Title Animate__Slide">
       <co-symbol v-if="!isIOF" class="fill-gfx-primary h-[var(--text-lg--line-height)]" />
-      <img v-if="isIOF" src="/img/iof-logo.png" alt="IOF" class="h-10 w-auto" />
       <span
         class="mr-auto"
         v-text="data.label"
