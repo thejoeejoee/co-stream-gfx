@@ -18,7 +18,8 @@
     >
       <div
         :key="data.page.toString()+data.data[0]?.name"
-        class="Table__Grid Table__Grid--expand Table__Grid--no-empty-gutter-margin Table__Grid--bib-highlight"
+        class="Table__Grid Table__Grid--expand Table__Grid--no-empty-gutter-margin"
+        :class="{ 'Table__Grid--bib-highlight': isIOF }"
       >
         <template
           v-for="(row, index) in data.data"
