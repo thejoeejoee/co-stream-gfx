@@ -27,6 +27,24 @@
     text-gfx-text
 }
 
+.Table__Grid--bib-highlight {
+    --col-bib: 5ch;
+    grid-template-columns: var(--col-bib) auto max-content max-content;
+    background-image: linear-gradient(
+        to right,
+        var(--gfx-color-iof-accent) calc(var(--col-bib) + 48px),
+        transparent calc(var(--col-bib) + 48px)
+    );
+}
+
+.Table__Grid--bib-highlight .Table__Position {
+    @apply text-white text-center w-full font-bold;
+}
+
+.Table__Grid--bib-highlight .Table__Name {
+    @apply pl-4;
+}
+
 .Table__Grid--no-empty-gutter-margin:has(.Table__Position:not(:empty)) .Table__Position:empty + .Table__Name {
     /* if each position is empty, consume the left margin together */
     @apply -ml-6;

@@ -26,6 +26,9 @@
     /* Positive/success color */
     --gfx-color-positive: #fe5900;
     
+    /* IOF accent red */
+    --gfx-color-iof-accent: #ED1A2D;
+    
     /* Font family for GFX */
     --gfx-font-family: GTPlanar, sans-serif;
     
