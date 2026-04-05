@@ -15,7 +15,7 @@
     <div class="w-1/3">
       <span class="bg-gfx-primary text-gfx-on-primary p-4 px-6">{{ second?.position }}</span>
       <span class="p-4 w-full flex flex-row items-center justify-between bg-gfx-surface gap-x-4">
-        {{ second?.name }}
+        {{ second?.name ? (isIOF ? stripAccents(second.name) : second.name) : '' }}
         <club-flag
           v-if="second"
           :conf="data"
@@ -27,7 +27,7 @@
     <div class="w-1/3 text-lg">
       <span class="bg-gfx-primary text-gfx-on-primary p-6 px-6">{{ first?.position }}</span>
       <span class="p-6 w-full flex flex-row items-center justify-between bg-gfx-surface gap-x-4">
-        {{ first?.name }}
+        {{ first?.name ? (isIOF ? stripAccents(first.name) : first.name) : '' }}
         <club-flag
           v-if="first"
           :conf="data"
@@ -39,7 +39,7 @@
     <div class="w-1/3 text-md">
       <span class="bg-gfx-primary text-gfx-on-primary p-4 px-6">{{ third?.position }}</span>
       <span class="p-4 w-full flex flex-row items-center justify-between bg-gfx-surface gap-x-4">
-        {{ third?.name }}
+        {{ third?.name ? (isIOF ? stripAccents(third.name) : third.name) : '' }}
         <club-flag
           v-if="third"
           :conf="data"
@@ -55,6 +55,10 @@
 import type { IFlowers } from '~/types/api.d'
 import { computed } from 'vue'
 import ClubFlag from './../ClubFlag.vue'
+import { stripAccents } from '~/utils/text'
+import { useTheme } from '~/composables/useTheme'
+
+const { isIOF } = useTheme()
 
 const props = defineProps<{
   data: IFlowers

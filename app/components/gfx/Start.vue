@@ -11,7 +11,7 @@
     </template>
     <span
       class="mr-auto"
-      v-text="start.name"
+      v-text="isIOF ? stripAccents(start.name) : start.name"
     />
 
     <template
@@ -46,6 +46,10 @@
 import type { IStartDetail } from '~/types/api.d'
 import ClubFlag from './../ClubFlag.vue'
 import Text from './Text.vue'
+import { stripAccents } from '~/utils/text'
+import { useTheme } from '~/composables/useTheme'
+
+const { isIOF } = useTheme()
 
 defineProps<{
   start: IStartDetail

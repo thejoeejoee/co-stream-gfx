@@ -17,7 +17,7 @@
         />
         <span
           class="Table__Name"
-          v-text="data.leader.name"
+          v-text="isIOF ? stripAccents(data.leader.name) : data.leader.name"
         />
         <club-flag
           :conf="data"
@@ -53,7 +53,7 @@
         />
         <span
           class="Table__Name"
-          v-text="row.name"
+          v-text="isIOF ? stripAccents(row.name) : row.name"
         />
         <span class="Table__Flag">
           <position-change-symbol
@@ -85,6 +85,10 @@
 import type { ILiveFeed } from '~/types/api.d'
 import PositionChangeSymbol from './PositionChangeSymbol.vue'
 import ClubFlag from './../ClubFlag.vue'
+import { stripAccents } from '~/utils/text'
+import { useTheme } from '~/composables/useTheme'
+
+const { isIOF } = useTheme()
 
 // property
 defineProps<{

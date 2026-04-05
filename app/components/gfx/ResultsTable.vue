@@ -33,7 +33,7 @@
             />
             <span
               class="Table__Name"
-              v-text="row.name"
+              v-text="isIOF ? stripAccents(row.name) : row.name"
             />
             <club-flag
               :conf="data"
@@ -66,6 +66,7 @@ import type { IResults } from '~/types/api.d'
 import PositionChangeSymbol from './PositionChangeSymbol.vue'
 import ClubFlag from './../ClubFlag.vue'
 import { useTheme } from '~/composables/useTheme'
+import { stripAccents } from '~/utils/text'
 
 const { isIOF } = useTheme()
 

@@ -44,7 +44,7 @@
             />
             <span
               class="Table__Name"
-              v-text="stripAccents(row.name)"
+              v-text="isIOF ? stripAccents(row.name) : row.name"
             />
             <club-flag
               :conf="data"
