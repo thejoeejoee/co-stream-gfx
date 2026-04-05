@@ -3,7 +3,7 @@ import { invoke, until, useFetch, type UseFetchReturn, useNow } from '@vueuse/co
 import { computed, ref } from 'vue'
 import DirectorStartAlert from './DirectorStartAlert.vue'
 import type { IStartListRunner } from '~/types/api.d'
-import { alertOffset, timeOffset } from '~/state'
+import { alertOffset, params, timeOffset } from '~/state'
 
 const now = useNow({})
 const nowTs = computed(() => (now.value.getTime() / 1000) - timeOffset)
@@ -20,8 +20,8 @@ interface IDirectorFavoriteClass {
   data: IStartListRunner[]
 }
 
-// const {data}: UseFetchReturn<IDirectorFavorite> = useFetch("http://127.0.0.1:5000/api/director-favorite").get().json()
-const { data }: UseFetchReturn<IDirectorFavorite> = useFetch('http://192.168.42.88:5000/api/director-favorite').get().json()
+const sseUrl = new URL(params.get('sse') || 'http://localhost:8080/_sse/default')
+const { data }: UseFetchReturn<IDirectorFavorite> = useFetch(`${sseUrl.origin}/api/director-favorite`).get().json()
 
 async function sleep(ms: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, ms))
