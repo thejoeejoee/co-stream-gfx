@@ -3,6 +3,16 @@
     <div class="Table__Title Animate__Slide">
       <co-symbol v-if="!isIOF" class="fill-gfx-primary h-[var(--text-lg--line-height)]" />
       <span
+        v-else
+        class="inline-block h-[var(--text-lg--line-height)] bg-white pr-4"
+        :style="{
+          aspectRatio: '1000 / 404',
+          maskImage: `url(${iofLogoUrl})`,
+          maskSize: 'contain',
+          maskRepeat: 'no-repeat',
+        }"
+      />
+      <span
         class="mr-auto"
         v-text="data.label"
       />
@@ -59,6 +69,7 @@ import CoSymbol from '../../assets/co_symbol.svg?component'
 import ClubFlag from './../ClubFlag.vue'
 import { useTheme } from '~/composables/useTheme'
 import { stripAccents } from '~/utils/text'
+import iofLogoUrl from '~/assets/iof-logo-colour-withouttext.png'
 
 const { isIOF } = useTheme()
 
