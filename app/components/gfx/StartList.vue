@@ -18,7 +18,7 @@
     >
       <div
         :key="data.page.toString()+data.data[0]?.name"
-        class="Table__Grid Table__Grid--expand Table__Grid--no-empty-gutter-margin"
+        class="Table__Grid Table__Grid--expand Table__Grid--no-empty-gutter-margin Table__Grid--bib-highlight"
       >
         <template
           v-for="(row, index) in data.data"
@@ -33,7 +33,7 @@
             />
             <span
               class="Table__Name"
-              v-text="row.name"
+              v-text="stripAccents(row.name)"
             />
             <club-flag
               :conf="data"
@@ -57,6 +57,7 @@ import type { IStartList } from '~/types/api.d'
 import CoSymbol from '../../assets/co_symbol.svg?component'
 import ClubFlag from './../ClubFlag.vue'
 import { useTheme } from '~/composables/useTheme'
+import { stripAccents } from '~/utils/text'
 
 const { isIOF } = useTheme()
 
