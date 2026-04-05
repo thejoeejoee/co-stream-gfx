@@ -190,7 +190,7 @@
 }
 
 .theme-iof .Gfx__Control--finish span {
-    box-shadow: inset 0 0 0 3px #ffffff, inset 0 0 0 6px #ffffff;
+    box-shadow: inset 0 0 0 3px var(--gfx-color-secondary), inset 0 0 0 6px #ffffff;
 }
 
 .theme-iof .Table__Title {
