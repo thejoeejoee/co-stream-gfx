@@ -31,7 +31,7 @@
         "
         :class="{ 'border-l-[calc(var(--spacing)*2)] border-l-gfx-primary': !singleRunner.bib_number }"
       >
-        {{ singleRunner.name }}
+        {{ stripAccents(singleRunner.name) }}
 
         <club-flag
           :conf="singleRunner"
@@ -61,6 +61,7 @@
 <script setup lang="ts">
 import type { ISingleRunner } from '~/types/api.d'
 import ClubFlag from './../ClubFlag.vue'
+import { stripAccents } from '~/utils/text'
 
 defineProps<{
   singleRunner: ISingleRunner
