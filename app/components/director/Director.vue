@@ -38,7 +38,8 @@ const enableAlerts = () => {
   data.value?.data.forEach((col) => {
     col.data.forEach((r) => {
       invoke(async () => {
-        if ((r.start_time_ts ?? 0) < nowTs.value) {
+        let st = (r.start_time_ts ?? 0) + 3*3600;
+        if (st < nowTs.value) {
           // already started
           return
         }
@@ -50,7 +51,7 @@ const enableAlerts = () => {
 
         oscillator.start(audioCtx.currentTime)
 
-        await until(nowTs).toMatch(n => ((r.start_time_ts ?? 0) - n) < alertOffset)
+        await until(nowTs).toMatch(n => (st - n) < alertOffset)
 
         for (let i = 0; i < 3; i++) {
           oscillator.connect(audioCtx.destination)
