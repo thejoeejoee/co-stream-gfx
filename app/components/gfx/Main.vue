@@ -90,7 +90,7 @@ watchEffect((onCleanup) => {
     </Transition>
     <Transition name="slide">
       <Time
-        v-if="state.timer !== null"
+        v-if="state.timer"
         class="absolute right-24 bottom-24"
         :data="state.timer"
       />
