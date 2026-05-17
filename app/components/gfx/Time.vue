@@ -1,6 +1,6 @@
 <template>
   <div class="Time flex flex-row items-center gap-2 bg-[var(--gfx-bg)] text-[var(--gfx-fg)] px-6 py-3 rounded-[var(--gfx-radius)]">
-    <span class="font-gfx font-bold italic text-4xl">
+    <span class="font-gfx font-bold italic text-4xl" style="font-variant-numeric: tabular-nums">
       <span v-if="hours > 0">{{ hours }}:</span>
       <span>{{ minutes.toString().padStart(2, '0') }}:</span>
       <span>{{ seconds.toString().padStart(2, '0') }}</span>
