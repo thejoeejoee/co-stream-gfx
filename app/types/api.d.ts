@@ -150,6 +150,10 @@ export interface IPositionHistoryEntry {
   time_loss: number
 }
 
+export interface ITimer {
+  start_time: number // unix timestamp (seconds)
+}
+
 export interface ClubFlagConfiguration {
   is_national: boolean
   is_relay: boolean

@@ -9,6 +9,7 @@ import type {
   ISpeaker,
   IStartDetail,
   IStartList,
+  ITimer,
   IWeather
 } from '~/types/api.d'
 
@@ -21,6 +22,7 @@ export interface GfxState {
   speaker: ISpeaker | null
   start: IStartDetail | null
   startlist: IStartList | null
+  timer: ITimer | null
   title: IRaceTitle | null
   weather: IWeather | null
   flowers: IFlowers | null
@@ -36,6 +38,7 @@ export function createDefaultState(): GfxState {
     speaker: null,
     start: null,
     startlist: null,
+    timer: null,
     title: null,
     weather: null,
     flowers: null
@@ -54,7 +57,13 @@ export const eventMap: Record<string, keyof GfxState> = {
   'single-runner': 'singleRunner',
   'start': 'start',
   'results': 'results',
-  'flowers': 'flowers'
+  'flowers': 'flowers',
+  'timer': 'timer'
+}
+
+/** SSE events that hide a specific state key */
+export const hideEvents: Record<string, keyof GfxState> = {
+  'hide-timer': 'timer'
 }
 
 /** Mutually exclusive pairs: receiving one clears the other */

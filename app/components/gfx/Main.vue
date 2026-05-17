@@ -8,7 +8,7 @@ import type {
   ISingleRunner,
   ISpeaker,
   IStartDetail,
-  IStartList, IWeather
+  IStartList, ITimer, IWeather
 } from '~/types/api.d'
 import { useLocalStorage } from '@vueuse/core'
 import { watchEffect } from 'vue'
@@ -19,6 +19,7 @@ import Start from './Start.vue'
 import RaceTitle from './RaceTitle.vue'
 import StartList from './StartList.vue'
 import Text from './Text.vue'
+import Time from './Time.vue'
 import { IconSpeakerphone } from '@tabler/icons-vue'
 import Flowers from './Flowers.vue'
 import LiveFeed from './LiveFeed.vue'
@@ -26,7 +27,7 @@ import ResultsTable from './ResultsTable.vue'
 
 import { eventSource } from '~/state'
 import { useTheme } from '~/composables/useTheme'
-import { type GfxState, createDefaultState, eventMap, exclusions } from '~/utils/gfx-state'
+import { type GfxState, createDefaultState, eventMap, exclusions, hideEvents } from '~/utils/gfx-state'
 
 const state = useLocalStorage<GfxState>('state-v1', createDefaultState())
 
@@ -47,6 +48,12 @@ watchEffect((onCleanup) => {
   const controller = new AbortController()
 
   es.addEventListener('hide', () => hideAll(), { signal: controller.signal })
+
+  for (const [eventName, stateKey] of Object.entries(hideEvents)) {
+    es.addEventListener(eventName, () => {
+      state.value[stateKey] = null
+    }, { signal: controller.signal })
+  }
 
   for (const [eventName, stateKey] of Object.entries(eventMap)) {
     es.addEventListener(eventName, (event: MessageEvent) => {
@@ -81,12 +88,13 @@ watchEffect((onCleanup) => {
         :data="state.liveFeed"
       />
     </Transition>
-    <!--    <Transition name="slide"> -->
-    <!--      <div class="absolute right-24 bottom-24 flex flex-row" v-if="false"> -->
-    <!--        <TimeText prefix="M18"/> -->
-    <!--        <TimeText prefix="W18" :offset="300"/> -->
-    <!--      </div> -->
-    <!--    </Transition> -->
+    <Transition name="slide">
+      <Time
+        v-if="state.timer !== null"
+        class="absolute right-24 bottom-24"
+        :data="state.timer"
+      />
+    </Transition>
     <Transition
       name="nested-slide"
       :duration="500"
