@@ -37,6 +37,7 @@ const stateKeys = Object.keys(state.value) as (keyof GfxState)[]
 
 const hideAll = () => {
   for (const key of stateKeys) {
+    if (key === 'timer') continue
     state.value[key] = null
   }
 }
