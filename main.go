@@ -11,6 +11,7 @@ import (
 	"log/slog"
 	"net/http"
 	"strings"
+	"time"
 )
 import "github.com/gin-contrib/cors"
 
@@ -43,6 +44,15 @@ func main() {
 	r.GET("/", func(c *gin.Context) {
 		c.String(http.StatusOK, "OK")
 	})
+
+	// Send SSE keepalive comments every 15s to prevent proxy/browser idle timeouts
+	go func() {
+		ticker := time.NewTicker(15 * time.Second)
+		defer ticker.Stop()
+		for range ticker.C {
+			sse.SendMessage(defaultChannel, libsse.NewMessage("", "", "keepalive"))
+		}
+	}()
 
 	r.NoRoute(func(c *gin.Context) {
 		b, _ := io.ReadAll(c.Request.Body)
