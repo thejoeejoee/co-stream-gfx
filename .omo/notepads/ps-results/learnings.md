@@ -17,3 +17,9 @@
 - All scoring tests pass with bun run test
 - Test helpers: makeRunner() factory in test file
 - 14 test cases covering all specified scenarios
+
+## [2026-06-11] Task 5: Polling Composable
+- useIntervalFn from @vueuse/core for polling
+- Full load when lastChangeId=0, incremental otherwise
+- deletedRunners: filter out from runners array by id
+- watch(eventId) resets state and immediately fetches on change
