@@ -85,7 +85,7 @@ export function parseEventInput(input: string): number | null {
 }
 
 export async function fetchOResults(eventId: number, since = 0): Promise<OResultsResponse> {
-  const url = `https://cdn.oresults.eu/events/${eventId}/changes?since=${since}`
+  const url = `https://csos.josefkolar.cz/oresults/events/${eventId}/changes?since=${since}`
   const response = await fetch(url)
 
   if (!response.ok) {
