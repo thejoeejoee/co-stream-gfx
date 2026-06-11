@@ -77,12 +77,18 @@ const sliderTimeLabel = computed(() => {
   return d.toLocaleTimeString('cs-CZ')
 })
 
-const standings = computed(() => {
+// winPoints must be stable (computed from all data, not filtered by time slider)
+const globalWinPoints = computed(() => {
   const allClasses = categoryGroups.value.flatMap(g => g.classes)
-  const globalMostTeams = computeMostTeams(filteredRunners.value, allClasses)
-  const globalWinPoints = globalMostTeams * 2
-  return categoryGroups.value.map(group => computeGroupStandings(filteredRunners.value, group, 2, globalWinPoints))
+  const globalMostTeams = computeMostTeams(runners.value, allClasses)
+  return globalMostTeams * 2
 })
+
+const standings = computed(() => {
+  return categoryGroups.value.map(group => computeGroupStandings(filteredRunners.value, group, 2, globalWinPoints.value))
+})
+
+const visibleStandings = computed(() => standings.value.filter(gs => gs.standings.length > 0))
 
 const classOverviews = computed(() => {
   const result = new Map<string, Array<{ className: string; top: typeof runners.value; running: typeof runners.value }>>()
@@ -123,6 +129,7 @@ function getRunningRunners(className: string, club: string) {
 
 function elapsedSince(startTime: number): string {
   const elapsed = timeSliderValue.value - startTime
+  if (elapsed <= 0) return '–'
   const sec = Math.floor(elapsed / 1000)
   const min = Math.floor(sec / 60)
   if (min > 0) return `+${min}min`
@@ -182,6 +189,11 @@ function formatTime(ms: number): string {
           Naposledy aktualizováno: {{ formattedLastUpdate }}
         </span>
         <UIcon v-if="isLoading" name="i-lucide-loader-circle" class="animate-spin" />
+        <span class="ml-auto">
+          <button class="font-semibold text-sm" @click="configOpen = !configOpen">
+            Nastavení {{ configOpen ? '▾' : '▸' }}
+          </button>
+        </span>
       </div>
       <p v-if="eventInfo" class="text-sm text-gray-500 mt-1">
         Neoficiální výsledky přeboru škol
@@ -192,12 +204,8 @@ function formatTime(ms: number): string {
     </header>
 
     <!-- Config form -->
-    <section class="mb-6 border rounded p-4">
-      <button class="font-semibold text-sm" @click="configOpen = !configOpen">
-        Nastavení {{ configOpen ? '▾' : '▸' }}
-      </button>
-
-      <div v-show="configOpen" class="mt-4 flex flex-col gap-4">
+    <section v-show="configOpen" class="mb-6 border rounded p-4">
+      <div class="flex flex-col gap-4">
         <div class="flex items-end gap-3">
           <div class="flex flex-col gap-1">
             <label class="text-sm font-medium">Událost</label>
@@ -270,8 +278,8 @@ function formatTime(ms: number): string {
     </section>
 
     <!-- Standings tables -->
-    <div class="grid grid-cols-3 gap-0">
-      <section v-for="gs in standings" v-show="gs.standings.length > 0" :key="gs.group.name" class="px-4 border-r last:border-r-0">
+    <div class="flex gap-0">
+      <section v-for="gs in visibleStandings" :key="gs.group.name" class="flex-1 px-4 border-r last:border-r-0">
         <div class="flex items-center gap-3 mb-2">
           <h2 class="text-xl font-bold">
             {{ gs.group.name }}
