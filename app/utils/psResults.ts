@@ -212,10 +212,11 @@ export function computeMostTeams(allRunners: OResultsRunner[], classes: string[]
 export function computeGroupStandings(
   runners: OResultsRunner[],
   group: CategoryGroup,
-  scoringFirst: number = 2
+  scoringFirst: number = 2,
+  globalWinPoints?: number
 ): GroupStandings {
   const mostTeams = computeMostTeams(runners, group.classes)
-  const winPoints = mostTeams * scoringFirst
+  const winPoints = globalWinPoints ?? mostTeams * scoringFirst
 
   const teamAgg = new Map<string, { totalScore: number; totalTime: number; classScores: ClassTeamScore[] }>()
 

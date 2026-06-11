@@ -46,7 +46,9 @@ export function useOResultsPolling(
         runners.value = runners.value.filter(r => !deleted.has(r.id))
       }
 
-      eventInfo.value = response.event
+      if (response.event) {
+        eventInfo.value = response.event
+      }
       lastChangeId.value = response.lastChangeId
       lastUpdate.value = new Date()
       error.value = null
@@ -82,7 +84,7 @@ export function useOResultsPolling(
       error.value = null
       void refresh().then(() => resume())
     }
-  })
+  }, { immediate: true })
 
   return {
     runners,
