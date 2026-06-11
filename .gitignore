@@ -30,3 +30,4 @@ dev/webhook-dumps/
 out/
 .output/
 .nuxt/
+.omo/
