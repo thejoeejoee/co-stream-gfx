@@ -13,3 +13,7 @@
 - CORS status: ALLOWED
 - fetchOResults uses: direct fetch
 - parseEventInput handles: numeric string, oresults.eu URL, cdn.oresults.eu URL
+## [2026-06-11] Task 3: Tests
+- All scoring tests pass with bun run test
+- Test helpers: makeRunner() factory in test file
+- 14 test cases covering all specified scenarios

@@ -139,39 +139,50 @@ export function computeClassScores(
     byTeam.get(team)!.push(r)
   }
 
-  const scores = new Map<string, ClassTeamScore>()
-
+  const selectedByTeam = new Map<string, RunnerResult[]>()
   for (const [team, teamResults] of byTeam) {
     const sorted = [...teamResults].sort((a, b) => a.position - b.position)
-    const selected = sorted.slice(0, scoringFirst)
+    selectedByTeam.set(team, sorted.slice(0, scoringFirst))
+  }
 
-    const prelim = selected.map((r, idx) => ({
-      ...r,
-      score: Math.max(0, winPoints - idx)
-    }))
-
-    // Equal positions get the max score within their position group
-    const positionGroups = new Map<number, typeof prelim>()
-    for (const entry of prelim) {
-      if (!positionGroups.has(entry.position)) positionGroups.set(entry.position, [])
-      positionGroups.get(entry.position)!.push(entry)
+  const allSelected: Array<{ team: string; result: RunnerResult }> = []
+  for (const [team, selected] of selectedByTeam) {
+    for (const r of selected) {
+      allSelected.push({ team, result: r })
     }
+  }
+  allSelected.sort((a, b) => a.result.position - b.result.position)
 
-    const scoredRunners: ScoredRunner[] = []
-    for (const group of positionGroups.values()) {
-      const maxScore = Math.max(...group.map(e => e.score))
-      for (const entry of group) {
-        scoredRunners.push({
-          runner: entry.runner,
-          position: entry.position,
-          time: entry.time,
-          score: maxScore
-        })
-      }
+  const withPrelim = allSelected.map((entry, idx) => ({
+    ...entry,
+    score: Math.max(0, winPoints - idx)
+  }))
+
+  const positionGroups = new Map<number, typeof withPrelim>()
+  for (const entry of withPrelim) {
+    const pos = entry.result.position
+    if (!positionGroups.has(pos)) positionGroups.set(pos, [])
+    positionGroups.get(pos)!.push(entry)
+  }
+
+  const teamScoredRunners = new Map<string, ScoredRunner[]>()
+  for (const group of positionGroups.values()) {
+    const maxScore = Math.max(...group.map(e => e.score))
+    for (const entry of group) {
+      if (!teamScoredRunners.has(entry.team)) teamScoredRunners.set(entry.team, [])
+      teamScoredRunners.get(entry.team)!.push({
+        runner: entry.result.runner,
+        position: entry.result.position,
+        time: entry.result.time,
+        score: maxScore
+      })
     }
+  }
 
+  const scores = new Map<string, ClassTeamScore>()
+  for (const [team, scoredRunners] of teamScoredRunners) {
     scores.set(team, {
-      className: teamResults.length > 0 ? teamResults[0]!.runner.className : '',
+      className: scoredRunners[0]?.runner.className ?? '',
       runners: scoredRunners,
       teamScore: scoredRunners.reduce((sum, r) => sum + r.score, 0)
     })
