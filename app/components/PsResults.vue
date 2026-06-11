@@ -168,7 +168,7 @@ function formatTime(ms: number): string {
   <div class="p-6 max-w-7xl mx-auto">
     <!-- Header -->
     <header class="mb-6">
-      <h1 class="text-3xl font-bold">
+      <h1 v-if="!eventInfo" class="text-3xl font-bold">
         Neoficiální výsledky přeboru škol
       </h1>
       <p v-if="eventInfo" class="text-lg text-gray-600">
@@ -183,6 +183,9 @@ function formatTime(ms: number): string {
         </span>
         <UIcon v-if="isLoading" name="i-lucide-loader-circle" class="animate-spin" />
       </div>
+      <p v-if="eventInfo" class="text-sm text-gray-500 mt-1">
+        Neoficiální výsledky přeboru škol
+      </p>
       <p v-if="error" class="text-red-600 text-sm mt-1">
         {{ error }}
       </p>
