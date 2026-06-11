@@ -1,0 +1,3 @@
+<template>
+  <PsResults />
+</template>
