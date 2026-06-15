@@ -78,10 +78,10 @@ export const exclusions: Partial<Record<keyof GfxState, (keyof GfxState)[]>> = {
   startGroup: ['liveFeed', 'singleRunner', 'start', 'speaker', 'freetext', 'title', 'flowers'],
   speaker: ['liveFeed', 'singleRunner', 'start', 'startGroup', 'freetext', 'title', 'flowers'],
   freetext: ['liveFeed', 'singleRunner', 'start', 'startGroup', 'speaker', 'title', 'flowers'],
-  title: ['liveFeed', 'singleRunner', 'start', 'startGroup', 'speaker', 'freetext', 'flowers'],
+  title: ['liveFeed', 'singleRunner', 'start', 'startGroup', 'speaker', 'freetext', 'flowers', 'weather', 'parameters'],
   flowers: ['liveFeed', 'singleRunner', 'start', 'startGroup', 'speaker', 'freetext', 'title', 'parameters', 'weather'],
   results: ['startlist'],
   startlist: ['results'],
-  weather: ['parameters', 'flowers'],
-  parameters: ['weather', 'flowers']
+  weather: ['parameters', 'flowers', 'title'],
+  parameters: ['weather', 'flowers', 'title']
 }
