@@ -1,0 +1,80 @@
+{
+  "label": "Průběžné výsledky",
+  "class": "DS+HS",
+  "page": 1,
+  "finish": false,
+  "is_national": true,
+  "is_relay": false,
+  "data": [
+    {
+      "position": "1",
+      "name": "Gymnázium Turnov",
+      "nationality": "CZE",
+      "club": "",
+      "time": "136 b."
+    },
+    {
+      "position": "2",
+      "name": "Gymnázium Jana Keplera, Praha",
+      "nationality": "CZE",
+      "club": "",
+      "time": "122 b."
+    },
+    {
+      "position": "3",
+      "name": "Gymnázium Pardubice, Dašická",
+      "nationality": "CZE",
+      "club": "",
+      "time": "122 b."
+    },
+    {
+      "position": "4",
+      "name": "Gymnázium a Jazyková škola Zlín",
+      "nationality": "CZE",
+      "club": "",
+      "time": "106 b."
+    },
+    {
+      "position": "5",
+      "name": "První české gymnázium v Karlových Varech",
+      "nationality": "CZE",
+      "club": "",
+      "time": "92 b."
+    },
+    {
+      "position": "6",
+      "name": "Biskupské gymnázium Hradec Králové",
+      "nationality": "CZE",
+      "club": "",
+      "time": "82 b."
+    },
+    {
+      "position": "7",
+      "name": "Gymnázium Jihlava",
+      "nationality": "CZE",
+      "club": "",
+      "time": "81 b."
+    },
+    {
+      "position": "8",
+      "name": "VOŠ a SPŠ Šumperk",
+      "nationality": "CZE",
+      "club": "",
+      "time": "79 b."
+    },
+    {
+      "position": "9",
+      "name": "Gymnázium Zlín",
+      "nationality": "CZE",
+      "club": "",
+      "time": "78 b."
+    },
+    {
+      "position": "10",
+      "name": "Gymnázium Ústí nad Labem",
+      "nationality": "CZE",
+      "club": "",
+      "time": "63 b."
+    }
+  ]
+}

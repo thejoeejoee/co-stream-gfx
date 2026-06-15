@@ -412,7 +412,7 @@ function formatTime(ms: number): string {
               <span class="flex-1" :class="{ 'font-bold': idx < 3 }">{{
                 ts.team
               }}</span>
-              <span class="w-16 text-right">{{ ts.totalScore }}<span v-if="idx > 0" class="text-gray-400 text-xs ml-1">{{ ts.totalScore - gs.standings[idx - 1].totalScore }}</span></span>
+              <span class="w-16 text-right" :class="{ 'font-bold': idx < 3 }">{{ ts.totalScore }}<span v-if="idx > 0" class="text-gray-400 text-xs ml-1 font-normal">{{ ts.totalScore - gs.standings[idx - 1].totalScore }}</span></span>
               <span class="w-20 text-right"
                 >{{ Math.floor(ts.totalTime / 1000) }}s</span
               >

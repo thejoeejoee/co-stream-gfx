@@ -208,7 +208,7 @@ watchEffect((onCleanup) => {
        :duration="500"
      >
        <StartGroup
-         v-if="state.startGroup !== null"
+         v-if="state.startGroup?.start_time"
          :data="state.startGroup"
          class="absolute left-24 bottom-24"
        />
