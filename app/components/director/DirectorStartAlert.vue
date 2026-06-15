@@ -97,7 +97,7 @@ const beforeStart = computed((): IStartListRunner[] => {
         </span>
         <span
           class="text-lg tabular-nums"
-          v-text="timeDiffLabel((r.start_time_ts??0) - 3*3600)"
+          v-text="timeDiffLabel(r.start_time_ts??0)"
         />
 
         <div

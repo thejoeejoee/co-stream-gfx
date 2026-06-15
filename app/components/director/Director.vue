@@ -38,7 +38,7 @@ const enableAlerts = () => {
   data.value?.data.forEach((col) => {
     col.data.forEach((r) => {
       invoke(async () => {
-        let st = (r.start_time_ts ?? 0) + 3*3600;
+        let st = r.start_time_ts ?? 0;
         if (st < nowTs.value) {
           // already started
           return
