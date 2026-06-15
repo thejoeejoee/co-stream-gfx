@@ -150,6 +150,21 @@ export interface IPositionHistoryEntry {
   time_loss: number
 }
 
+export interface IStartGroup {
+  start_time: string
+  is_national: boolean
+  is_relay: boolean
+  data: IStartGroupRunner[]
+}
+
+export interface IStartGroupRunner {
+  bib_number: string
+  name: string
+  nationality: string
+  club: string
+  class: string
+}
+
 export interface ITimer {
   start_time: number // unix timestamp (seconds)
 }

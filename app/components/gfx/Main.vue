@@ -8,6 +8,7 @@ import type {
   ISingleRunner,
   ISpeaker,
   IStartDetail,
+  IStartGroup,
   IStartList, ITimer, IWeather
 } from '~/types/api.d'
 import { useLocalStorage } from '@vueuse/core'
@@ -16,6 +17,7 @@ import Weather from './Weather.vue'
 import SingleRunner from './SingleRunner.vue'
 import Parameters from './Parameters.vue'
 import Start from './Start.vue'
+import StartGroup from './StartGroup.vue'
 import RaceTitle from './RaceTitle.vue'
 import StartList from './StartList.vue'
 import Text from './Text.vue'
@@ -59,9 +61,18 @@ watchEffect((onCleanup) => {
   for (const [eventName, stateKey] of Object.entries(eventMap)) {
     es.addEventListener(eventName, (event: MessageEvent) => {
       try {
-        const exclusion = exclusions[stateKey]
-        if (exclusion) {
-          state.value[exclusion] = null
+        const excluded = exclusions[stateKey]
+        if (excluded) {
+          const hadVisible = excluded.some(key => state.value[key] !== null)
+          for (const key of excluded) {
+            state.value[key] = null
+          }
+          if (hadVisible) {
+            setTimeout(() => {
+              state.value[stateKey] = JSON.parse(event.data)
+            }, 500)
+            return
+          }
         }
         state.value[stateKey] = JSON.parse(event.data)
       } catch (err) {
@@ -190,6 +201,17 @@ watchEffect((onCleanup) => {
        >
          <Start :start="state.start" />
        </div>
+     </Transition>
+
+     <Transition
+       name="nested-slide"
+       :duration="500"
+     >
+       <StartGroup
+         v-if="state.startGroup !== null"
+         :data="state.startGroup"
+         class="absolute left-24 bottom-24"
+       />
      </Transition>
 
      <Transition name="slide">

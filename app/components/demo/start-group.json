@@ -1,0 +1,21 @@
+{
+  "start_time": "11:00",
+  "is_national": true,
+  "is_relay": false,
+  "data": [
+    {
+      "bib_number": "42",
+      "name": "Ptáček Jonáš",
+      "nationality": "CZE",
+      "club": "TBM",
+      "class": "H21"
+    },
+    {
+      "bib_number": "15",
+      "name": "Nováková Anna",
+      "nationality": "CZE",
+      "club": "OKL",
+      "class": "D21"
+    }
+  ]
+}
