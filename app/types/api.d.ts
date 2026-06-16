@@ -169,6 +169,12 @@ export interface ITimer {
   start_time: number // unix timestamp (seconds)
 }
 
+export interface IPsResultsTrigger {
+  eventId: number
+  group: string
+  final: boolean
+}
+
 export interface ClubFlagConfiguration {
   is_national: boolean
   is_relay: boolean

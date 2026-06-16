@@ -26,6 +26,7 @@ import { IconSpeakerphone } from '@tabler/icons-vue'
 import Flowers from './Flowers.vue'
 import LiveFeed from './LiveFeed.vue'
 import ResultsTable from './ResultsTable.vue'
+import PsResultsOverlay from './PsResultsOverlay.vue'
 
 import { eventSource } from '~/state'
 import { useTheme } from '~/composables/useTheme'
@@ -114,6 +115,16 @@ watchEffect((onCleanup) => {
       <ResultsTable
         v-if="state.results !== null"
         :data="state.results"
+        class="absolute top-36 left-120 right-120"
+      />
+    </Transition>
+    <Transition
+      name="nested-slide"
+      :duration="500"
+    >
+      <PsResultsOverlay
+        v-if="state.psResults !== null"
+        :trigger="state.psResults"
         class="absolute top-36 left-120 right-120"
       />
     </Transition>
