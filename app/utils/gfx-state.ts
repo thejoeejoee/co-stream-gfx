@@ -3,6 +3,7 @@ import type {
   IFreeText,
   ILiveFeed,
   IParameters,
+  IPsResultsTrigger,
   IRaceTitle,
   IResults,
   ISingleRunner,
@@ -18,6 +19,7 @@ export interface GfxState {
   freetext: IFreeText | null
   liveFeed: ILiveFeed | null
   parameters: IParameters | null
+  psResults: IPsResultsTrigger | null
   results: IResults | null
   singleRunner: ISingleRunner | null
   speaker: ISpeaker | null
@@ -35,6 +37,7 @@ export function createDefaultState(): GfxState {
     freetext: null,
     liveFeed: null,
     parameters: null,
+    psResults: null,
     results: null,
     singleRunner: null,
     speaker: null,
@@ -61,6 +64,7 @@ export const eventMap: Record<string, keyof GfxState> = {
   'start': 'start',
   'start-group': 'startGroup',
   'results': 'results',
+  'ps-results': 'psResults',
   'flowers': 'flowers',
   'timer': 'timer'
 }
@@ -80,8 +84,9 @@ export const exclusions: Partial<Record<keyof GfxState, (keyof GfxState)[]>> = {
   freetext: ['liveFeed', 'singleRunner', 'start', 'startGroup', 'speaker', 'title', 'flowers'],
   title: ['liveFeed', 'singleRunner', 'start', 'startGroup', 'speaker', 'freetext', 'flowers', 'weather', 'parameters'],
   flowers: ['liveFeed', 'singleRunner', 'start', 'startGroup', 'speaker', 'freetext', 'title', 'parameters', 'weather'],
-  results: ['startlist'],
-  startlist: ['results'],
+  results: ['startlist', 'psResults'],
+  psResults: ['results', 'startlist'],
+  startlist: ['results', 'psResults'],
   weather: ['parameters', 'flowers', 'title'],
   parameters: ['weather', 'flowers', 'title']
 }
