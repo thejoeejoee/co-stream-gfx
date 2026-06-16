@@ -31,13 +31,13 @@
           class="Table__Name"
           v-text="isIOF ? stripAccents(row.name) : row.name"
         />
-        <span
-          class="Table__Time"
-          v-text="row.class"
-        />
         <club-flag
           :conf="data"
           :item="row"
+        />
+        <span
+          class="Table__Time"
+          v-text="row.class"
         />
 
         <div
