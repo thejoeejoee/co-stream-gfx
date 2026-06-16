@@ -173,6 +173,7 @@ export interface IPsResultsTrigger {
   eventId: number
   group: string
   final: boolean
+  page: number
 }
 
 export interface ClubFlagConfiguration {

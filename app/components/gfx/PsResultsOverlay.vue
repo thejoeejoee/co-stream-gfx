@@ -22,16 +22,20 @@ onMounted(async () => {
     }
 
     const standings = computeGroupStandings(response.runners, group, 2)
+    const page = props.trigger.page ?? 1
+    const pageSize = 10
+    const start = (page - 1) * pageSize
+    const end = start + pageSize
 
     results.value = {
       label: props.trigger.final ? 'Konečné výsledky' : 'Průběžné výsledky',
       class: group.name,
-      page: 1,
+      page: page,
       finish: props.trigger.final,
       is_national: true,
       is_relay: false,
-      data: standings.standings.slice(0, 10).map((team, idx) => ({
-        position: String(idx + 1),
+      data: standings.standings.slice(start, end).map((team, idx) => ({
+        position: String(start + idx + 1),
         name: team.team,
         nationality: 'CZE',
         club: '',
