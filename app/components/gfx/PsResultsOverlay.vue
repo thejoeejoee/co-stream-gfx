@@ -30,13 +30,13 @@ onMounted(async () => {
       finish: props.trigger.final,
       is_national: true,
       is_relay: false,
-      data: standings.standings.map((team, idx) => ({
+      data: standings.standings.slice(0, 10).map((team, idx) => ({
         position: String(idx + 1),
         name: team.team,
         nationality: 'CZE',
         club: '',
         time: `${team.totalScore} b.`,
-        change: 0
+        change: null
       }))
     }
   } catch (err) {
