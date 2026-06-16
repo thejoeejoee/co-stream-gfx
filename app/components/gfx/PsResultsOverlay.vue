@@ -3,7 +3,7 @@ import { ref, onMounted } from 'vue'
 import type { IPsResultsTrigger } from '~/types/api.d'
 import type { IResults } from '~/types/api.d'
 import { fetchOResults } from '~/utils/psResults'
-import { computeGroupStandings, DEFAULT_CATEGORY_GROUPS } from '~/utils/psResults'
+import { computeGroupStandings, computeMostTeams, DEFAULT_CATEGORY_GROUPS } from '~/utils/psResults'
 import ResultsTable from './ResultsTable.vue'
 
 const props = defineProps<{
@@ -21,7 +21,11 @@ onMounted(async () => {
       return
     }
 
-    const standings = computeGroupStandings(response.runners, group, 2)
+    const allClasses = DEFAULT_CATEGORY_GROUPS.flatMap(g => g.classes)
+    const globalMostTeams = computeMostTeams(response.runners, allClasses)
+    const globalWinPoints = globalMostTeams * 2
+
+    const standings = computeGroupStandings(response.runners, group, 2, globalWinPoints)
     const page = props.trigger.page ?? 1
     const pageSize = 10
     const start = (page - 1) * pageSize
