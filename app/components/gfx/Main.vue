@@ -124,6 +124,7 @@ watchEffect((onCleanup) => {
     >
       <PsResultsOverlay
         v-if="state.psResults !== null"
+        :key="JSON.stringify(state.psResults)"
         :trigger="state.psResults"
         class="absolute top-36 left-120 right-120"
       />
