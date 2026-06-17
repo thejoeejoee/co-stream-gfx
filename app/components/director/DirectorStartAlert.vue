@@ -22,7 +22,9 @@ const timeDiffLabel = (startTime: number): string => {
 }
 
 const onTrack = computed((): IStartListRunner[] => {
-  const all = props.data.filter(r => nowTs.value > (r.start_time_ts ?? 0))
+  const all = props.data
+    .filter(r => nowTs.value > (r.start_time_ts ?? 0))
+    .sort((a, b) => (a.start_time_ts ?? 0) - (b.start_time_ts ?? 0))
 
   // last 4
   if (all.length > 4) {
@@ -31,10 +33,14 @@ const onTrack = computed((): IStartListRunner[] => {
   return all
 })
 const startWarning = computed((): IStartListRunner[] => {
-  return props.data.filter(r => inRange(nowTs.value, nowTs.value + alertOffset, r.start_time_ts ?? 0))
+  return props.data
+    .filter(r => inRange(nowTs.value, nowTs.value + alertOffset, r.start_time_ts ?? 0))
+    .sort((a, b) => (a.start_time_ts ?? 0) - (b.start_time_ts ?? 0))
 })
 const beforeStart = computed((): IStartListRunner[] => {
-  return props.data.filter(r => inRange(nowTs.value + alertOffset, Infinity, r.start_time_ts ?? 0))
+  return props.data
+    .filter(r => inRange(nowTs.value + alertOffset, Infinity, r.start_time_ts ?? 0))
+    .sort((a, b) => (a.start_time_ts ?? 0) - (b.start_time_ts ?? 0))
 })
 </script>
 
