@@ -1,10 +1,12 @@
 import { describe, expect, it } from 'vitest'
 import {
+  applyPunchFinishTimes,
   computeClassScores,
   computeGroupStandings,
   computeMostTeams,
   computePositions,
   parseEventInput,
+  type OResultsPunch,
   type OResultsRunner,
 } from '../../app/utils/psResults'
 
@@ -17,6 +19,7 @@ function makeRunner(overrides: Partial<OResultsRunner>): OResultsRunner {
     resultStatus: 'OK',
     name: 'Test Runner',
     club: 'Test School',
+    cardNum: 1000,
     changeId: 1,
     ...overrides,
   }
@@ -60,7 +63,7 @@ describe('computePositions', () => {
   it('excludes non-OK results', () => {
     const runners = [
       makeRunner({ id: 1, finishTime: 1000, resultStatus: 'OK' }),
-      makeRunner({ id: 2, finishTime: 2000, resultStatus: 'DNF' }),
+      makeRunner({ id: 2, finishTime: 2000, resultStatus: 'DidNotFinish' }),
     ]
 
     expect(computePositions(runners, 'D3')).toHaveLength(1)
@@ -162,5 +165,71 @@ describe('computeGroupStandings', () => {
     ]
 
     expect(computeGroupStandings(runners, group).standings).toEqual([])
+  })
+})
+
+describe('applyPunchFinishTimes', () => {
+  it('assigns finish time from punch with code < 30 when runner has no finish', () => {
+    const runners = [
+      makeRunner({ id: 1, cardNum: 555, finishTime: null, resultStatus: 'Inactive' }),
+    ]
+    const punches: OResultsPunch[] = [
+      { code: 20, cardNum: 555, punchTime: 5000, deviceId: 1 },
+    ]
+
+    const result = applyPunchFinishTimes(runners, punches)
+    expect(result[0]!.finishTime).toBe(5000)
+    expect(result[0]!.resultStatus).toBe('OK')
+  })
+
+  it('uses earliest punch when multiple finish punches exist', () => {
+    const runners = [
+      makeRunner({ id: 1, cardNum: 555, finishTime: null, resultStatus: null }),
+    ]
+    const punches: OResultsPunch[] = [
+      { code: 10, cardNum: 555, punchTime: 7000, deviceId: 1 },
+      { code: 20, cardNum: 555, punchTime: 5000, deviceId: 2 },
+    ]
+
+    const result = applyPunchFinishTimes(runners, punches)
+    expect(result[0]!.finishTime).toBe(5000)
+  })
+
+  it('does not override existing finish time', () => {
+    const runners = [
+      makeRunner({ id: 1, cardNum: 555, finishTime: 3000, resultStatus: 'OK' }),
+    ]
+    const punches: OResultsPunch[] = [
+      { code: 20, cardNum: 555, punchTime: 5000, deviceId: 1 },
+    ]
+
+    const result = applyPunchFinishTimes(runners, punches)
+    expect(result[0]!.finishTime).toBe(3000)
+  })
+
+  it('does not enrich disqualified runners', () => {
+    const runners = [
+      makeRunner({ id: 1, cardNum: 555, finishTime: null, resultStatus: 'DidNotFinish' }),
+    ]
+    const punches: OResultsPunch[] = [
+      { code: 20, cardNum: 555, punchTime: 5000, deviceId: 1 },
+    ]
+
+    const result = applyPunchFinishTimes(runners, punches)
+    expect(result[0]!.finishTime).toBeNull()
+    expect(result[0]!.resultStatus).toBe('DidNotFinish')
+  })
+
+  it('ignores punches with code >= 30', () => {
+    const runners = [
+      makeRunner({ id: 1, cardNum: 555, finishTime: null, resultStatus: null }),
+    ]
+    const punches: OResultsPunch[] = [
+      { code: 30, cardNum: 555, punchTime: 5000, deviceId: 1 },
+      { code: 100, cardNum: 555, punchTime: 6000, deviceId: 2 },
+    ]
+
+    const result = applyPunchFinishTimes(runners, punches)
+    expect(result[0]!.finishTime).toBeNull()
   })
 })

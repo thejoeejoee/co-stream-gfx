@@ -6,7 +6,15 @@ export interface OResultsRunner {
   resultStatus: string | null
   name: string
   club: string
+  cardNum: number | null
   changeId: number
+}
+
+export interface OResultsPunch {
+  code: number
+  cardNum: number
+  punchTime: number
+  deviceId: number
 }
 
 export interface OResultsClass {
@@ -25,6 +33,7 @@ export interface OResultsResponse {
   event: OResultsEvent
   runners: OResultsRunner[]
   classes: OResultsClass[]
+  punches: OResultsPunch[]
   lastChangeId: number
   deletedRunners: number[]
 }
@@ -72,6 +81,43 @@ export const DEFAULT_CATEGORY_GROUPS: CategoryGroup[] = [
   { name: 'DH7+DH9', classes: ['D7', 'H7', 'D9', 'H9', 'DIII', 'HIII', 'DIV', 'HIV'] },
   { name: 'DS+HS', classes: ['DS', 'HS', 'DV', 'HV'] }
 ]
+
+const DISQUALIFIED_STATUSES = new Set(['MissingPunch', 'DidNotFinish', 'DidNotStart', 'Disqualified', 'OverTime'])
+
+/**
+ * Enriches runners with finish times derived from punches when the official
+ * finish time is missing and the runner is not disqualified.
+ * Punches with code < 30 are treated as finish punches.
+ */
+export function applyPunchFinishTimes(
+  runners: OResultsRunner[],
+  punches: OResultsPunch[]
+): OResultsRunner[] {
+  const finishByCard = new Map<number, number>()
+  for (const p of punches) {
+    if (p.code < 30) {
+      const existing = finishByCard.get(p.cardNum)
+      if (existing === undefined || p.punchTime < existing) {
+        finishByCard.set(p.cardNum, p.punchTime)
+      }
+    }
+  }
+
+  return runners.map(r => {
+    if (
+      r.finishTime !== null ||
+      r.cardNum === null ||
+      (r.resultStatus !== null && DISQUALIFIED_STATUSES.has(r.resultStatus))
+    ) {
+      return r
+    }
+
+    const punchFinish = finishByCard.get(r.cardNum)
+    if (punchFinish === undefined) return r
+
+    return { ...r, finishTime: punchFinish, resultStatus: 'OK' }
+  })
+}
 
 export function parseEventInput(input: string): number | null {
   const trimmed = input.trim()
