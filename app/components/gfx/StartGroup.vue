@@ -13,7 +13,7 @@
         }"
       />
       <span
-        class="mr-auto"
+        class="ml-auto"
         v-text="data.start_time"
       />
     </div>

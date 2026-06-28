@@ -72,6 +72,11 @@
     
      /* All text uppercase */
     --gfx-text-transform: uppercase;
+
+    :not(.text-gfx-text) {
+        /* iof font looks better bold */
+        font-weight: 600;
+    }
 }
 
 /* Neutralize italic for IOF mode: ITCFranklinGothicStd has no italic @font-face */

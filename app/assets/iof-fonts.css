@@ -3,7 +3,7 @@
     font-style: normal;
     font-weight: 400;
     font-display: swap;
-    src: url("/fonts/iof/itcfranklingothicstd-book.woff2") format("woff2");
+    src: url("./fonts/itcfranklingothicstd-book.otf") format("woff2");
     /* native ascent ~96%, descent ~21% — rebalance to center cap-height glyphs */
     ascent-override: 90%;
     descent-override: 27%;
@@ -14,7 +14,16 @@
     font-style: normal;
     font-weight: 600;
     font-display: swap;
-    src: url("/fonts/iof/itcfranklingothicstd-demi.woff2") format("woff2");
+    src: url("./fonts/itcfranklingothicstd-demi.otf") format("woff2");
+    ascent-override: 90%;
+    descent-override: 27%;
+}
+@font-face {
+    font-family: ITCFranklinGothicStd;
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url("./fonts/itcfranklingothicstd-medium.otf") format("otf2");
     ascent-override: 90%;
     descent-override: 27%;
 }
@@ -24,7 +33,7 @@
     font-style: normal;
     font-weight: 800;
     font-display: swap;
-    src: url("/fonts/iof/itcfranklingothicstd-hvy.woff2") format("woff2");
+    src: url("./fonts/itcfranklingothicstd-hvy.otf") format("woff2");
     ascent-override: 90%;
     descent-override: 27%;
 }
