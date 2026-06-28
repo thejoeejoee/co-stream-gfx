@@ -92,6 +92,10 @@
 
 .Table__Divider {
     @apply col-span-4 h-[2px] bg-gray-200;
+
+    .theme-iof & {
+        @apply -mx-6;
+    }
 }
 
 .Table__Divider:last-child {
