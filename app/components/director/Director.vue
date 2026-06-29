@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { invoke, until, useFetch, type UseFetchReturn, useNow } from '@vueuse/core'
-import { computed, ref } from 'vue'
+import {invoke, until, useFetch, type UseFetchReturn, useNow} from '@vueuse/core'
+import {computed, ref} from 'vue'
 import DirectorStartAlert from './DirectorStartAlert.vue'
-import type { IStartListRunner } from '~/types/api.d'
-import { alertOffset, params, timeOffset } from '~/state'
+import type {IStartListRunner} from '~/types/api.d'
+import {alertOffset, params, timeOffset} from '~/state'
+import {format} from "date-fns";
 
 const now = useNow({})
 const nowTs = computed(() => (now.value.getTime() / 1000) - timeOffset)
@@ -21,7 +22,7 @@ interface IDirectorFavoriteClass {
 }
 
 const sseUrl = new URL(params.get('sse') || 'http://localhost:8080/_sse/default')
-const { data }: UseFetchReturn<IDirectorFavorite> = useFetch(`${sseUrl.origin}/api/director-favorite`).get().json()
+const {data}: UseFetchReturn<IDirectorFavorite> = useFetch(`${sseUrl.origin}/api/director-favorite`).get().json()
 
 async function sleep(ms: number): Promise<void> {
   return new Promise(resolve => setTimeout(resolve, ms))
@@ -70,33 +71,41 @@ const enableAlerts = () => {
 </script>
 
 <template>
-  <div class="h-screen">
-    <div class="flex flex-row items-top justify-between">
-      <div class="flex flex-col h-screen items-center justify-between bg-amber-200">
-        <div class="p-4 font-black uppercase text-to-bottom text-4xl text-center">
-          DIRECTOR ALERTS
-        </div>
-        <button
+  <div class="">
+    <div class="flex flex-row overflow-clip">
+      <div
+          v-for="(col, i) in data?.data"
+          class="mx-auto"
+      >
+        <h2
+            class="text-6xl text-center p-4"
+            v-text="col.class"
+        />
+
+        <DirectorStartAlert
+            :ref="`director-start-alert-${i}`"
+            :data="col.data"
+            :conf="data ?? { is_national: false, is_relay: false }"
+        />
+      </div>
+    </div>
+
+    <div class="
+      sticky bottom-0 left-0 right-0 bg-amber-200
+      flex flex-row justify-start items-center
+    ">
+      <button
           class="text-xl p-4"
           :class="{ 'bg-green-500': alertsEnabled, 'bg-gray-300': !alertsEnabled }"
           @click="enableAlerts"
           v-text="alertsEnabled ? '🔊' : '🔇'"
-        />
+      />
+      <div class="p-4 font-bold uppercase text-4xl text-center">
+        DIRECTOR ALERTS
       </div>
-      <div
-        v-for="(col, i) in data?.data"
-        class="mx-auto"
-      >
-        <h2
-          class="text-6xl text-center p-4"
-          v-text="col.class"
-        />
 
-        <DirectorStartAlert
-          :ref="`director-start-alert-${i}`"
-          :data="col.data"
-          :conf="data ?? { is_national: false, is_relay: false }"
-        />
+      <div class="p-4 font-black uppercase text-6xl text-center tabular-nums ml-auto">
+        {{ format(nowTs * 1000, "hh:mm:ss") }}
       </div>
     </div>
   </div>

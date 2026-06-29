@@ -21,6 +21,7 @@
     "@vueuse/motion": "^3.0.3",
     "apexcharts": "^4.7.0",
     "convert-country-codes": "^1.0.0",
+    "date-fns": "^4.4.0",
     "format-duration-time": "^1.5.4",
     "lodash": "^4.17.23",
     "nuxt": "^4.2.2",
