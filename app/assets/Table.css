@@ -68,7 +68,6 @@
             var(--gfx-color-iof-accent) calc(var(--col-bib) + 48px),
             transparent calc(var(--col-bib) + 48px)
         );
-}
     @apply text-white;
 }
 
