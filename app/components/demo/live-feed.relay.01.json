@@ -1,0 +1,43 @@
+{
+  "label": "DH21 - PŘEDÁVKA 2",
+  "has_leader": true,
+  "is_national": true,
+  "is_relay": true,
+  "finish": true,
+  "leader": {
+    "position": "1",
+    "name": "Křivda T.",
+    "nationality": "CZE",
+    "club": "CHC",
+    "time": "30:13",
+    "change": -12
+  },
+  "punched": false,
+  "row_idx": -1,
+  "data": [
+    {
+      "position": "6",
+      "name": "Vaníček J.",
+      "nationality": "CZE",
+      "club": "SJC",
+      "time": "+0:37",
+      "change": 0
+    },
+    {
+      "position": "7",
+      "name": "Kosák E.",
+      "nationality": "CZE",
+      "club": "PGP",
+      "time": "+0:43",
+      "change": 4
+    },
+    {
+      "position": "8",
+      "name": "Coufal J.",
+      "nationality": "CZE",
+      "club": "ZBM",
+      "time": "+0:44",
+      "change": -3
+    }
+  ]
+}

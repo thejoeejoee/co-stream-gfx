@@ -3,14 +3,19 @@ import * as fs from 'fs'
 import * as path from 'path'
 
 const DEMOS = [
-  'flowers.json', 'freetext.json', 'live-feed.json', 'live-feed.01.json',
+  'flowers.json', 'flowers.jwoc-men.json', 'flowers.jwoc-men-tie1.json',
+  'flowers.jwoc-men-tie1-all.json', 'flowers.jwoc-men-tie3.json',
+  'freetext.json', 'live-feed.json', 'live-feed.01.json',
   'live-feed.GFX1.json', 'live-feed.GFX2.json', 'live-feed.projected-2.json',
+  'live-feed.relay.01.json',
   'params.json', 'params.01.json', 'position-history.01.json',
-  'results.json', 'results.01.json', 'results.changes.json',
+  'results.json', 'results.01.json', 'results.changes.json', 'results.ps-dshs.json',
   'single-runner.json', 'single-runner.01.json', 'single-runner.02.json',
   'single-runner.03.json', 'single-runner.04.json', 'speaker.json',
   'start.01.json', 'start.02.json', 'start.03.json', 'start.04.json',
-  'startlist.json', 'startlist.01.json', 'title.json', 'weather.json',
+  'start-group.json',
+  'startlist.json', 'startlist.01.json', 'startlist.02.json',
+  'title.json', 'weather.json',
 ] as const
 
 const THEMES = [
