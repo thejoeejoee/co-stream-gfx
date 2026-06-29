@@ -13,11 +13,13 @@
   "
   >
     <div class="w-1/3">
-      <span class="bg-gfx-primary text-gfx-on-primary p-4 px-6">{{ second?.position }}</span>
-      <span class="p-4 w-full flex flex-row items-center justify-between bg-gfx-surface gap-x-4">
-        {{ second?.name ? (isIOF ? stripAccents(second.name) : second.name) : '' }}
+      <span v-if="second" class="bg-gfx-primary text-gfx-on-primary p-4 px-6">{{ second.position }}</span>
+      <span
+        v-if="second"
+        class="p-4 w-full flex flex-row items-center justify-between bg-gfx-surface gap-x-4"
+      >
+        {{ isIOF ? stripAccents(second.name) : second.name }}
         <club-flag
-          v-if="second"
           :conf="data"
           :item="second"
           club-class="text-gfx-primary"
@@ -25,11 +27,13 @@
       </span>
     </div>
     <div class="w-1/3 text-lg">
-      <span class="bg-gfx-primary text-gfx-on-primary p-6 px-6">{{ first?.position }}</span>
-      <span class="p-6 w-full flex flex-row items-center justify-between bg-gfx-surface gap-x-4">
-        {{ first?.name ? (isIOF ? stripAccents(first.name) : first.name) : '' }}
+      <span v-if="first" class="bg-gfx-primary text-gfx-on-primary p-6 px-6">{{ first.position }}</span>
+      <span
+        v-if="first"
+        class="p-6 w-full flex flex-row items-center justify-between bg-gfx-surface gap-x-4"
+      >
+        {{ isIOF ? stripAccents(first.name) : first.name }}
         <club-flag
-          v-if="first"
           :conf="data"
           :item="first"
           club-class="text-gfx-primary"
@@ -37,16 +41,21 @@
       </span>
     </div>
     <div class="w-1/3 text-md">
-      <span class="bg-gfx-primary text-gfx-on-primary p-4 px-6">{{ third?.position }}</span>
-      <span class="p-4 w-full flex flex-row items-center justify-between bg-gfx-surface gap-x-4">
-        {{ third?.name ? (isIOF ? stripAccents(third.name) : third.name) : '' }}
-        <club-flag
-          v-if="third"
-          :conf="data"
-          :item="third"
-          club-class="text-gfx-primary"
-        />
-      </span>
+      <span v-if="third.length" class="bg-gfx-primary text-gfx-on-primary p-4 px-6">{{ third[0].position }}</span>
+      <div class="flex flex-col w-full">
+        <span
+          v-for="runner in third"
+          :key="runner.name"
+          class="p-4 w-full flex flex-row items-center justify-between bg-gfx-surface gap-x-4"
+        >
+          {{ isIOF ? stripAccents(runner.name) : runner.name }}
+          <club-flag
+            :conf="data"
+            :item="runner"
+            club-class="text-gfx-primary"
+          />
+        </span>
+      </div>
     </div>
   </div>
 </template>
@@ -65,13 +74,13 @@ const props = defineProps<{
 }>()
 
 const first = computed(() => {
-  return props.data.data?.find(item => item.position === '1')
+  return props.data.data?.[0] ?? null
 })
 const second = computed(() => {
-  return props.data.data?.find(item => item.position === '2')
+  return props.data.data?.[1] ?? null
 })
 const third = computed(() => {
-  return props.data.data?.find(item => item.position === '3')
+  return props.data.data?.slice(2) ?? []
 })
 
 </script>
