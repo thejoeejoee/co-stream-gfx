@@ -4,7 +4,7 @@
     <span
       v-if="displayClub"
       class="Table__Club "
-      :class="[{ 'text-co-orange': !noColor && displayFlag }, clubClass]"
+      :class="[{ 'text-gfx-primary': !noColor && displayFlag }, clubClass]"
       v-text="item.club"
     />
     <Flag
