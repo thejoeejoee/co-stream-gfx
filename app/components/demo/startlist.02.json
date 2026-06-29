@@ -1,0 +1,19 @@
+{
+  "label": "Start list",
+  "class": "Mixed",
+  "page": 1,
+  "is_national": false,
+  "is_relay": true,
+  "data": [
+    {"bib_number": "1", "name": "Czechia 1", "nationality": "CZE", "club": "CZE"},
+    {"bib_number": "2", "name": "Sweden 1", "nationality": "BAR", "club": "BAR"},
+    {"bib_number": "3", "name": "Hungary 1", "nationality": "HUN", "club": "HUN"},
+    {"bib_number": "4", "name": "Finland 1", "nationality": "FIN", "club": "FIN"},
+    {"bib_number": "5", "name": "Norway 1", "nationality": "BAR", "club": "BAR"},
+    {"bib_number": "6", "name": "Australia 1", "nationality": "AUT", "club": "AUT"},
+    {"bib_number": "7", "name": "Great Britain 1", "nationality": "GBR", "club": "GBR"},
+    {"bib_number": "8", "name": "France 1", "nationality": "FRA", "club": "FRA"},
+    {"bib_number": "9", "name": "Germany 1", "nationality": "GER", "club": "GER"},
+    {"bib_number": "10", "name": "Switzerland 1", "nationality": "SUI", "club": "SUI"}
+  ]
+}

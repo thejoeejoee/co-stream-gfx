@@ -1,0 +1,29 @@
+{
+  "vmix_url": "127.0.0.1:8080",
+  "flags_path": "",
+  "label": "Flower ceremony",
+  "class": "Men",
+  "rows": 170,
+  "data": [
+    {
+      "position": "1",
+      "name": "Matthieu Buehrer",
+      "nationality": "SUI",
+      "club": ""
+    },
+    {
+      "position": "1",
+      "name": "Elye Dent",
+      "nationality": "AUS",
+      "club": ""
+    },
+    {
+      "position": "1",
+      "name": "Cooper Horley",
+      "nationality": "AUS",
+      "club": ""
+    }
+  ],
+  "is_relay": false,
+  "is_national": false
+}
