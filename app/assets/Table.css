@@ -18,6 +18,7 @@
     tabular-nums
     text-right
     text-md
+    min-w-[1ch]
 }
 
 .Table__Name {
@@ -57,6 +58,17 @@
 }
 
 .Table__Grid--bib-highlight .Table__Time {
+    @apply text-white text-center w-full font-bold;
+}
+
+.Table__Grid--bib-highlight:not(:has(.Table__Time:not(:empty))) {
+    background-image:
+        linear-gradient(
+            to right,
+            var(--gfx-color-iof-accent) calc(var(--col-bib) + 48px),
+            transparent calc(var(--col-bib) + 48px)
+        );
+}
     @apply text-white;
 }
 
@@ -68,6 +80,14 @@
 .Table__Grid--no-empty-gutter-margin div:has(+ .Table__Time:empty) {
     /* if no time present, dismiss part of the right gap */
     @apply -mr-6;
+}
+
+.theme-iof .Table__Grid--no-empty-gutter-margin:has(.Table__Position:not(:empty)) .Table__Position:empty + .Table__Name {
+    @apply ml-0;
+}
+
+.theme-iof .Table__Grid--no-empty-gutter-margin div:has(+ .Table__Time:empty) {
+    @apply mr-0;
 }
 
 .Table__Flag {
