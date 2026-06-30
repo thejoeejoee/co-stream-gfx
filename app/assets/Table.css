@@ -12,6 +12,10 @@
     px-6 gap-x-6 py-3 gap-y-2
 }
 
+.Table__Grid--runner-splits {
+    grid-template-columns: auto max-content max-content;
+}
+
 .Table__Position {
     @apply
     text-gfx-primary font-gfx
@@ -171,6 +175,8 @@
 .Table__Title--highlight {
     @apply bg-gfx-primary text-gfx-on-primary
 }
+
+
 
 .Gfx__Control {
     @apply flex justify-center items-center

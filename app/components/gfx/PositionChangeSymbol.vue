@@ -1,7 +1,7 @@
 <template>
   <span
     v-if="change !== null"
-    class="text-md"
+    class="text-md font-sans"
     :class="css"
   >
     {{ change != 0 ? Math.abs(change) : '' }}
@@ -23,9 +23,9 @@ const css = computed(() => {
     case null:
       return ''
     case 0:
-      return 'text-blue-600'
+      return 'text-gfx-split-neutral'
     default:
-      return props.change < 0 ? 'text-green-600' : 'text-red-600'
+      return props.change < 0 ? 'text-gfx-split-negative' : 'text-gfx-split-positive'
   }
 })
 const symbol = computed(() => {

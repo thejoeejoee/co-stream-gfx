@@ -185,6 +185,7 @@ export interface IRunnerSplits {
 export interface IRunnerSplit {
   control: string
   diff: number
+  change: number | null
 }
 
 export interface ClubFlagConfiguration {

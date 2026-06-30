@@ -4,19 +4,23 @@
   "splits": [
     {
       "control": "TV Split 1",
-      "diff": -12
+      "diff": -12,
+      "change": null
     },
     {
       "control": "TV Split 2",
-      "diff": 0
+      "diff": 0,
+      "change": -2
     },
     {
       "control": "Arena Passage",
-      "diff": -5
+      "diff": -5,
+      "change": 0
     },
     {
       "control": "Bridge Crossing",
-      "diff": 62
+      "diff": 62,
+      "change": 3
     }
   ]
 }

@@ -7,25 +7,29 @@
     rounded-[var(--gfx-radius)] overflow-hidden
    "
   >
-    <div class="Table__Flex Animate__Clip">
-      <div
+    <div class="Table__Grid Table__Grid--runner-splits Animate__Clip">
+      <template
         v-for="(split, index) in data.splits.filter(s => s.diff !== null)"
         :key="index"
-        class="Table__Row"
+
       >
         <span class="Table__Name">
           {{ split.control }}
+        </span>
+        <span class="Table__Flag font-sans justify-end">
+           <position-change-symbol
+              :change="split.change"          />
         </span>
         <span
           class="Table__Time RunnerSplits__Diff"
           :class="diffClass(split.diff)"
         >
+
           {{ formatDiff(split.diff) }}
-          <span class="w-[1.5ch] inline-block text-center">
-          {{ diffSymbol(split.diff) }}
-          </span>
+
+
         </span>
-      </div>
+      </template>
     </div>
 
     <div class="Table__Title Animate__Slide">
@@ -37,6 +41,8 @@
 
 <script setup lang="ts">
 import type { IRunnerSplits } from '~/types/api.d'
+import PositionChangeSymbol from "~/components/gfx/PositionChangeSymbol.vue";
+import ClubFlag from "~/components/ClubFlag.vue";
 
 defineProps<{
   data: IRunnerSplits
@@ -64,15 +70,6 @@ function diffSymbol(diff: number): string {
 </script>
 
 <style lang="postcss" scoped>
-.RunnerSplits {
-  min-width: 380px;
-}
-
-.RunnerSplits__Diff {
-  @apply font-bold;
-  min-width: calc(1ch + 8ch);  /* symbol + "+0:00 " */
-}
-
 .RunnerSplits__Diff--positive {
   color: var(--gfx-color-split-positive);
 }
