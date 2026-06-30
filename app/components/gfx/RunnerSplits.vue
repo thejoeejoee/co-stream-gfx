@@ -33,7 +33,11 @@
     </div>
 
     <div class="Table__Title Animate__Slide">
-      <span>{{ data.name }}</span>
+      <span>
+<!--        TODO: somehow check if split feed is displayed and show name only if not
+-->
+<!--        {{ data.name }}-->
+      </span>
       <span>{{ data.class }}</span>
     </div>
   </div>
