@@ -28,4 +28,7 @@
     --color-gfx-divider: var(--gfx-color-divider);
     --color-gfx-positive: var(--gfx-color-positive);
     --color-gfx-iof-accent: var(--gfx-color-iof-accent);
+    --color-gfx-split-positive: var(--gfx-color-split-positive);
+    --color-gfx-split-negative: var(--gfx-color-split-negative);
+    --color-gfx-split-neutral: var(--gfx-color-split-neutral);
 }

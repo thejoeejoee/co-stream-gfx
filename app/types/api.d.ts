@@ -176,6 +176,17 @@ export interface IPsResultsTrigger {
   page: number
 }
 
+export interface IRunnerSplits {
+  name: string
+  class: string
+  splits: IRunnerSplit[]
+}
+
+export interface IRunnerSplit {
+  control: string
+  diff: number
+}
+
 export interface ClubFlagConfiguration {
   is_national: boolean
   is_relay: boolean

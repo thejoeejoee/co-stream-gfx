@@ -5,6 +5,7 @@ import type {
   ILiveFeed,
   IParameters, IRaceTitle,
   IResults,
+  IRunnerSplits,
   ISingleRunner,
   ISpeaker,
   IStartDetail,
@@ -16,6 +17,7 @@ import { watchEffect } from 'vue'
 import Weather from './Weather.vue'
 import SingleRunner from './SingleRunner.vue'
 import Parameters from './Parameters.vue'
+import RunnerSplits from './RunnerSplits.vue'
 import Start from './Start.vue'
 import StartGroup from './StartGroup.vue'
 import RaceTitle from './RaceTitle.vue'
@@ -32,7 +34,7 @@ import { eventSource } from '~/state'
 import { useTheme } from '~/composables/useTheme'
 import { type GfxState, createDefaultState, eventMap, exclusions, hideEvents } from '~/utils/gfx-state'
 
-const state = useLocalStorage<GfxState>('state-v1', createDefaultState())
+const state = useLocalStorage<GfxState>('state-v1', createDefaultState(), { mergeDefaults: true })
 
 useTheme()
 
@@ -167,6 +169,16 @@ watchEffect((onCleanup) => {
         v-if="state.parameters !== null"
         class="absolute right-24 bottom-24"
         :data="state.parameters"
+      />
+    </Transition>
+    <Transition
+      name="nested-slide"
+      :duration="500"
+    >
+      <RunnerSplits
+        v-if="state.runnerSplits !== null"
+        class="absolute right-24 bottom-24"
+        :data="state.runnerSplits"
       />
     </Transition>
 

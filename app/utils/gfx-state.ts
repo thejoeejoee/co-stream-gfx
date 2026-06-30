@@ -6,6 +6,7 @@ import type {
   IPsResultsTrigger,
   IRaceTitle,
   IResults,
+  IRunnerSplits,
   ISingleRunner,
   ISpeaker,
   IStartDetail,
@@ -21,6 +22,7 @@ export interface GfxState {
   parameters: IParameters | null
   psResults: IPsResultsTrigger | null
   results: IResults | null
+  runnerSplits: IRunnerSplits | null
   singleRunner: ISingleRunner | null
   speaker: ISpeaker | null
   start: IStartDetail | null
@@ -39,6 +41,7 @@ export function createDefaultState(): GfxState {
     parameters: null,
     psResults: null,
     results: null,
+    runnerSplits: null,
     singleRunner: null,
     speaker: null,
     start: null,
@@ -66,7 +69,8 @@ export const eventMap: Record<string, keyof GfxState> = {
   'results': 'results',
   'ps-results': 'psResults',
   'flowers': 'flowers',
-  'timer': 'timer'
+  'timer': 'timer',
+  'runner-splits': 'runnerSplits'
 }
 
 /** SSE events that hide a specific state key */
@@ -82,11 +86,12 @@ export const exclusions: Partial<Record<keyof GfxState, (keyof GfxState)[]>> = {
   startGroup: ['liveFeed', 'singleRunner', 'start', 'speaker', 'freetext', 'title', 'flowers'],
   speaker: ['liveFeed', 'singleRunner', 'start', 'startGroup', 'freetext', 'title', 'flowers'],
   freetext: ['liveFeed', 'singleRunner', 'start', 'startGroup', 'speaker', 'title', 'flowers'],
-  title: ['liveFeed', 'singleRunner', 'start', 'startGroup', 'speaker', 'freetext', 'flowers', 'weather', 'parameters'],
-  flowers: ['liveFeed', 'singleRunner', 'start', 'startGroup', 'speaker', 'freetext', 'title', 'parameters', 'weather'],
+  title: ['liveFeed', 'singleRunner', 'start', 'startGroup', 'speaker', 'freetext', 'flowers', 'weather', 'parameters', 'runnerSplits'],
+  flowers: ['liveFeed', 'singleRunner', 'start', 'startGroup', 'speaker', 'freetext', 'title', 'parameters', 'weather', 'runnerSplits'],
   results: ['startlist', 'psResults'],
   psResults: ['results', 'startlist'],
   startlist: ['results', 'psResults'],
-  weather: ['parameters', 'flowers', 'title'],
-  parameters: ['weather', 'flowers', 'title']
+  weather: ['parameters', 'flowers', 'title', 'runnerSplits'],
+  parameters: ['weather', 'flowers', 'title', 'runnerSplits'],
+  runnerSplits: ['weather', 'parameters', 'flowers', 'title']
 }

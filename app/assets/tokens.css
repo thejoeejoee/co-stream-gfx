@@ -37,6 +37,11 @@
     
     /* Text transform (none, uppercase, lowercase) */
     --gfx-text-transform: none;
+
+    /* Split time colors */
+    --gfx-color-split-positive: #d32f2f;
+    --gfx-color-split-negative: #2d8a4e;
+    --gfx-color-split-neutral: #307ea1;
 }
 
 .theme-iof {
@@ -72,6 +77,11 @@
     
      /* All text uppercase */
     --gfx-text-transform: uppercase;
+
+    /* Split time colors */
+    --gfx-color-split-positive: #e30420;
+    --gfx-color-split-negative: #00794c;
+    --gfx-color-split-neutral: #307ea1;
 
     :not(.text-gfx-text) {
         /* iof font looks better bold */

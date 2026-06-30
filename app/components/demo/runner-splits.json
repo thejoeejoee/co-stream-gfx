@@ -1,0 +1,22 @@
+{
+  "name": "Jan Novák",
+  "class": "H21E",
+  "splits": [
+    {
+      "control": "TV Split 1",
+      "diff": -12
+    },
+    {
+      "control": "TV Split 2",
+      "diff": 0
+    },
+    {
+      "control": "Arena Passage",
+      "diff": -5
+    },
+    {
+      "control": "Bridge Crossing",
+      "diff": 62
+    }
+  ]
+}
