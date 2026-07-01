@@ -3,6 +3,7 @@ import type {
   IFreeText,
   ILiveFeed,
   IParameters,
+  IPositionHistory,
   IPsResultsTrigger,
   IRaceTitle,
   IResults,
@@ -20,6 +21,7 @@ export interface GfxState {
   freetext: IFreeText | null
   liveFeed: ILiveFeed | null
   parameters: IParameters | null
+  positionHistory: IPositionHistory | null
   psResults: IPsResultsTrigger | null
   results: IResults | null
   runnerSplits: IRunnerSplits | null
@@ -39,6 +41,7 @@ export function createDefaultState(): GfxState {
     freetext: null,
     liveFeed: null,
     parameters: null,
+    positionHistory: null,
     psResults: null,
     results: null,
     runnerSplits: null,
@@ -70,7 +73,8 @@ export const eventMap: Record<string, keyof GfxState> = {
   'ps-results': 'psResults',
   'flowers': 'flowers',
   'timer': 'timer',
-  'runner-splits': 'runnerSplits'
+  'runner-splits': 'runnerSplits',
+  'position-history': 'positionHistory'
 }
 
 /** SSE events that hide a specific state key */

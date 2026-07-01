@@ -19,8 +19,8 @@
     "@tailwindcss/vite": "^4.1.18",
     "@vueuse/core": "^13.3.0",
     "@vueuse/motion": "^3.0.3",
-    "apexcharts": "^4.7.0",
     "convert-country-codes": "^1.0.0",
+    "d3-shape": "^3.2.0",
     "date-fns": "^4.4.0",
     "format-duration-time": "^1.5.4",
     "lodash": "^4.17.23",
@@ -30,14 +30,14 @@
     "vue": "^3.5.13",
     "vue-country-flag-next": "^2.3.2",
     "vue-router": "^4.5.1",
-    "vue-timer-hook": "^1.0.84",
-    "vue3-apexcharts": "^1.8.0"
+    "vue-timer-hook": "^1.0.84"
   },
   "devDependencies": {
     "@nuxt/eslint": "^1.12.1",
     "@nuxt/hints": "^1.0.0-alpha.4",
     "@tailwindcss/typography": "^0.5.16",
     "@tsconfig/node22": "^22.0.1",
+    "@types/d3-shape": "^3.1.8",
     "@types/lodash": "^4.17.20",
     "@types/node": "^22.14.0",
     "@vitejs/plugin-vue": "^5.2.3",

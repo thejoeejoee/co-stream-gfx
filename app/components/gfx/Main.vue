@@ -29,6 +29,7 @@ import Flowers from './Flowers.vue'
 import LiveFeed from './LiveFeed.vue'
 import ResultsTable from './ResultsTable.vue'
 import PsResultsOverlay from './PsResultsOverlay.vue'
+import PositionHistory from './PositionHistory.vue'
 
 import { eventSource } from '~/state'
 import { useTheme } from '~/composables/useTheme'
@@ -90,9 +91,17 @@ watchEffect((onCleanup) => {
 
 <template>
   <div class="GfxScreen select-none backface-hidden">
-    <!--    <PositionHistory -->
-    <!--      class="absolute inset-64" -->
-    <!--    /> -->
+    <Transition
+      name="nested-slide"
+      :duration="500"
+    >
+      <PositionHistory
+        v-if="state.positionHistory !== null"
+        :key="JSON.stringify(state.positionHistory)"
+        :data="state.positionHistory"
+        class="absolute left-32 right-32 top-24 bottom-24"
+      />
+    </Transition>
     <Transition
       name="nested-slide"
       :duration="500"

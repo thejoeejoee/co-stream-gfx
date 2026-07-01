@@ -1,167 +1,319 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-// import "vue-data-ui/style.css"; // If you are using multiple components, place styles import in your main
+import { computed, onMounted, ref } from 'vue'
+import { line, curveMonotoneX } from 'd3-shape'
+import duration from 'format-duration-time'
+import type { IPositionHistory, IPositionHistoryRunner } from '~/types/api.d'
 
-import ApexCharts from 'vue3-apexcharts'
-import lo from 'lodash'
-import type { Ref } from 'vue'
-import type { ApexOptions } from 'apexcharts'
-import history from '../demo/position-history.01.json'
-import type { IPositionHistory, IPositionHistoryEntry, IPositionHistoryRunner } from '~/types/api.d'
-import { onKeyStroke } from '@vueuse/core'
+const props = defineProps<{ data: IPositionHistory }>()
+const data = props.data
 
-const data: IPositionHistory = history as IPositionHistory
+// --- Layout (SVG user units; scales to container via viewBox) ---
+const VIEW_W = 1440
+const VIEW_H = 720
+const PAD = { top: 56, right: 420, bottom: 72, left: 80 }
+const PLOT_W = VIEW_W - PAD.left - PAD.right
+const PLOT_H = VIEW_H - PAD.top - PAD.bottom
 
-const shownControls = ref(history.controls.length)
+// --- Palette for 4th place and below (cool tones only; warm/red/yellow
+// hues are reserved for the gold/silver/bronze podium and must not clash). ---
+const PALETTE = [
+  '#307ea1', // blue
+  '#16a34a', // green
+  '#9333ea', // purple
+  '#0d9488', // teal
+  '#2563eb', // indigo-blue
+  '#6366f1', // slate-violet
+]
+const colorFor = (i: number) => PALETTE[i % PALETTE.length]!
 
-const series = computed(() => {
-  return data.data.map((v: IPositionHistoryRunner) => {
+// Podium colors override the palette for the top 3 by final placement.
+const PODIUM = [
+  '#f0b000', // 1st - gold
+  '#9fa6b2', // 2nd - silver
+  '#cd7f32', // 3rd - bronze
+]
+
+// --- Animation timing (seconds) ---
+const DRAW_DURATION = 0.9 // one line draws start->finish
+const STAGGER = 0.45 // gap between consecutive lines starting
+
+// --- Scales ---
+const xAt = (controlIdx: number): number => {
+  const n = data.controls.length
+  if (n <= 1) return PAD.left + PLOT_W / 2
+  return PAD.left + (PLOT_W * controlIdx) / (n - 1)
+}
+
+const maxGap = computed(() => {
+  const all = data.data.flatMap(r => r.history.map(h => h.time_loss))
+  const m = all.length ? Math.max(...all) : 0
+  return m > 0 ? m * 1.1 : 1
+})
+
+// Leader (0) at TOP, larger gaps sink downward.
+const yAt = (gap: number): number => PAD.top + (PLOT_H * gap) / maxGap.value
+
+const formatGap = (seconds: number): string =>
+  `+${duration(seconds, 's').format('mm:ss')}`
+
+interface Point { x: number, y: number }
+interface RunnerSeries {
+  name: string
+  color: string
+  path: string
+  points: Point[]
+  finalGap: number
+  drawDelay: number
+  labelDelay: number
+  end: Point & { label: string }
+}
+
+const pathBuilder = line<Point>()
+  .x(p => p.x)
+  .y(p => p.y)
+  .curve(curveMonotoneX)
+
+const series = computed<RunnerSeries[]>(() => {
+  // Final placement by cumulative gap (ascending): 1st = leader (smallest gap).
+  const placement = data.data
+    .map((runner, runnerIdx) => ({
+      runnerIdx,
+      finalGap: runner.history[runner.history.length - 1]?.time_loss ?? 0,
+    }))
+    .sort((a, b) => a.finalGap - b.finalGap)
+    .map(r => r.runnerIdx)
+
+  const built = data.data.map((runner: IPositionHistoryRunner, runnerIdx: number) => {
+    // Top 3 get podium (gold/silver/bronze); everyone else keeps the palette.
+    const place = placement.indexOf(runnerIdx)
+    const color = place < PODIUM.length ? PODIUM[place]! : colorFor(runnerIdx)
+    const points: Point[] = runner.history.map((h, controlIdx) => ({
+      x: xAt(controlIdx),
+      y: yAt(h.time_loss),
+    }))
+
+    const last = points[points.length - 1]!
+    const finalGap = runner.history[runner.history.length - 1]?.time_loss ?? 0
+
     return {
-      name: v.name,
-      data: v.history.map((d: IPositionHistoryEntry, controlIdx: number) => {
-        return {
-          x: data.controls[controlIdx],
-          // show only if controlIdx <= i.value + for first control show the finish position
-          y: controlIdx < shownControls.value ? (d.position != 0 ? d.position : lo.last(v.history)?.position) : null
-        }
-      })
+      name: runner.name,
+      color,
+      path: pathBuilder(points) ?? '',
+      points,
+      finalGap,
+      drawDelay: 0,
+      labelDelay: 0,
+      end: { ...last, label: finalGap > 0 ? `${runner.name}  ${formatGap(finalGap)}` : runner.name },
     }
   })
+
+  // Draw order: worst (largest final gap) first, best (leader) last.
+  const order = [...built]
+    .sort((a, b) => b.finalGap - a.finalGap)
+    .map(s => s.name)
+
+  for (const s of built) {
+    const rank = order.indexOf(s.name)
+    s.drawDelay = rank * STAGGER
+    s.labelDelay = rank * STAGGER + DRAW_DURATION
+  }
+
+  // Paint order = DOM order in SVG: render worst first so the best (leader) draws on top.
+  return [...built].sort((a, b) => b.finalGap - a.finalGap)
 })
 
-const chartOptions: Ref<ApexOptions> = ref({
-  chart: {
-    type: 'line',
-    sparkline: {
-      enabled: true
-    },
-    animations: {
-      enabled: true,
-      animateGradually: {
-        enabled: false,
-        delay: 150
-      },
-      dynamicAnimation: {
-        speed: 500
-      }
-    }
-  },
-  theme: {
-    palette: 'pallette3'
-  },
-  plotOptions: {
-    line: {
-      isSlopeChart: true
-    }
-  },
-  grid: {
-    show: false
-  },
-  tooltip: {
-    enabled: false
-  },
-  dataLabels: {
-    enabled: true,
-    // distributed: true,
-    background: {
-      enabled: true,
-      padding: 8
-    },
-    style: {
-      fontSize: '20px',
-      fontFamily: 'GTPlanar'
-    },
-    formatter(val, opts) {
-      if (opts.dataPointIndex != 0 && opts.dataPointIndex != /* shownControls.value */data.controls.length - 1) {
-        return ''
-      }
-      const seriesName = opts.w.config.series[opts.seriesIndex].name
-      const v = val !== null ? seriesName : ''
-      return v.length > 12 ? v.split(' ') : v
-    }
-  },
-  yaxis: {
-    show: true,
-    reversed: true,
-    // prepare range to avoid shifting
-    min: 0,
-    max: Math.max(...data.data.map((v: IPositionHistoryRunner) => {
-      return Math.max(...v.history.map((d: IPositionHistoryEntry) => d.position))
-    })),
-    labels: {
-      show: true,
-      style: {
-        cssClass: 'text-co-orange'
-      }
-    }
-  },
-  xaxis: {
-    position: 'bottom',
-    categories: data.controls,
-    axisBorder: {
-      show: false
-    },
-    labels: {
-      style: {
-        fontFamily: 'GTPlanar',
-        fontSize: '20px'
-      }
-
-    }
-  },
-  legend: {
-    show: false
-  },
-  stroke: {
-    // width: [2, 3, 4, 1],
-    dashArray: [0, 2, 4, 8],
-    curve: 'smooth'
-  }
-} as ApexOptions)
-
-onKeyStroke('ArrowRight', () => {
-  if (shownControls.value < data.controls.length) {
-    shownControls.value++
-  }
+// Worst (max) gap at each split; Start (index 0) and Finish (last) are skipped.
+interface WorstGap { x: number, y: number, label: string }
+const worstGaps = computed<WorstGap[]>(() => {
+  return data.controls
+    .map((_c, controlIdx) => {
+      if (controlIdx === 0 || controlIdx === data.controls.length - 1) return null
+      const gaps = data.data.map(r => r.history[controlIdx]?.time_loss ?? 0)
+      const worst = gaps.length ? Math.max(...gaps) : 0
+      return { x: xAt(controlIdx), y: yAt(worst), label: formatGap(worst) }
+    })
+    .filter((v): v is WorstGap => v !== null)
 })
-onKeyStroke('ArrowLeft', () => {
-  if (shownControls.value > 1) {
-    shownControls.value--
+
+// Reveal the worst-gap annotations once every line has finished drawing.
+const worstRevealDelay = computed(() => {
+  const maxDraw = series.value.reduce((m, s) => Math.max(m, s.drawDelay), 0)
+  return maxDraw + DRAW_DURATION
+})
+
+// Draw-on animation driven imperatively on the DOM elements. Reactive inline
+// styles + rAF race with Vue's batched patch (transition never fires), so we
+// set the dash on each <path> directly: hidden state -> forced reflow -> draw.
+const pathEls = ref<SVGPathElement[]>([])
+const markerFadeArmed = ref(false)
+
+onMounted(() => {
+  const els = pathEls.value.filter(Boolean)
+  // 1. Prime every line to its fully-hidden state (offset = its own length).
+  for (const el of els) {
+    const len = el.getTotalLength()
+    el.style.transition = 'none'
+    el.style.strokeDasharray = String(len)
+    el.style.strokeDashoffset = String(len)
   }
+  // 2. Force a reflow so the hidden state is committed before we animate.
+  void (els[0]?.getBoundingClientRect())
+  // 3. Arm each line's draw with its staggered delay; fade markers/labels in
+  //    only after all lines have drawn.
+  requestAnimationFrame(() => {
+    for (let i = 0; i < els.length; i++) {
+      const el = els[i]!
+      const delay = series.value[i]?.drawDelay ?? 0
+      el.style.transition = `stroke-dashoffset ${DRAW_DURATION}s ease-in-out ${delay}s`
+      el.style.strokeDashoffset = '0'
+    }
+    markerFadeArmed.value = true
+  })
 })
 </script>
 
 <template>
-  <div class="flex flex-col items-center justify-center">
+  <div class="PositionHistory flex flex-col items-center justify-center">
     <div class="Table__Title w-full">
       {{ data.class }}
     </div>
-    <ApexCharts
-      class="w-full bg-white px-8"
-      width="100%"
-      height="100%"
-      type="line"
-      :options="chartOptions"
-      :series="series"
-    />
 
-    <div
-      class="
-      w-full flex flex-row justify-between items-center
-      p-8 text-md font-co bg-white
-      italic font-semibold
-    "
+    <svg
+      class="PositionHistory__Svg w-full flex-1 min-h-0 bg-white"
+      :class="{ 'PositionHistory__Svg--armed': markerFadeArmed }"
+      :viewBox="`0 0 ${VIEW_W} ${VIEW_H}`"
+      preserveAspectRatio="xMidYMid meet"
     >
-      <span v-for="(c) of data.controls">{{ c }}</span>
-    </div>
+      <!-- vertical guide per control -->
+      <line
+        v-for="(c, i) in data.controls"
+        :key="`guide-${i}`"
+        :x1="xAt(i)"
+        :x2="xAt(i)"
+        :y1="PAD.top"
+        :y2="PAD.top + PLOT_H"
+        class="PositionHistory__Guide"
+      />
+
+      <!-- runner slope lines (draw start->finish, worst first) -->
+      <path
+        v-for="(s, i) in series"
+        :key="`line-${i}`"
+        :ref="el => { if (el) pathEls[i] = el as SVGPathElement }"
+        :d="s.path"
+        :stroke="s.color"
+        class="PositionHistory__Line"
+      />
+
+      <!-- point markers -->
+      <template
+        v-for="(s, i) in series"
+        :key="`pts-${i}`"
+      >
+        <circle
+          v-for="(p, j) in s.points"
+          :key="`pt-${i}-${j}`"
+          :cx="p.x"
+          :cy="p.y"
+          r="7"
+          :fill="s.color"
+          class="PositionHistory__Marker"
+          :style="{ transitionDelay: `${s.labelDelay}s` }"
+        />
+      </template>
+
+      <!-- worst (max) gap per split, just below the worst point -->
+      <text
+        v-for="(w, i) in worstGaps"
+        :key="`worst-${i}`"
+        :x="w.x"
+        :y="w.y + 30"
+        text-anchor="middle"
+        class="PositionHistory__WorstGap"
+        :style="{ transitionDelay: `${worstRevealDelay}s` }"
+      >{{ w.label }}</text>
+
+      <!-- end-side labels (name + gap) -->
+      <text
+        v-for="(s, i) in series"
+        :key="`end-${i}`"
+        :x="s.end.x + 14"
+        :y="s.end.y"
+        :fill="s.color"
+        text-anchor="start"
+        dominant-baseline="middle"
+        class="PositionHistory__Label"
+        :style="{ transitionDelay: `${s.labelDelay}s` }"
+      >{{ s.end.label }}</text>
+      <!-- control (x-axis) labels, aligned to guides -->
+      <text
+        v-for="(c, i) in data.controls"
+        :key="`ctrl-${i}`"
+        :x="xAt(i)"
+        :y="PAD.top + PLOT_H + 34"
+        text-anchor="middle"
+        class="PositionHistory__Control"
+      >{{ c }}</text>
+    </svg>
+
   </div>
 </template>
 
-<style>
-.apexcharts-data-labels {
-  transition: all 0.2s ease-in-out;
-  //color: var(--co-orange);
-  //font-family: GTPlanar;
-  //font-size: 24px;
+<style scoped lang="postcss">
+.PositionHistory__Svg {
+  display: block;
+}
+
+.PositionHistory__Guide {
+  stroke: #e5e7eb;
+  stroke-width: 1;
+}
+
+.PositionHistory__Control {
+  font-family: var(--font-co, GTPlanar, sans-serif);
+  font-size: 26px;
+  font-weight: 600;
+  font-style: italic;
+  fill: #111827;
+}
+
+.PositionHistory__Line {
+  fill: none;
+  stroke-width: 9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  /* draw-on dash values + transition are set inline (bound to measured
+     path length + armed), since CSS px units don't match user coordinates. */
+}
+
+.PositionHistory__Marker,
+.PositionHistory__Label,
+.PositionHistory__WorstGap {
+  opacity: 0;
+}
+
+.PositionHistory__Marker {
+  transition: opacity 0.3s ease-in-out;
+}
+
+.PositionHistory__WorstGap {
+  font-family: GTPlanar, sans-serif;
+  font-size: 27px;
+  font-weight: 600;
+  fill: #6b7280;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.PositionHistory__Label {
+  font-family: GTPlanar, sans-serif;
+  font-size: 27px;
+  font-weight: 600;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.PositionHistory__Svg--armed .PositionHistory__Marker,
+.PositionHistory__Svg--armed .PositionHistory__Label,
+.PositionHistory__Svg--armed .PositionHistory__WorstGap {
+  opacity: 1;
 }
 </style>

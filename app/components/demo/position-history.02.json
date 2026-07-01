@@ -1,0 +1,86 @@
+{
+  "class": "M21",
+  "is_relay": false,
+  "is_national": false,
+  "controls": [
+    "Start",
+    "Split 1",
+    "Split 2",
+    "Split 3",
+    "Finish"
+  ],
+  "data": [
+    {
+      "name": "Rehnström A.",
+      "club": "IFK Göteborg",
+      "nationality": "SWE",
+      "history": [
+        {"position": 0, "time_loss": 0},
+        {"position": 3, "time_loss": 18},
+        {"position": 2, "time_loss": 14},
+        {"position": 2, "time_loss": 9},
+        {"position": 1, "time_loss": 0}
+      ]
+    },
+    {
+      "name": "Kirkegaard M.",
+      "club": "Halden SK",
+      "nationality": "NOR",
+      "history": [
+        {"position": 0, "time_loss": 0},
+        {"position": 1, "time_loss": 0},
+        {"position": 1, "time_loss": 0},
+        {"position": 1, "time_loss": 0},
+        {"position": 2, "time_loss": 11}
+      ]
+    },
+    {
+      "name": "Hubmann F.",
+      "club": "OLK Fricktal",
+      "nationality": "SUI",
+      "history": [
+        {"position": 0, "time_loss": 0},
+        {"position": 2, "time_loss": 7},
+        {"position": 6, "time_loss": 78},
+        {"position": 4, "time_loss": 41},
+        {"position": 3, "time_loss": 24}
+      ]
+    },
+    {
+      "name": "Lundanes O.",
+      "club": "Halden SK",
+      "nationality": "NOR",
+      "history": [
+        {"position": 0, "time_loss": 0},
+        {"position": 4, "time_loss": 31},
+        {"position": 3, "time_loss": 22},
+        {"position": 3, "time_loss": 20},
+        {"position": 4, "time_loss": 33}
+      ]
+    },
+    {
+      "name": "Kyburz D.",
+      "club": "OL Zimmerberg",
+      "nationality": "SUI",
+      "history": [
+        {"position": 0, "time_loss": 0},
+        {"position": 6, "time_loss": 52},
+        {"position": 5, "time_loss": 44},
+        {"position": 5, "time_loss": 48},
+        {"position": 5, "time_loss": 57}
+      ]
+    },
+    {
+      "name": "Basset F.",
+      "club": "NOSE Orient'Alp",
+      "nationality": "FRA",
+      "history": [
+        {"position": 0, "time_loss": 0},
+        {"position": 5, "time_loss": 40},
+        {"position": 4, "time_loss": 33},
+        {"position": 6, "time_loss": 69},
+        {"position": 6, "time_loss": 88}
+      ]
+    }
+  ]
+}
