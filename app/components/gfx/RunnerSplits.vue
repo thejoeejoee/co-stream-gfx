@@ -32,14 +32,14 @@
       </template>
     </div>
 
-    <div class="Table__Title Animate__Slide">
-      <span>
-<!--        TODO: somehow check if split feed is displayed and show name only if not
--->
-<!--        {{ data.name }}-->
-      </span>
-      <span>{{ data.class }}</span>
-    </div>
+<!--    <div class="Table__Title Animate__Slide">-->
+<!--      <span>-->
+<!--&lt;!&ndash;        TODO: somehow check if split feed is displayed and show name only if not-->
+<!--&ndash;&gt;-->
+<!--&lt;!&ndash;        {{ data.name }}&ndash;&gt;-->
+<!--      </span>-->
+<!--      <span>{{ data.class }}</span>-->
+<!--    </div>-->
   </div>
 </template>
 
