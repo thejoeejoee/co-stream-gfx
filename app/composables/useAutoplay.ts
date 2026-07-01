@@ -90,6 +90,12 @@ export function useAutoplay() {
       const f = demoKeys.value.find(d => d.includes(show))
       if (f) {
         hide()
+        const delaySec = Number(params.get('delay'))
+        const delayMs = Number.isFinite(delaySec) && delaySec > 0 ? delaySec * 1000 : 0
+        if (delayMs > 0) {
+          await new Promise(resolve => setTimeout(resolve, delayMs))
+          if (stopped) return
+        }
         await fire(f)
       }
       else {
