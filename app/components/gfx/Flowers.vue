@@ -13,32 +13,39 @@
   "
   >
     <div class="w-1/3">
-      <span v-if="second" class="bg-gfx-primary text-gfx-on-primary p-4 px-6">{{ second.position }}</span>
-      <span
-        v-if="second"
-        class="p-4 w-full flex flex-row items-center justify-between bg-gfx-surface gap-x-4"
-      >
-        {{ isIOF ? stripAccents(second.name) : second.name }}
-        <club-flag
-          :conf="data"
-          :item="second"
-          club-class="text-gfx-primary"
-        />
-      </span>
+      <span v-if="second.length" class="bg-gfx-primary text-gfx-on-primary p-4 px-6">{{ second[0].position }}</span>
+      <div class="flex flex-col w-full">
+        <span
+          v-for="runner in second"
+          :key="runner.name"
+          class="p-4 w-full flex flex-row items-center justify-between bg-gfx-surface gap-x-4"
+        >
+          {{ isIOF ? stripAccents(runner.name) : runner.name }}
+          <club-flag
+            :conf="data"
+            :item="runner"
+            club-class="text-gfx-primary"
+          />
+        </span>
+      </div>
     </div>
-    <div class="w-1/3 text-lg">
-      <span v-if="first" class="bg-gfx-primary text-gfx-on-primary p-6 px-6">{{ first.position }}</span>
-      <span
-        v-if="first"
-        class="p-6 w-full flex flex-row items-center justify-between bg-gfx-surface gap-x-4"
-      >
-        {{ isIOF ? stripAccents(first.name) : first.name }}
-        <club-flag
-          :conf="data"
-          :item="first"
-          club-class="text-gfx-primary"
-        />
-      </span>
+    <div class="w-1/3" :class="first.length === 1 ? 'text-lg' : ''">
+      <span v-if="first.length" class="bg-gfx-primary text-gfx-on-primary" :class="first.length === 1 ? 'p-6 px-6' : 'p-4 px-6'">{{ first[0].position }}</span>
+      <div class="flex flex-col w-full">
+        <span
+          v-for="runner in first"
+          :key="runner.name"
+          class="w-full flex flex-row items-center justify-between bg-gfx-surface gap-x-4"
+          :class="first.length === 1 ? 'p-6' : 'p-4'"
+        >
+          {{ isIOF ? stripAccents(runner.name) : runner.name }}
+          <club-flag
+            :conf="data"
+            :item="runner"
+            club-class="text-gfx-primary"
+          />
+        </span>
+      </div>
     </div>
     <div class="w-1/3 text-md">
       <span v-if="third.length" class="bg-gfx-primary text-gfx-on-primary p-4 px-6">{{ third[0].position }}</span>
@@ -74,13 +81,26 @@ const props = defineProps<{
 }>()
 
 const first = computed(() => {
-  return props.data.data?.[0] ?? null
+  const d = props.data.data ?? []
+  if (!d.length) return []
+  const pos = d[0].position
+  return d.filter(r => r.position === pos)
 })
 const second = computed(() => {
-  return props.data.data?.[1] ?? null
+  const d = props.data.data ?? []
+  const firstPos = d[0]?.position
+  if (!firstPos) return []
+  const rest = d.filter(r => r.position !== firstPos)
+  if (!rest.length) return []
+  const pos = rest[0].position
+  return rest.filter(r => r.position === pos)
 })
 const third = computed(() => {
-  return props.data.data?.slice(2) ?? []
+  const d = props.data.data ?? []
+  const firstPos = d[0]?.position
+  const secondPos = second.value[0]?.position
+  if (!firstPos) return []
+  return d.filter(r => r.position !== firstPos && r.position !== secondPos)
 })
 
 </script>
