@@ -34,17 +34,18 @@
 .Table__Grid--bib-highlight {
     --col-bib: 5ch;
     --col-time: 8ch;
+    --col-gutter: 4.5ch;
     grid-template-columns: var(--col-bib) auto max-content var(--col-time);
     background-image:
             linear-gradient(
                     to right,
-                    var(--gfx-color-iof-accent) calc(var(--col-bib) + 48px),
-                    transparent calc(var(--col-bib) + 48px)
+                    var(--gfx-color-iof-accent) calc(var(--col-bib) + var(--col-gutter)),
+                    transparent calc(var(--col-bib) + var(--col-gutter))
             ),
             linear-gradient(
                     to left,
-                    var(--gfx-color-iof-accent) calc(var(--col-time) + 48px),
-                    transparent calc(var(--col-time) + 48px)
+                    var(--gfx-color-iof-accent) calc(var(--col-time) + var(--col-gutter)),
+                    transparent calc(var(--col-time) + var(--col-gutter))
             );
 }
 
