@@ -1,0 +1,74 @@
+{
+  "class": "Women",
+  "is_national": false,
+  "is_relay": false,
+  "controls": ["Start", "TV 1", "TV SPLIT 2", "Finish"],
+  "data": [
+    {
+      "name": "Freja Hjerne",
+      "club": "SWE",
+      "nationality": "SWE",
+      "history": [
+        {"position": 0, "time_loss": 0},
+        {"position": 3, "time_loss": 2},
+        {"position": 1, "time_loss": 0},
+        {"position": 1, "time_loss": 0}
+      ]
+    },
+    {
+      "name": "Leonie Mathis",
+      "club": "SUI",
+      "nationality": "SUI",
+      "history": [
+        {"position": 0, "time_loss": 0},
+        {"position": 2, "time_loss": 1},
+        {"position": 2, "time_loss": 16},
+        {"position": 2, "time_loss": 4}
+      ]
+    },
+    {
+      "name": "Sara Delic",
+      "club": "CRO",
+      "nationality": "CRO",
+      "history": [
+        {"position": 0, "time_loss": 0},
+        {"position": 12, "time_loss": 16},
+        {"position": 7, "time_loss": 31},
+        {"position": 3, "time_loss": 15}
+      ]
+    },
+    {
+      "name": "Fanny Delahaye",
+      "club": "FRA",
+      "nationality": "FRA",
+      "history": [
+        {"position": 0, "time_loss": 0},
+        {"position": 4, "time_loss": 4},
+        {"position": 4, "time_loss": 21},
+        {"position": 4, "time_loss": 20}
+      ]
+    },
+    {
+      "name": "Anni Jantunen",
+      "club": "FIN",
+      "nationality": "FIN",
+      "history": [
+        {"position": 0, "time_loss": 0},
+        {"position": 5, "time_loss": 5},
+        {"position": 6, "time_loss": 27},
+        {"position": 5, "time_loss": 21}
+      ]
+    },
+    {
+      "name": "Lucie Gaudion",
+      "club": "FRA",
+      "nationality": "FRA",
+      "history": [
+        {"position": 0, "time_loss": 0},
+        {"position": 1, "time_loss": 0},
+        {"position": 5, "time_loss": 23},
+        {"position": 5, "time_loss": 21}
+      ]
+    }
+  ]
+}
