@@ -239,12 +239,12 @@ onMounted(() => {
         :style="{ transitionDelay: `${worstRevealDelay}s` }"
       >
         <rect
-          :x="w.x - (w.label.length * 8 + 10)"
-          :y="w.y + 44 - 25"
-          :width="w.label.length * 16 + 20"
-          :height="34"
-          rx="6"
-          ry="6"
+          :x="w.x - (w.label.length * 9 + 14)"
+          :y="w.y + 44 - 28"
+          :width="w.label.length * 18 + 28"
+          :height="42"
+          rx="8"
+          ry="8"
           fill="white"
         />
         <text
