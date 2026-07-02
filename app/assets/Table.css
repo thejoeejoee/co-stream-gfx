@@ -142,7 +142,6 @@
 
 .Table__Flex .Table__Row--leader {
     @apply
-    py-4
     bg-gfx-primary text-gfx-on-primary
     text-md
     ;
