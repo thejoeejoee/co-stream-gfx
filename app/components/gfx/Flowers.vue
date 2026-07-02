@@ -13,7 +13,7 @@
   "
   >
     <div class="w-1/3">
-      <span v-if="second.length" class="bg-gfx-primary text-gfx-on-primary p-4 px-6">{{ second[0].position }}</span>
+      <span v-if="second.length" class="self-stretch flex items-center bg-gfx-primary text-gfx-on-primary p-4 px-6">{{ second[0].position }}</span>
       <div class="flex flex-col w-full">
         <span
           v-for="runner in second"
@@ -30,7 +30,7 @@
       </div>
     </div>
     <div class="w-1/3" :class="first.length === 1 ? 'text-lg' : ''">
-      <span v-if="first.length" class="bg-gfx-primary text-gfx-on-primary" :class="first.length === 1 ? 'p-6 px-6' : 'p-4 px-6'">{{ first[0].position }}</span>
+      <span v-if="first.length" class="self-stretch flex items-center bg-gfx-primary text-gfx-on-primary" :class="first.length === 1 ? 'p-6 px-6' : 'p-4 px-6'">{{ first[0].position }}</span>
       <div class="flex flex-col w-full">
         <span
           v-for="runner in first"
@@ -48,7 +48,7 @@
       </div>
     </div>
     <div class="w-1/3 text-md">
-      <span v-if="third.length" class="bg-gfx-primary text-gfx-on-primary p-4 px-6">{{ third[0].position }}</span>
+      <span v-if="third.length" class="self-stretch flex items-center bg-gfx-primary text-gfx-on-primary p-4 px-6">{{ third[0].position }}</span>
       <div class="flex flex-col w-full">
         <span
           v-for="runner in third"
