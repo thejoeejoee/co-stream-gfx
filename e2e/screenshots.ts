@@ -8,7 +8,7 @@ const DEMOS = [
   'freetext.json', 'live-feed.json', 'live-feed.01.json',
   'live-feed.GFX1.json', 'live-feed.GFX2.json', 'live-feed.projected-2.json',
   'live-feed.relay.01.json',
-  'params.json', 'params.01.json', 'position-history.01.json',
+  'params.json', 'params.01.json', 'position-history.01.json', 'position-history.03.json',
   'results.json', 'results.01.json', 'results.changes.json', 'results.ps-dshs.json',
   'single-runner.json', 'single-runner.01.json', 'single-runner.02.json',
   'single-runner.03.json', 'single-runner.04.json', 'speaker.json',

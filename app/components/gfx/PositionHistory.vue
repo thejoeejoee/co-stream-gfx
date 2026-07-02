@@ -119,7 +119,21 @@ const series = computed<RunnerSeries[]>(() => {
   }
 
   // Paint order = DOM order in SVG: render worst first so the best (leader) draws on top.
-  return [...built].sort((a, b) => b.finalGap - a.finalGap)
+  const sorted = [...built].sort((a, b) => b.finalGap - a.finalGap)
+
+  // Spread overlapping end-labels: when multiple runners share the same (or near-same)
+  // finalGap their labels land on identical Y coords. Nudge them apart.
+  const MIN_LABEL_GAP = 34 // SVG units; slightly above font-size (27px)
+  const byY = [...sorted].sort((a, b) => a.end.y - b.end.y)
+  for (let i = 1; i < byY.length; i++) {
+    const prev = byY[i - 1]!
+    const curr = byY[i]!
+    if (curr.end.y - prev.end.y < MIN_LABEL_GAP) {
+      curr.end.y = prev.end.y + MIN_LABEL_GAP
+    }
+  }
+
+  return sorted
 })
 
 // Worst (max) gap at each split; Start (index 0) and Finish (last) are skipped.
@@ -223,15 +237,27 @@ onMounted(() => {
       </template>
 
       <!-- worst (max) gap per split, just below the worst point -->
-      <text
+      <g
         v-for="(w, i) in worstGaps"
         :key="`worst-${i}`"
-        :x="w.x"
-        :y="w.y + 30"
-        text-anchor="middle"
         class="PositionHistory__WorstGap"
         :style="{ transitionDelay: `${worstRevealDelay}s` }"
-      >{{ w.label }}</text>
+      >
+        <rect
+          :x="w.x - (w.label.length * 8 + 10)"
+          :y="w.y + 44 - 25"
+          :width="w.label.length * 16 + 20"
+          :height="34"
+          rx="6"
+          ry="6"
+          fill="white"
+        />
+        <text
+          :x="w.x"
+          :y="w.y + 44"
+          text-anchor="middle"
+        >{{ w.label }}</text>
+      </g>
 
       <!-- end-side labels (name + gap) -->
       <text
