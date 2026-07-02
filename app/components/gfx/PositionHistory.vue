@@ -27,6 +27,7 @@ const colorFor = (i: number) => PALETTE[i % PALETTE.length]!
 
 
 // --- Animation timing (seconds) ---
+const PANEL_ENTER_DURATION = 500 // ms — matches nested-slide transition :duration
 const DRAW_DURATION = 0.9 // one line draws start->finish
 const STAGGER = 0.45 // gap between consecutive lines starting
 
@@ -168,15 +169,17 @@ onMounted(() => {
   void (els[0]?.getBoundingClientRect())
   // 3. Arm each line's draw with its staggered delay; fade markers/labels in
   //    only after all lines have drawn.
-  requestAnimationFrame(() => {
-    for (let i = 0; i < els.length; i++) {
-      const el = els[i]!
-      const delay = series.value[i]?.drawDelay ?? 0
-      el.style.transition = `stroke-dashoffset ${DRAW_DURATION}s ease-in-out ${delay}s`
-      el.style.strokeDashoffset = '0'
-    }
-    markerFadeArmed.value = true
-  })
+  setTimeout(() => {
+    requestAnimationFrame(() => {
+      for (let i = 0; i < els.length; i++) {
+        const el = els[i]!
+        const delay = series.value[i]?.drawDelay ?? 0
+        el.style.transition = `stroke-dashoffset ${DRAW_DURATION}s ease-in-out ${delay}s`
+        el.style.strokeDashoffset = '0'
+      }
+      markerFadeArmed.value = true
+    })
+  }, PANEL_ENTER_DURATION)
 })
 </script>
 
