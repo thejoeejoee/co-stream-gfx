@@ -16,12 +16,12 @@ const PLOT_H = VIEW_H - PAD.top - PAD.bottom
 
 // Rainbow palette for up to 6 runners.
 const PALETTE = [
-  '#e30420', // red
+  '#ef4444', // red
   '#f59e0b', // amber
-  '#16a34a', // green
-  '#0ea5e9', // sky blue
-  '#6366f1', // indigo
-  '#a855f7', // purple
+  '#22c55e', // green
+  '#38bdf8', // sky
+  '#818cf8', // indigo
+  '#c084fc', // purple
 ]
 const colorFor = (i: number) => PALETTE[i % PALETTE.length]!
 
