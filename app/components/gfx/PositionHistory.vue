@@ -14,24 +14,17 @@ const PAD = { top: 56, right: 420, bottom: 72, left: 80 }
 const PLOT_W = VIEW_W - PAD.left - PAD.right
 const PLOT_H = VIEW_H - PAD.top - PAD.bottom
 
-// --- Palette for 4th place and below (cool tones only; warm/red/yellow
-// hues are reserved for the gold/silver/bronze podium and must not clash). ---
+// Rainbow palette for up to 6 runners.
 const PALETTE = [
-  '#307ea1', // blue
+  '#e30420', // red
+  '#f59e0b', // amber
   '#16a34a', // green
-  '#9333ea', // purple
-  '#0d9488', // teal
-  '#2563eb', // indigo-blue
-  '#6366f1', // slate-violet
+  '#0ea5e9', // sky blue
+  '#6366f1', // indigo
+  '#a855f7', // purple
 ]
 const colorFor = (i: number) => PALETTE[i % PALETTE.length]!
 
-// Podium colors override the palette for the top 3 by final placement.
-const PODIUM = [
-  '#f0b000', // 1st - gold
-  '#9fa6b2', // 2nd - silver
-  '#cd7f32', // 3rd - bronze
-]
 
 // --- Animation timing (seconds) ---
 const DRAW_DURATION = 0.9 // one line draws start->finish
@@ -84,9 +77,8 @@ const series = computed<RunnerSeries[]>(() => {
     .map(r => r.runnerIdx)
 
   const built = data.data.map((runner: IPositionHistoryRunner, runnerIdx: number) => {
-    // Top 3 get podium (gold/silver/bronze); everyone else keeps the palette.
-    const place = placement.indexOf(runnerIdx)
-    const color = place < PODIUM.length ? PODIUM[place]! : colorFor(runnerIdx)
+    // Rainbow palette — no podium override, just use index directly.
+    const color = colorFor(runnerIdx)
     const points: Point[] = runner.history.map((h, controlIdx) => ({
       x: xAt(controlIdx),
       y: yAt(h.time_loss),
@@ -136,14 +128,16 @@ const series = computed<RunnerSeries[]>(() => {
   return sorted
 })
 
-// Worst (max) gap at each split; Start (index 0) and Finish (last) are skipped.
+// Worst (max) gap at each split; Finish (last) is always skipped.
+// Start (index 0) is skipped only when all runners have time_loss === 0 there.
 interface WorstGap { x: number, y: number, label: string }
 const worstGaps = computed<WorstGap[]>(() => {
   return data.controls
     .map((_c, controlIdx) => {
-      if (controlIdx === 0 || controlIdx === data.controls.length - 1) return null
+      if (controlIdx === data.controls.length - 1) return null
       const gaps = data.data.map(r => r.history[controlIdx]?.time_loss ?? 0)
       const worst = gaps.length ? Math.max(...gaps) : 0
+      if (controlIdx === 0 && worst === 0) return null
       return { x: xAt(controlIdx), y: yAt(worst), label: formatGap(worst) }
     })
     .filter((v): v is WorstGap => v !== null)
@@ -229,7 +223,7 @@ onMounted(() => {
           :key="`pt-${i}-${j}`"
           :cx="p.x"
           :cy="p.y"
-          r="7"
+          r="10"
           :fill="s.color"
           class="PositionHistory__Marker"
           :style="{ transitionDelay: `${s.labelDelay}s` }"
@@ -296,16 +290,15 @@ onMounted(() => {
 }
 
 .PositionHistory__Control {
-  font-family: var(--font-co, GTPlanar, sans-serif);
-  font-size: 26px;
+  font-family: var(--gfx-font-family, GTPlanar, sans-serif);
+  font-size: 34px;
   font-weight: 600;
-  font-style: italic;
   fill: #111827;
 }
 
 .PositionHistory__Line {
   fill: none;
-  stroke-width: 9;
+  stroke-width: 12;
   stroke-linecap: round;
   stroke-linejoin: round;
   /* draw-on dash values + transition are set inline (bound to measured
@@ -323,16 +316,16 @@ onMounted(() => {
 }
 
 .PositionHistory__WorstGap {
-  font-family: GTPlanar, sans-serif;
-  font-size: 27px;
+  font-family: var(--gfx-font-family, GTPlanar, sans-serif);
+  font-size: 36px;
   font-weight: 600;
   fill: #6b7280;
   transition: opacity 0.3s ease-in-out;
 }
 
 .PositionHistory__Label {
-  font-family: GTPlanar, sans-serif;
-  font-size: 27px;
+  font-family: var(--gfx-font-family, GTPlanar, sans-serif);
+  font-size: 36px;
   font-weight: 600;
   transition: opacity 0.3s ease-in-out;
 }
