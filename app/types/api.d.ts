@@ -131,6 +131,7 @@ export interface IFlowersRunner {
 }
 
 export interface IPositionHistory {
+  title: string
   class: string
   is_national: boolean
   is_relay: boolean

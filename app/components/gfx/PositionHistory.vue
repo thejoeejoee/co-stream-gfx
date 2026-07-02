@@ -183,7 +183,8 @@ onMounted(() => {
 <template>
   <div class="PositionHistory flex flex-col items-center justify-center">
     <div class="Table__Title w-full">
-      {{ data.class }}
+      <span class="mr-auto" v-text="data.title" />
+      <span v-text="data.class" />
     </div>
 
     <svg
