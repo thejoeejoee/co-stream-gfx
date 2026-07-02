@@ -249,8 +249,9 @@ onMounted(() => {
         />
         <text
           :x="w.x"
-          :y="w.y + 44"
+          :y="w.y + 44 - 28 + 21"
           text-anchor="middle"
+          dominant-baseline="central"
         >{{ w.label }}</text>
       </g>
 
