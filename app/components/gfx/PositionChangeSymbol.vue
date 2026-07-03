@@ -4,7 +4,9 @@
     class="text-md font-sans"
     :class="css"
   >
-    {{ change != 0 ? Math.abs(change) : '' }}
+    <template v-if="!noNumber">
+      {{ change != 0 ? Math.abs(change) : '' }}
+    </template>
     <span v-text="symbol" />
   </span>
 </template>
@@ -15,6 +17,7 @@ import { computed } from 'vue'
 const props = defineProps<{
   change: number | null
   noColor?: boolean
+  noNumber?: boolean
 }>()
 
 const css = computed(() => {

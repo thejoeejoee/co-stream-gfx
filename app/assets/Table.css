@@ -13,7 +13,7 @@
 }
 
 .Table__Grid--runner-splits {
-    grid-template-columns: auto max-content max-content;
+    grid-template-columns: auto max-content max-content auto;
 }
 
 .Table__Position {
@@ -171,6 +171,7 @@
     flex flex-row justify-between gap-x-4
     text-lg
     bg-gfx-secondary text-gfx-on-secondary
+    relative z-10
 }
 .Table__Title--highlight {
     @apply bg-gfx-primary text-gfx-on-primary

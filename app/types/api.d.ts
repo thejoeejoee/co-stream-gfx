@@ -185,6 +185,7 @@ export interface IRunnerSplits {
 
 export interface IRunnerSplit {
   control: string
+  position: number
   diff: number
   change: number | null
 }

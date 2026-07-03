@@ -9,25 +9,27 @@
   >
     <div class="Table__Grid Table__Grid--runner-splits Animate__Clip">
       <template
-        v-for="(split, index) in data.splits.filter(s => s.diff !== null)"
+        v-for="(split, index) in data.splits"
         :key="index"
 
       >
         <span class="Table__Name">
           {{ split.control }}
         </span>
+        <div class="Table__Club">
+          <position-change-symbol
+              :change="split.change"
+              no-number
+          />
+        </div>
         <span class="Table__Flag font-sans justify-end">
-           <position-change-symbol
-              :change="split.change"          />
+           <span v-if="split.position" class="text-black text-md tabular-nums">{{ split.position }}.</span>
         </span>
         <span
           class="Table__Time RunnerSplits__Diff"
-          :class="diffClass(split.diff)"
+          :class="split.diff !== null ? diffClass(split.diff) : ''"
         >
-
-          {{ formatDiff(split.diff) }}
-
-
+          {{ split.diff !== null ? formatDiff(split.diff) : '' }}
         </span>
       </template>
     </div>
