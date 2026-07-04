@@ -1,6 +1,7 @@
 <template>
   <div class="Table min-w-[calc((2*64)*var(--spacing))]">
     <TransitionGroup
+      v-if="hasAnyRows"
       class="Table__Flex Animate__Clip"
       tag="div"
       name="list"
@@ -91,7 +92,12 @@ import { useTheme } from '~/composables/useTheme'
 const { isIOF } = useTheme()
 
 // property
-defineProps<{
+const { data } = defineProps<{
   data: ILiveFeed
 }>()
+
+const hasAnyRows = computed(() => {
+  return data.data?.some((r) => r.name && r.name.length > 0) || data.has_leader
+})
+
 </script>
