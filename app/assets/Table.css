@@ -9,7 +9,8 @@
     grid-template-columns: minmax(max-content, 0fr) auto max-content max-content;
     @apply
     grid bg-gfx-surface/95 items-center
-    px-6 gap-x-6 py-3 gap-y-2
+    /*gap-x-6 gap-y-2*/
+    /*px-6 py-3 */
 }
 
 .Table__Grid--runner-splits {
@@ -20,8 +21,12 @@
     @apply
     text-gfx-primary font-gfx
     tabular-nums
-    text-right
+    text-center
     text-md
+    px-4 py-3
+    h-full
+    w-full
+    min-w-[4ch]
 }
 
 .Table__Name {
@@ -29,58 +34,7 @@
     font-gfx
     text-md
     text-gfx-text
-}
-
-.Table__Grid--bib-highlight {
-    --col-bib: 5ch;
-    --col-time: 8ch;
-    --col-gutter: 4.5ch;
-    grid-template-columns: var(--col-bib) auto max-content var(--col-time);
-    background-image:
-            linear-gradient(
-                    to right,
-                    var(--gfx-color-iof-accent) calc(var(--col-bib) + var(--col-gutter)),
-                    transparent calc(var(--col-bib) + var(--col-gutter))
-            ),
-            linear-gradient(
-                    to left,
-                    var(--gfx-color-iof-accent) calc(var(--col-time) + var(--col-gutter)),
-                    transparent calc(var(--col-time) + var(--col-gutter))
-            );
-}
-
-.Table__Grid--bib-highlight .Table__Position {
-    @apply text-white text-center w-full font-bold;
-}
-
-.Table__Grid--bib-highlight .Table__Name {
-    @apply pl-4;
-}
-
-.Table__Grid--bib-highlight .Table__ClubFlag {
-    @apply pr-4;
-}
-
-.Table__Grid--bib-highlight .Table__Time {
-    @apply text-white;
-}
-
-.Table__Grid--no-empty-gutter-margin:has(.Table__Position:not(:empty)) .Table__Position:empty + .Table__Name {
-    /* if each position is empty, consume the left margin together */
-    @apply -ml-6;
-}
-
-.Table__Grid--no-empty-gutter-margin div:has(+ .Table__Time:empty) {
-    /* if no time present, dismiss part of the right gap */
-    @apply -mr-6;
-}
-
-.theme-iof .Table__Grid--no-empty-gutter-margin:has(.Table__Position:not(:empty)) .Table__Position:empty + .Table__Name {
-    @apply ml-0;
-}
-
-.theme-iof .Table__Grid--no-empty-gutter-margin div:has(+ .Table__Time:empty) {
-    @apply mr-0;
+    py-3
 }
 
 .Table__Flag {
@@ -92,8 +46,34 @@
 }
 
 .Table__ClubFlag {
-    @apply flex flex-row items-center justify-end gap-x-4;
+    @apply flex flex-row items-center justify-end gap-x-4 px-6;
 }
+
+.Table__Grid--bib-highlight .Table__Position {
+    @apply
+        text-white text-center font-bold bg-gfx-iof-accent
+    ;
+}
+
+.Table__Grid--bib-highlight .Table__Name {
+    /* position has background so Name has to be a spaced a bit */
+    @apply pl-4;
+}
+
+.Table__Grid--bib-highlight .Table__Time {
+    @apply text-white bg-gfx-iof-accent;
+}
+
+.Table__Grid--no-empty-gutter-margin:not(:has(.Table__Position:not(:empty))) .Table__Position {
+    /* if table has no positions, drop the position column */
+    @apply hidden;
+}
+.Table__Grid--no-empty-gutter-margin:not(:has(.Table__Time:not(:empty))) .Table__Time {
+    /* if table has no times, drop the time column */
+    @apply hidden;
+}
+
+
 
 .Table__Time {
     @apply
@@ -101,14 +81,11 @@
     tabular-nums
     text-right
     text-md
+    px-6 py-3
 }
 
 .Table__Divider {
     @apply col-span-4 h-[2px] bg-gray-200;
-
-    .theme-iof & {
-        @apply -mx-6;
-    }
 }
 
 .Table__Divider:last-child {

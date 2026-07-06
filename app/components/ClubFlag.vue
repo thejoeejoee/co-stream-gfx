@@ -10,7 +10,7 @@
     <Flag
       v-if="displayFlag"
       :country="item.nationality"
-      size="big"
+
     />
     <slot name="suffix" />
   </div>
