@@ -1,0 +1,150 @@
+.StartList {
+    @apply
+    flex flex-col
+
+    divide-gray-200/95 divide-y-1
+}
+
+.StartList__Grid {
+    grid-template-columns: minmax(max-content, 0fr) auto max-content max-content;
+    @apply
+    grid bg-gfx-surface/95 items-center
+    /*gap-x-6 gap-y-2*/
+    /*px-6 py-3 */
+}
+
+.StartList__Grid--runner-splits {
+    grid-template-columns: auto max-content max-content auto;
+}
+
+.StartList__Position {
+    @apply
+    text-gfx-primary font-gfx
+    tabular-nums
+    text-center
+    text-md
+    px-4 py-3
+    h-full
+    w-full
+    min-w-[4ch]
+}
+
+.StartList__Name {
+    @apply
+    font-gfx
+    text-md
+    text-gfx-text
+    py-3
+}
+
+.StartList__Flag {
+    @apply flex flex-row items-center gap-x-4
+}
+
+.StartList__Club {
+    @apply text-md text-left
+}
+
+.StartList__ClubFlag {
+    @apply flex flex-row items-center justify-end gap-x-4 px-6;
+}
+
+.StartList__Grid--bib-highlight .StartList__Position {
+    @apply
+    text-white text-center font-bold bg-gfx-iof-accent
+    ;
+}
+
+.StartList__Grid--bib-highlight .StartList__Name {
+    /* position has background so Name has to be a spaced a bit */
+    @apply pl-4;
+}
+.StartList__Grid--bib-highlight .ClubFlag {
+    /* position has background so Name has to be a spaced a bit */
+    @apply pr-4;
+}
+
+.StartList__Grid--bib-highlight .StartList__Time {
+    @apply text-white bg-gfx-iof-accent;
+}
+
+.StartList__Grid--no-empty-gutter-margin:not(:has(.StartList__Position:not(:empty))) .StartList__Position {
+    /* if StartList has no positions, drop the position column */
+    @apply hidden;
+}
+.StartList__Grid--no-empty-gutter-margin:not(:has(.StartList__Time:not(:empty))) .StartList__Time {
+    /* if StartList has no times, drop the time column */
+    @apply hidden;
+}
+
+
+.StartList__Time {
+    @apply
+    text-gfx-primary font-gfx
+    tabular-nums
+    text-left
+    text-md
+    px-6 py-3
+}
+
+.StartList__Divider {
+    @apply col-span-4 h-[2px] bg-gray-200;
+}
+
+.StartList__Divider:last-child {
+    @apply hidden;
+}
+
+
+/* title over/under */
+.StartList__Title {
+    @apply
+    py-6 px-6 italic font-gfx font-semibold
+    flex flex-row justify-between gap-x-4
+    text-lg
+    bg-gfx-secondary text-gfx-on-secondary
+    relative z-10
+}
+.StartList__Title--highlight {
+    @apply bg-gfx-primary text-gfx-on-primary
+}
+
+
+
+.Gfx__Control {
+    @apply flex justify-center items-center
+}
+
+.Gfx__Control span {
+    @apply size-12
+    rounded-full
+    border-gfx-primary border-4
+}
+
+.Gfx__Control--finish span {
+    box-shadow: inset 0 0 0 3px var(--gfx-color-secondary),
+    inset 0 0 0 6px var(--gfx-color-primary);
+}
+
+.Gfx__Control--invert {
+    span {
+        @apply border-gfx-secondary
+    }
+    &.Gfx__Control--finish span {
+        box-shadow: inset 0 0 0 3px var(--gfx-color-primary),
+        inset 0 0 0 6px var(--gfx-color-secondary);
+    }
+}
+
+.theme-iof .Gfx__Control span {
+    @apply border-white;
+}
+
+.theme-iof .Gfx__Control--finish span {
+    box-shadow: inset 0 0 0 3px var(--gfx-color-secondary), inset 0 0 0 6px #ffffff;
+}
+
+.theme-iof .StartList__Title {
+    font-style: normal;
+    line-height: 1.15;
+}

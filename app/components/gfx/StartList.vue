@@ -1,6 +1,6 @@
 <template>
-  <div class="Table rounded-[var(--gfx-radius)] overflow-hidden">
-    <div class="Table__Title Animate__Slide">
+  <div class="StartList rounded-[var(--gfx-radius)] overflow-hidden">
+    <div class="StartList__Title Animate__Slide">
       <co-symbol v-if="!isIOF" class="fill-gfx-primary h-[var(--text-lg--line-height)]" />
       <span
         v-else
@@ -20,16 +20,16 @@
       <!--      <span class="Gfx__Control Gfx__Control&#45;&#45;finish"><span></span></span> -->
     </div>
 
-    <!--    <div class="Table__Grid Table__Grid&#45;&#45;expand Table__Grid&#45;&#45;no-left-margin" tag="div" name="list"> -->
+    <!--    <div class="StartList__Grid StartList__Grid&#45;&#45;expand StartList__Grid&#45;&#45;no-left-margin" tag="div" name="list"> -->
     <TransitionGroup
-      name="table"
+      name="StartList"
       tag="div"
       class="Animate__Clip"
     >
       <div
         :key="data.page.toString()+data.data[0]?.name"
-        class="Table__Grid Table__Grid--expand Table__Grid--no-empty-gutter-margin"
-        :class="{ 'Table__Grid--bib-highlight': isIOF }"
+        class="StartList__Grid StartList__Grid--expand StartList__Grid--no-empty-gutter-margin"
+        :class="{ 'StartList__Grid--bib-highlight': isIOF }"
       >
         <template
           v-for="(row, index) in data.data"
@@ -39,11 +39,11 @@
             v-if="row.name"
           >
             <span
-              class="Table__Position"
+              class="StartList__Position"
               v-text="row.bib_number"
             />
             <span
-              class="Table__Name"
+              class="StartList__Name"
               v-text="isIOF ? stripAccents(row.name) : row.name"
             />
             <club-flag
@@ -51,11 +51,11 @@
               :item="row"
             />
             <span
-              class="Table__Time"
+              class="StartList__Time"
               v-text="row.start_time"
             />
 
-            <div class="Table__Divider" />
+            <div class="StartList__Divider" />
           </template>
         </template>
       </div>
