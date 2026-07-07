@@ -57,7 +57,7 @@
     @apply pl-4;
 }
 
-.Table__Grid--bib-highlight .Table__ClubFlag {
+.Table__Grid--bib-highlight .ClubFlag {
     @apply pr-4;
 }
 
@@ -91,7 +91,7 @@
     @apply text-md text-left
 }
 
-.Table__ClubFlag {
+.ClubFlag {
     @apply flex flex-row items-center justify-end gap-x-4;
 }
 

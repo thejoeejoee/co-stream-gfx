@@ -1,5 +1,5 @@
 <template>
-  <div class="Table__ClubFlag">
+  <div class="ClubFlag">
     <slot name="prefix" />
     <span
       v-if="displayClub"
