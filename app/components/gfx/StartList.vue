@@ -22,7 +22,7 @@
 
     <!--    <div class="StartList__Grid StartList__Grid&#45;&#45;expand StartList__Grid&#45;&#45;no-left-margin" tag="div" name="list"> -->
     <TransitionGroup
-      name="StartList"
+      name="table"
       tag="div"
       class="Animate__Clip"
     >
