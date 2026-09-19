@@ -1,4 +1,4 @@
-## Archived: superseded by [full-stack integrated solution](https://github.com/thejoeejoee/co-stream-control) with program/preview, control deck for operator and map-aware graphics
+# Archived: superseded by [full-stack integrated solution](https://github.com/thejoeejoee/co-stream-control) with program/preview, control deck for operator and map-aware graphics
 
 # ČO stream GFX
 
